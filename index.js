@@ -39,7 +39,7 @@ app.ws('/ws', (socket, request) => {
 });
 
 app.get('/', async (request, response) => {
-    response.render('homePage');
+    response.render('home');
 });
 
 app.get('/login', async (request, response) => {
