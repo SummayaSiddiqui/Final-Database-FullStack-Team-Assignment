@@ -43,7 +43,8 @@ app.get('/', async (request, response) => {
 });
 
 app.get('/login', async (request, response) => {
-    
+        response.render("login");
+
 });
 
 app.get('/signup', async (request, response) => {
