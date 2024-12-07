@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(express.static("public"));
 app.use(session({
     secret: 'chat-app-secret',
     resave: false,
@@ -38,7 +39,7 @@ app.ws('/ws', (socket, request) => {
 });
 
 app.get('/', async (request, response) => {
-    response.render('index/unauthenticated');
+    response.render('homePage');
 });
 
 app.get('/login', async (request, response) => {
