@@ -145,7 +145,13 @@ app.ws("/ws", (socket, request) => {
 });
 
 app.get("/", async (request, response) => {
-  response.render("home");
+  try {
+    const loggedInUsers = await User.find({ onlineStatus: true });
+    response.render("home", { loggedInUsers });
+  } catch (error) {
+    console.error("Error fetching logged-in users:", error);
+    response.status(500).send("Error fetching logged-in users");
+  }
 });
 
 app.get("/signup", async (request, response) => {
@@ -182,7 +188,13 @@ app.post("/signup", async (request, response) => {
 });
 
 app.get("/dashboard", async (request, response) => {
-  return response.render("adminDashboard");
+  try {
+    const users = await User.find();
+    return response.render("adminDashboard", { users: users });
+  } catch (error) {
+    console.error("Error fetching users for admin dashboard:", error);
+    response.status(500).send("Error fetching users for admin dashboard");
+  }
 });
 
 app.get("/profile", async (request, response) => {
