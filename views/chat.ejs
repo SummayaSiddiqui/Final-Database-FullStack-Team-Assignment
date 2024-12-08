@@ -1,2 +1,18 @@
-<%- include('partials/header') %> 
+<%- include('partials/header') %>
+
+<div class="chat-container">
+    <div class="header">
+        <h2>Welcome, username!</h2>
+        <div id="user-list"></div>
+    </div>
+
+    <div class="messages" id="messages"></div>
+
+    <!-- Form at the bottom -->
+    <form id="chat-form">
+        <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off" />
+        <button type="submit">Send</button>
+    </form>
+</div>
+
 <%- include('partials/footer') %>
