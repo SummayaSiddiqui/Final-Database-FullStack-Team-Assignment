@@ -22,9 +22,15 @@ body {
 main {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   flex-grow: 1;
   min-height: 100%;
+}
+.profile-main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 }
 
 .site-header {
@@ -89,6 +95,7 @@ main {
   }
 
   .welcome-section-home {
+    padding-top: 20px;
     display: flex;
     flex-direction: column-reverse !important; /* Text and image side by side */
     align-items: center;
@@ -109,6 +116,13 @@ main {
 }
 
 @media (max-width: 500px) {
+  .text-section {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-right: 20px;
+    gap: 5px !important;
+  }
   .dashboard-header h1 {
     font-size: xx-large !important;
     padding: 10px 0;
@@ -157,9 +171,10 @@ main {
     color: #613060;
   }
   .welcome-section-home {
+    padding-top: 30px;
     display: flex;
     flex-direction: column-reverse !important; /* Text and image side by side */
-    align-items: center;
+    /* align-items: center; */
     width: 100%;
   }
   .site-header {
@@ -458,24 +473,27 @@ main {
 }
 
 .text-section {
+  display: flex;
+  flex-direction: column;
   flex: 1;
   padding-right: 20px;
+  gap: 20px;
 }
 
 .text-section h1 {
-  font-size: 36px;
+  font-size: 40px;
   color: #030303;
 }
 
 .text-section p {
-  font-size: 18px;
+  font-size: 24px;
   margin: 15px 0;
   color: #613060;
 }
 
 .home-page {
   max-width: 1000px;
-  margin: 50px auto;
+  margin: 0px auto;
   padding: 20px;
   display: flex;
   flex-direction: row; /* Arrange items side by side */
@@ -486,7 +504,7 @@ main {
 .welcome-section-home {
   display: flex;
   flex-direction: row; /* Text and image side by side */
-  align-items: center;
+  /* align-items: center; */
   width: 100%;
 }
 
@@ -497,8 +515,8 @@ main {
   margin-top: 20px;
 }
 
-.cta-button {
-  background-color: #010101;
+.cta-button-1 {
+  background-color: #613060;
   color: white;
   padding: 15px 30px;
   font-size: 18px;
@@ -507,12 +525,30 @@ main {
   transition: background-color 0.3s ease;
 }
 
-.cta-button:hover {
-  background-color: #1d3446;
+.cta-button-1:hover {
+  background-color: #3f1f3f;
 }
 
-.cta-button:active {
-  background-color: #0f1d29;
+.cta-button-1:active {
+  background-color: #1c0e1c;
+}
+
+.cta-button-2 {
+  background-color: #a3c14a;
+  color: white;
+  padding: 15px 30px;
+  font-size: 18px;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button-2:hover {
+  background-color: #718633;
+}
+
+.cta-button-2:active {
+  background-color: #333c17;
 }
 
 .image-section {
@@ -769,85 +805,98 @@ footer {
   background-color: #c82333;
 }
 
-
 .logout-container {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 20px;
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Heading style */
 .logout-container h1 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 /* Paragraph styling */
 .logout-container p {
-    font-size: 1rem;
-    margin-bottom: 30px;
-    color: #555;
+  font-size: 1rem;
+  margin-bottom: 30px;
+  color: #555;
 }
 
 /* Logout button */
 .logout-button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: #fff;
-    background-color: #613060; /* Red color for danger */
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #613060; /* Red color for danger */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
 }
 
 .logout-button:hover {
-    background-color: #c9302c; /* Darker red on hover */
+  background-color: #c9302c; /* Darker red on hover */
 }
 
 /* Cancel link */
 .cancel-link {
-    display: inline-block;
-    margin-top: 20px;
-    font-size: 1rem;
-    color: #613060; /* Blue for cancel link */
-    text-decoration: none;
-    transition: color 0.3s ease;
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #613060; /* Blue for cancel link */
+  text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .cancel-link:hover {
-    color: #361b35; /* Darker blue on hover */
+  color: #361b35; /* Darker blue on hover */
 }
 
 /* Mobile responsiveness */
 @media (max-width: 500px) {
-    .logout-container {
-        padding: 15px;
-    }
+  .image-section {
+    flex: 0;
+  }
 
-    .logout-container h1 {
-        font-size: 1.5rem;
-    }
+  .welcome-image {
+    margin-top: 0 !important;
+    position: relative;
+    width: 300px;
+    height: 200px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+  }
+  .logout-container {
+    padding: 15px;
+  }
 
-    .logout-container p {
-        font-size: 0.9rem;
-    }
+  .logout-container h1 {
+    font-size: 1.5rem;
+  }
 
-    .logout-button {
-        width: 100%; /* Full-width button */
-    }
+  .logout-container p {
+    font-size: 0.9rem;
+  }
 
-    .cancel-link {
-        display: block;
-        margin-top: 15px;
-        font-size: 0.9rem;
-    }
+  .logout-button {
+    width: 100%; /* Full-width button */
+  }
+
+  .cancel-link {
+    display: block;
+    margin-top: 15px;
+    font-size: 0.9rem;
+  }
 }
