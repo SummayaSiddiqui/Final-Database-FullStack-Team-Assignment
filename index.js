@@ -65,6 +65,8 @@ app.get('/dashboard', async (request, response) => {
 });
 
 app.get('/profile', async (request, response) => {
+        return response.render("profile");
+
     
 });
 

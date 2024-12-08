@@ -1,2 +1,33 @@
-<%- include('partials/header') %> 
+<%- include('partials/header') %>
+<main>
+
+<div class="profile-container">
+    <div class="profile-header">
+        <h2>Your Profile</h2>
+    </div>
+
+    <!-- Profile Section -->
+    <div class="profile-content">
+        <div class="profile-image">
+            <img src="/images/profile.logo.png" alt="Profile Picture">
+        </div>
+        
+        <div class="profile-details">
+            <p><strong>Username:</strong> Name</p>
+            <p><strong>Join Date:</strong> date</p>
+        </div>
+
+        <!-- Display other users if you're viewing their profile -->
+        <h3 class="profile-status">You're viewing your profile!</h3>
+        <h3 class="profile-status">You're viewing someone's profile!</h3>
+    </div>
+
+    <!-- Profile Actions: Edit or View Others -->
+    <div class="profile-actions">
+        <a href="/edit-profile" class="profile-button">Edit Your</a>
+        <a href="/members" class="profile-button">View Other</a>
+    </div>
+</div>
+</main>
+
 <%- include('partials/footer') %>

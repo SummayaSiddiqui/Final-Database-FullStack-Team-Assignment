@@ -1,6 +1,5 @@
 * {
   box-sizing: border-box;
-  
 }
 html,
 body {
@@ -21,7 +20,11 @@ body {
 }
 
 main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   flex-grow: 1;
+  min-height: 100%;
 }
 
 .site-header {
@@ -564,4 +567,97 @@ footer {
 
 #chat-form button:hover {
   background-color: rgb(59, 105, 61);
+}
+
+/* Profile Page Styles */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 800px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.profile-header h2 {
+  font-size: 2rem;
+  color: #304a61;
+}
+
+/* Profile Image */
+.profile-image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-image img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  opacity: 0.2;
+}
+
+/* Profile Content */
+.profile-content {
+  text-align: left;
+  padding: 20px;
+  border-radius: 8px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.profile-details p {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 10px 0;
+}
+
+.profile-details strong {
+  color: #304a61;
+}
+
+/* Profile Status */
+.profile-status {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+  margin-top: 10px;
+}
+
+/* Profile Actions */
+.profile-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+.profile-button {
+  padding: 10px 20px;
+  background-color: #304a61;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  display: inline-block;
+  text-align: center;
+}
+
+.profile-button:hover {
+  background-color: #304a61;
+}
+
+.profile-button:active {
+  background-color: #304a61;
 }
