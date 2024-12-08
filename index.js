@@ -70,7 +70,8 @@ app.get('/profile', async (request, response) => {
     
 });
 
-app.post('/logout', (request, response) => {
+app.get('/logout', (request, response) => {
+         return response.render("logout");
 
 });
 

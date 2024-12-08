@@ -768,3 +768,86 @@ footer {
 .remove-button:hover {
   background-color: #c82333;
 }
+
+
+.logout-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading style */
+.logout-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Paragraph styling */
+.logout-container p {
+    font-size: 1rem;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+/* Logout button */
+.logout-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #613060; /* Red color for danger */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #c9302c; /* Darker red on hover */
+}
+
+/* Cancel link */
+.cancel-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #613060; /* Blue for cancel link */
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.cancel-link:hover {
+    color: #361b35; /* Darker blue on hover */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 500px) {
+    .logout-container {
+        padding: 15px;
+    }
+
+    .logout-container h1 {
+        font-size: 1.5rem;
+    }
+
+    .logout-container p {
+        font-size: 0.9rem;
+    }
+
+    .logout-button {
+        width: 100%; /* Full-width button */
+    }
+
+    .cancel-link {
+        display: block;
+        margin-top: 15px;
+        font-size: 0.9rem;
+    }
+}

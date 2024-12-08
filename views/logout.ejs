@@ -1,0 +1,13 @@
+<%- include('partials/header') %>
+<main>
+
+<div class="logout-container">
+    <h1>Log Out</h1>
+    <p>Are you sure you want to log out?</p>
+    <form action="/logout" method="POST">
+        <button type="submit" class="logout-button">Log Out</button>
+    </form>
+    <a href="/" class="cancel-link">Cancel</a>
+</div>
+</main>
+<%- include('partials/footer') %>
