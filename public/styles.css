@@ -34,7 +34,7 @@ main {
   align-items: center;
   justify-content: space-between;
   background-color: #efefef;
-  color: #304a61;
+  color: #613060;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -53,7 +53,7 @@ main {
 }
 
 .site-header a {
-  color: #304a61;
+  color: #613060;
   text-decoration: none;
   padding: 10px;
   border-radius: 5px;
@@ -78,14 +78,14 @@ main {
 
   .text-section h1 {
     font-size: 36px;
-    color: #304a61;
+    color: #613060;
   }
 
   .text-section p {
     text-align: center;
     font-size: 24px !important;
     margin: 15px 0;
-    color: #304a61;
+    color: #613060;
   }
 
   .welcome-section-home {
@@ -131,8 +131,8 @@ main {
   .chat-container .header {
     padding-left: 10px;
     font-size: small;
-    background-color: #304a6110;
-    color: #304a61;
+    background-color: #61306010;
+    color: #613060;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -147,14 +147,14 @@ main {
 
   .text-section h1 {
     font-size: 26px !important;
-    color: #304a61;
+    color: #613060;
   }
 
   .text-section p {
     text-align: center;
     font-size: 18px !important;
     margin: 15px 0;
-    color: #304a61;
+    color: #613060;
   }
   .welcome-section-home {
     display: flex;
@@ -239,7 +239,7 @@ main {
   font-size: 28px;
   text-align: center;
   margin-bottom: 20px;
-  color: #304a61;
+  color: #613060;
 }
 
 .signup-form {
@@ -322,7 +322,7 @@ main {
 .form-input-container label {
   margin-bottom: 5px;
   font-size: 16px;
-  color: #304a61;
+  color: #613060;
 }
 
 .form-input-container input {
@@ -334,12 +334,12 @@ main {
 }
 
 .form-input-container input:focus {
-  border-color: #304a61;
+  border-color: #613060;
   outline: none;
 }
 
 .action-button {
-  background-color: #304a61;
+  background-color: #613060;
   color: white;
   padding: 10px;
   font-size: 16px;
@@ -364,7 +364,7 @@ main {
 }
 
 .register-link {
-  color: #304a61;
+  color: #613060;
   text-decoration: underline;
   transition: color 0.3s ease;
 }
@@ -382,7 +382,7 @@ main {
   font-size: 28px;
   text-align: center;
   margin-bottom: 20px;
-  color: #304a61;
+  color: #613060;
 }
 
 .login-form {
@@ -399,7 +399,7 @@ main {
 .form-input-container label {
   margin-bottom: 5px;
   font-size: 16px;
-  color: #304a61;
+  color: #613060;
 }
 
 .form-input-container input {
@@ -411,12 +411,12 @@ main {
 }
 
 .form-input-container input:focus {
-  border-color: #304a61;
+  border-color: #613060;
   outline: none;
 }
 
 .action-button {
-  background-color: #304a61;
+  background-color: #613060;
   color: white;
   padding: 10px;
   font-size: 16px;
@@ -441,7 +441,7 @@ main {
 }
 
 .register-link {
-  color: #304a61;
+  color: #613060;
   text-decoration: underline;
   transition: color 0.3s ease;
 }
@@ -470,7 +470,7 @@ main {
 .text-section p {
   font-size: 18px;
   margin: 15px 0;
-  color: #304a61;
+  color: #613060;
 }
 
 .home-page {
@@ -528,7 +528,7 @@ main {
 
 footer {
   width: 100%;
-  background-color: #304a61;
+  background-color: #613060;
   color: white;
   text-align: center;
   padding: 10px;
@@ -537,8 +537,8 @@ footer {
 /* Header in Chat */
 .chat-container .header {
   padding-left: 10px;
-  background-color: #304a6110;
-  color: #304a61;
+  background-color: #61306010;
+  color: #613060;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -608,7 +608,7 @@ footer {
 
 .profile-header h2 {
   font-size: 2rem;
-  color: #304a61;
+  color: #613060;
 }
 
 /* Profile Image */
@@ -642,7 +642,7 @@ footer {
 }
 
 .profile-details strong {
-  color: #304a61;
+  color: #613060;
 }
 
 /* Profile Status */
@@ -663,7 +663,7 @@ footer {
 
 .profile-button {
   padding: 10px 20px;
-  background-color: #304a61;
+  background-color: #613060;
   color: white;
   text-decoration: none;
   border-radius: 4px;
@@ -673,11 +673,11 @@ footer {
 }
 
 .profile-button:hover {
-  background-color: #304a61;
+  background-color: #613060;
 }
 
 .profile-button:active {
-  background-color: #304a61;
+  background-color: #613060;
 }
 
 /* Admin Dashboard Styles */
@@ -705,7 +705,7 @@ footer {
 
 .user-list h2 {
   font-size: 1.8rem;
-  color: #304a61;
+  color: #613060;
   margin-bottom: 15px;
 }
 
@@ -726,7 +726,7 @@ footer {
 }
 
 .user-list table th {
-  background-color: #304a61;
+  background-color: #613060;
   color: white;
   font-weight: bold;
   text-transform: uppercase;
