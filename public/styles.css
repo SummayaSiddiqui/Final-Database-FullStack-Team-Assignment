@@ -39,7 +39,7 @@ main {
   flex-direction: row; /* Stack logo and links vertically by default */
   align-items: center;
   justify-content: space-between;
-  background-color: #efefef;
+  background-color: #fffdfd;
   color: #613060;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
