@@ -42,6 +42,10 @@ app.get('/', async (request, response) => {
     response.render('home');
 });
 
+app.get("/chat", async (request, response) => {
+  response.render("chat");
+});
+
 app.get('/login', async (request, response) => {
         response.render("login");
 
@@ -57,7 +61,7 @@ app.post('/signup', async (request, response) => {
 
 app.get('/dashboard', async (request, response) => {
 
-    return response.render('index/authenticated');
+    return response.render("adminDashboard");
 });
 
 app.get('/profile', async (request, response) => {
