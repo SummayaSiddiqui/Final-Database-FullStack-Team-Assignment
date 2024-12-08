@@ -39,7 +39,7 @@ const Role = mongoose.model("Role", RoleSchema, "roles");
 const UserSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  role: { type: mongoose.Schema.Types.ObjectId, ref: "Role", required: true },
+  role: { type: String, required: true },
   joinDate: { type: Date, default: Date.now },
   onlineStatus: { type: Boolean, default: false },
 });
@@ -88,7 +88,7 @@ async function insertSampleData() {
       await new User({
         username: "AdminUser",
         password: bcrypt.hashSync("admin123", SALT_ROUNDS),
-        role: adminRole._id,
+        role: adminRole.name,
         onlineStatus: false,
       }).save();
     }
@@ -97,7 +97,7 @@ async function insertSampleData() {
       await new User({
         username: "RegularUser",
         password: bcrypt.hashSync("user123", SALT_ROUNDS),
-        role: userRole._id,
+        role: userRole.name,
         onlineStatus: true,
       }).save();
     }
