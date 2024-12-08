@@ -147,11 +147,39 @@ app.ws("/ws", (socket, request) => {
 app.get("/", async (request, response) => {
   response.render("home");
 });
+
 app.get("/signup", async (request, response) => {
   return response.render("signup", { errorMessage: null });
 });
 
-app.post("/signup", async (request, response) => {});
+app.post("/signup", async (request, response) => {
+  const { username, password } = request.body;
+
+  try {
+    //make sure no duplication
+    const existingUser = await User.findOne({ username: username });
+
+    if (existingUser) {
+      return response.render("signup", {
+        errorMessage: "Username already exists, choose another username.",
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
+    const newUser = new User({
+      username: username,
+      password: hashedPassword,
+      role: "user",
+      onlineStatus: false,
+    });
+    await newUser.save();
+    response.redirect("/login");
+  } catch (error) {
+    console.error("Error signing up user:", error);
+    response.status(500).send("Server error");
+  }
+});
 
 app.get("/dashboard", async (request, response) => {
   return response.render("adminDashboard");
