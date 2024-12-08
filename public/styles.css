@@ -16,7 +16,7 @@ body {
   background: url("/images/homeBg.png") no-repeat center center;
   min-height: 100vh;
   display: flex;
-  flex-direction: column; /* Stack content vertically */
+  flex-direction: column; 
 }
 
 main {

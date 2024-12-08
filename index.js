@@ -4,11 +4,12 @@ const path = require('path');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
-
 const PORT = 3000;
 //TODO: Replace with the URI pointing to your own MongoDB setup
 const MONGO_URI = 'mongodb://localhost:27017/keyin_test';
 const app = express();
+const SALT_ROUNDS = 10;
+
 expressWs(app);
 
 app.use(express.json());
@@ -23,6 +24,50 @@ app.use(session({
     saveUninitialized: true
 }));
 
+const RoleSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+    enum: ["user", "admin"],
+  },
+});
+module.exports = mongoose.model("Role", RoleSchema);
+
+const UserSchema = new mongoose.Schema({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  role: { type: mongoose.Schema.Types.ObjectId, ref: "Role", required: true }, 
+  joinDate: { type: Date, default: Date.now },
+  onlineStatus: { type: Boolean, default: false },
+});
+module.exports = mongoose.model("User", UserSchema);
+
+const MessageSchema = new mongoose.Schema({
+  content: { type: String, required: true },
+  sender: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  timestamp: { type: Date, default: Date.now },
+});
+module.exports = mongoose.model("Message", MessageSchema);
+
+const USERS = [
+  {
+    id: 1,
+    username: "AdminUser",
+    email: "admin@example.com",
+    password: bcrypt.hashSync("admin123", SALT_ROUNDS), //In a database, you'd just store the hashes, but for
+    // our purposes we'll hash these existing users when the
+    // app loads
+    role: "admin",
+  },
+  {
+    id: 2,
+    username: "RegularUser",
+    email: "user@example.com",
+    password: bcrypt.hashSync("user123", SALT_ROUNDS),
+    role: "user", // Regular user
+  },
+];
 let connectedClients = [];
 
 //Note: These are (probably) not all the required routes, but are a decent starting point for the routes you'll probably need
