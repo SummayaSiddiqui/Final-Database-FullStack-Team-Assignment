@@ -1,2 +1,55 @@
-<%- include('partials/header') %> 
+<%- include('partials/header') %>
+<main>
+<div class="admin-dashboard-container">
+    <div class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <h2>Registered Users</h2>
+
+    </div>
+
+    <div class="user-list">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Join Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>JohnDoe</td>
+                    <td>john@example.com</td>
+                    <td>2023-10-01</td>
+                </tr>
+                <tr class="user-actions-row">
+                    <td colspan="4">
+                        <div class="user-actions">
+                            <button class="ban-button">Ban</button>
+                            <button class="remove-button">Remove</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>JaneSmith</td>
+                    <td>jane@example.com</td>
+                    <td>2023-11-15</td>
+                </tr>
+                <tr class="user-actions-row">
+                    <td colspan="4">
+                        <div class="user-actions">
+                            <button class="ban-button">Ban</button>
+                            <button class="remove-button">Remove</button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</main>
+
 <%- include('partials/footer') %>

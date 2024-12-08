@@ -109,6 +109,24 @@ main {
 }
 
 @media (max-width: 500px) {
+  .dashboard-header h1 {
+    font-size: xx-large !important;
+    padding: 10px 0;
+  }
+  .dashboard-header h2 {
+    font-size: x-large !important;
+    padding: 5px 0;
+  }
+  .admin-dashboard-container {
+    padding: 2px !important;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-radius: 8px;
+  }
+  table {
+    font-size: small;
+  }
+
   /* Header in Chat */
   .chat-container .header {
     padding-left: 10px;
@@ -660,4 +678,93 @@ footer {
 
 .profile-button:active {
   background-color: #304a61;
+}
+
+/* Admin Dashboard Styles */
+.admin-dashboard-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+}
+
+/* User List Table */
+.user-list {
+  margin-top: 20px;
+}
+
+.user-list h2 {
+  font-size: 1.8rem;
+  color: #304a61;
+  margin-bottom: 15px;
+}
+
+.user-list table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-list table th,
+.user-list table td {
+  padding: 6px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-list table th {
+  background-color: #304a61;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.user-list table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+.user-list table td:last-child {
+  text-align: center;
+}
+
+/* Buttons */
+.ban-button,
+.remove-button {
+  padding: 8px 12px;
+  margin: 0 5px;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.ban-button {
+  background-color: #cbad54;
+  color: white;
+}
+
+.ban-button:hover {
+  background-color: #e0a800;
+}
+
+.remove-button {
+  background-color: #aa444e;
+  color: white;
+}
+
+.remove-button:hover {
+  background-color: #c82333;
 }
