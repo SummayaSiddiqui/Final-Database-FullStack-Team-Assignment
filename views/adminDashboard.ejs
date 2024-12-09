@@ -25,8 +25,8 @@
                 <tr class="user-actions-row">
                     <td colspan="4">
                         <div class="user-actions">
-                            <button class="ban-button" data-username="<%= user.username %>">Ban</button>
-                            <button class="remove-button" data-username="<%= user.username %>">Remove</button>
+                            <a style="text-decoration: none;" href="ban/<%= user.username %>" class="ban-button">Ban</a>
+                            <a style="text-decoration: none;" href="remove/<%= user.username %>" class="remove-button">Remove</a>
                         </div>
                     </td>
                 </tr>

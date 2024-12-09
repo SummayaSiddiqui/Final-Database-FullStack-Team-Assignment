@@ -225,6 +225,25 @@ app.post("/logout", (request, response) => {
   return response.render("logout");
 });
 
+
+app.get("/ban/:username", (request, response) => {
+    const username = request.params.username;
+  return response.render("ban", { username });
+});
+app.post("/ban/:username", (request, response) => {
+    const username = request.params.username;
+  return response.render("ban");
+});
+
+app.get("/remove/:username", (request, response) => {
+    const username = request.params.username;
+  return response.render("remove", { username });
+});
+app.post("/remove/:username", (request, response) => {
+    const username = request.params.username;
+  return response.render("remove");
+});
+
 mongoose
   .connect(MONGO_URI)
   .then(() =>

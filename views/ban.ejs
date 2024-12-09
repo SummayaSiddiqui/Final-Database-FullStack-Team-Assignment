@@ -1,0 +1,13 @@
+<%- include('partials/header') %>
+<main>
+
+<div class="logout-container">
+    <h1>Ban a User</h1>
+  <p>Are you sure you want to ban <strong><%= username %></strong>?</p>
+    <form action="/logout" method="POST">
+    <button style="background-color: rgb(202, 12, 12);" type="submit" class="logout-button">Yes, Ban User</button>
+    </form>
+    <a href="/dashboard" class="cancel-link">Cancel</a>
+</div>
+</main>
+<%- include('partials/footer') %>
