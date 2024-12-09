@@ -5,6 +5,13 @@
         <h1>Admin Dashboard</h1>
         <h2>Registered Users</h2>
     </div>
+    <!-- <p>success value: <%= success %></p> -->
+
+            <% if (message) { %>
+<div class="<%= success === 'true' ? 'success' : 'error' %>">
+            <p><%= message %></p>
+        </div>
+        <% } %>
 
     <div class="user-list">
         <table>

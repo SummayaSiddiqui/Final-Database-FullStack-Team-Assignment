@@ -1017,3 +1017,11 @@ footer {
   padding-top: 12px;
   border-radius: 0px 0px 10px 0px;
 }
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}
