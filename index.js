@@ -131,7 +131,9 @@ async function insertSampleData() {
       await Message.insertMany(MESSAGES);
       console.log("Sample messages inserted");
     } else {
-      console.log("Messages already exist; skipping sample message insertion.");
+      console.log(
+        "Messages already exist; skipping sample message insertion."
+      );
     }
   } catch (error) {
     console.error("Error inserting sample data:", error);
@@ -210,7 +212,46 @@ app.get("/login", async (request, response) => {
   response.render("login");
 });
 
-app.post("/login", async (request, response) => {});
+app.post("/login", async (request, response) => {
+  const { username, password } = request.body;
+
+  try {
+    // Find the user by username
+    const user = await User.findOne({ username: username });
+
+    // Check if user exists
+    if (!user) {
+      return response.render("login", {
+        errorMessage: "Invalid username or password",
+      });
+    }
+
+    // Compare the entered password with the stored hash
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return response.render("login", {
+        errorMessage: "Invalid username or password",
+      });
+    }
+
+    // Set the user's online status and store user info in session
+    user.onlineStatus = true;
+    await user.save();
+
+    request.session.userId = user._id; // Store user ID in the session
+
+    // Redirect to the dashboard or home page
+    if (user.role === "admin") {
+      response.redirect("/dashboard");
+    } else {
+      response.redirect("/chat");
+    }
+  } catch (error) {
+    console.error("Error logging in user:", error);
+    response.status(500).send("Server error");
+  }
+});
 
 app.get("/chat", async (request, response) => {
   response.render("chat");
