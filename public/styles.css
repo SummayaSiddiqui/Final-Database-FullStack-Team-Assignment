@@ -1028,24 +1028,59 @@ footer {
 
 /* General button style */
 .ban-button {
-   padding: 10px 20px;
-   border-radius: 5px;
-   text-align: center;
-   font-size: 14px;
-   font-weight: bold;
-   transition: background-color 0.3s ease;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
 .ban {
-   background-color: rgb(202, 170, 12); 
-   color: white;
+  background-color: rgb(202, 170, 12);
+  color: white;
 }
 
 .lift-ban {
-   background-color: rgb(48, 130, 48); 
-   color: white;
+  background-color: rgb(48, 130, 48);
+  color: white;
 }
 
 .ban-button:hover {
-   opacity: 0.8;
+  opacity: 0.8;
+}
+
+.chat-page {
+  max-width: 1000px;
+  margin: 0px auto;
+  padding: 60px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 8px;
+}
+.welcome-section-chat {
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column-reverse !important; /* Text and image side by side */
+  align-items: center;
+  width: 100%;
+}
+
+.text-chat-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center !important;
+}
+
+.text-chat-section h1 {
+  font-size: 36px;
+  color: #613060;
+}
+
+.text-chat-section p {
+  text-align: center;
+  font-size: 24px !important;
+  margin: 15px 0;
+  color: #613060;
 }
