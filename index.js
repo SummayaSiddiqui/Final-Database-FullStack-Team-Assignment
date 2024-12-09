@@ -197,7 +197,10 @@ app.post("/signup", async (request, response) => {
 app.get("/dashboard", async (request, response) => {
   try {
     const users = await User.find();
-    return response.render("adminDashboard", { users: users });
+    const message = request.query.message || null;
+    const success = request.query.success || null;
+    console.log(success);
+    return response.render("adminDashboard", { users, message, success });
   } catch (error) {
     console.error("Error fetching users for admin dashboard:", error);
     response.status(500).send("Error fetching users for admin dashboard");
@@ -262,10 +265,6 @@ app.post("/chat", async (request, response) => {});
 app.get("/logout", (request, response) => {
   return response.render("logout");
 });
-// app.post("/logout", (request, response) => {
-//   return response.render("logout");
-// });
-
 app.post("/logout", (request, response) => {
   // Clear the user's session data
   request.session.destroy((err) => {
@@ -277,6 +276,112 @@ app.post("/logout", (request, response) => {
     // Redirect the user to the homepage
     response.redirect("/");
   });
+});
+
+app.get("/ban/:username", (request, response) => {
+  const username = request.params.username;
+  return response.render("ban", { username });
+});
+
+app.post("/ban/:username", async (request, response) => {
+  const username = request.params.username;
+
+  try {
+    // Locate user and update banned status
+    const user = await User.findOneAndUpdate(
+      { username },
+      { banned: true },
+      { new: true }
+    );
+
+    if (user) {
+      return response.redirect(
+        "/dashboard?message=" +
+          encodeURIComponent(`${username} has been banned successfully`) +
+          "&success=true"
+      );
+    } else {
+      return response.redirect(
+        "/dashboard?message=" +
+          encodeURIComponent(`${username} not found`) +
+          "&success=false"
+      );
+    }
+  } catch (error) {
+    console.error("Error banning user:", error);
+    return response
+      .status(500)
+      .send("An error occurred while banning the user.");
+  }
+});
+
+app.get("/unban/:username", (request, response) => {
+  const username = request.params.username;
+  return response.render("unban", { username });
+});
+
+app.post("/unban/:username", async (request, response) => {
+  const username = request.params.username;
+
+  try {
+    // Locate user and update banned status
+    const user = await User.findOneAndUpdate(
+      { username },
+      { banned: false },
+      { new: true }
+    );
+
+    if (user) {
+      return response.redirect(
+        "/dashboard?message=" +
+          encodeURIComponent(`${username} ban lifted successfully`) +
+          "&success=true"
+      );
+    } else {
+      return response.redirect(
+        "/dashboard?message=" +
+          encodeURIComponent(`${username} not found`) +
+          "&success=false"
+      );
+    }
+  } catch (error) {
+    console.error("Error lifting user ban:", error);
+    return response
+      .status(500)
+      .send("An error occurred while lifting the user ban.");
+  }
+});
+
+app.get("/remove/:username", (request, response) => {
+  const username = request.params.username;
+  return response.render("remove", { username });
+});
+
+app.post("/remove/:username", async (request, response) => {
+  const username = request.params.username;
+
+  try {
+    // Locate user to delete
+    const user = await User.deleteOne({ username });
+    if (user) {
+      return response.redirect(
+        "/dashboard?message=" +
+          encodeURIComponent(`${username} has been removed successfully`) +
+          "&success=true"
+      );
+    } else {
+      return response.redirect(
+        "/dashboard?message=" +
+          encodeURIComponent(`${username} not found`) +
+          "&success=false"
+      );
+    }
+  } catch (error) {
+    console.error("Error removing user:", error);
+    return response
+      .status(500)
+      .send("An error occurred while removing the user.");
+  }
 });
 
 mongoose
