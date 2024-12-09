@@ -131,9 +131,7 @@ async function insertSampleData() {
       await Message.insertMany(MESSAGES);
       console.log("Sample messages inserted");
     } else {
-      console.log(
-        "Messages already exist; skipping sample message insertion."
-      );
+      console.log("Messages already exist; skipping sample message insertion.");
     }
   } catch (error) {
     console.error("Error inserting sample data:", error);
@@ -199,7 +197,9 @@ app.get("/dashboard", async (request, response) => {
     const users = await User.find();
     const message = request.query.message || null;
     const success = request.query.success || null;
-    console.log(success);
+
+    console.log(success)
+
     return response.render("adminDashboard", { users, message, success });
   } catch (error) {
     console.error("Error fetching users for admin dashboard:", error);
@@ -363,6 +363,7 @@ app.post("/unban/:username", async (request, response) => {
       .send("An error occurred while lifting the user ban.");
   }
 });
+
 
 app.get("/remove/:username", (request, response) => {
   const username = request.params.username;

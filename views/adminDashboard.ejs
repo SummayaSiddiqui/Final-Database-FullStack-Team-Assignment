@@ -5,6 +5,13 @@
         <h1>Admin Dashboard</h1>
         <h2>Registered Users</h2>
     </div>
+    <!-- <p>success value: <%= success %></p> -->
+
+            <% if (message) { %>
+<div class="<%= success === 'true' ? 'success' : 'error' %>">
+            <p><%= message %></p>
+        </div>
+        <% } %>
 
     <div class="user-list">
         <table>
@@ -25,8 +32,12 @@
                 <tr class="user-actions-row">
                     <td colspan="4">
                         <div class="user-actions">
-                            <button class="ban-button" data-username="<%= user.username %>">Ban</button>
-                            <button class="remove-button" data-username="<%= user.username %>">Remove</button>
+                                <a style="text-decoration: none;" 
+                                href="<%= user.banned ? 'unban/' + user.username : 'ban/' + user.username %>" 
+                                class="ban-button <%= user.banned ? 'lift-ban' : 'ban' %>">
+                                <%= user.banned ? 'Lift Ban' : 'Ban' %>
+                                </a>                            
+                                <a style="text-decoration: none;" href="remove/<%= user.username %>" class="remove-button">Remove</a>
                         </div>
                     </td>
                 </tr>
