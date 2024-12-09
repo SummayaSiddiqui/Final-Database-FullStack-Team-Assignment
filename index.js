@@ -313,8 +313,8 @@ app.post("/remove/:username", async (request, response) => {
   const username = request.params.username;
 
   try {
-    // Locate user to update
-    const user = await User.findOneAndDelete({ username });
+    // Locate user to delete
+    const user = await User.deleteOne({ username });
     if (user) {
       return response.redirect(
         "/dashboard?message=" +
