@@ -41,6 +41,7 @@ const UserSchema = new mongoose.Schema({
   password: { type: String, required: true },
   role: { type: String, required: true },
   joinDate: { type: Date, default: Date.now },
+  banned: { type: Boolean, default: false },
   onlineStatus: { type: Boolean, default: false },
 });
 const User = mongoose.model("User", UserSchema, "users");
@@ -57,12 +58,14 @@ const USERS = [
     username: "AdminUser",
     password: bcrypt.hashSync("admin123", SALT_ROUNDS),
     role: 0,
+    banned: false,
     onlineStatus: false,
   },
   {
     username: "RegularUser",
     password: bcrypt.hashSync("user123", SALT_ROUNDS),
     role: 1,
+    banned: false,
     onlineStatus: true,
   },
 ];
@@ -89,6 +92,7 @@ async function insertSampleData() {
         username: "AdminUser",
         password: bcrypt.hashSync("admin123", SALT_ROUNDS),
         role: adminRole.name,
+        banned: false,
         onlineStatus: false,
       }).save();
     }
@@ -98,6 +102,7 @@ async function insertSampleData() {
         username: "RegularUser",
         password: bcrypt.hashSync("user123", SALT_ROUNDS),
         role: userRole.name,
+        banned: false,
         onlineStatus: true,
       }).save();
     }
@@ -201,32 +206,24 @@ app.get("/profile", async (request, response) => {
   return response.render("profile");
 });
 
-app.get('/login', async (request, response) => {
-        response.render("login");
-
+app.get("/login", async (request, response) => {
+  response.render("login");
 });
 
-app.post("/login", async (request, response) => {
-});
+app.post("/login", async (request, response) => {});
 
 app.get("/chat", async (request, response) => {
   response.render("chat");
 });
 
-app.post("/chat", async (request, response) => {
-});
+app.post("/chat", async (request, response) => {});
 
-app.get('/logout', (request, response) => {
-         return response.render("logout");
-
+app.get("/logout", (request, response) => {
+  return response.render("logout");
 });
 app.post("/logout", (request, response) => {
   return response.render("logout");
 });
-
-
-
-
 
 mongoose
   .connect(MONGO_URI)

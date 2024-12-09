@@ -47,7 +47,7 @@ const User = mongoose.model("User", UserSchema, "users");
 
 const MessageSchema = new mongoose.Schema({
   content: { type: String, required: true },
-  sender: { type: String, required: true }, // Store username instead of ObjectId
+  sender: { type: String, required: true }, 
   timestamp: { type: Date, default: Date.now },
 });
 const Message = mongoose.model("Message", MessageSchema, "messages");
