@@ -197,7 +197,9 @@ app.get("/dashboard", async (request, response) => {
     const users = await User.find();
     const message = request.query.message || null;
     const success = request.query.success || null;
+
     console.log(success)
+
     return response.render("adminDashboard", { users, message, success });
   } catch (error) {
     console.error("Error fetching users for admin dashboard:", error);
@@ -241,6 +243,7 @@ app.post("/login", async (request, response) => {
     await user.save();
 
     request.session.userId = user._id; // Store user ID in the session
+    request.session.username = user.username;
 
     // Redirect to the dashboard or home page
     if (user.role === "admin") {
@@ -254,8 +257,19 @@ app.post("/login", async (request, response) => {
   }
 });
 
-app.get("/chat", async (request, response) => {
-  response.render("chat");
+app.get("/chat", (request, response) => {
+  if (!request.session.userId) {
+    return response.render("chat", {
+      isAuthenticated: false,
+      message: "You need to log in or sign up to use live chat.",
+    });
+  }
+
+  // If user is logged in, render chat with the username
+  response.render("chat", {
+    isAuthenticated: true,
+    username: request.session.username,
+  });
 });
 
 app.post("/chat", async (request, response) => {});
@@ -263,10 +277,6 @@ app.post("/chat", async (request, response) => {});
 app.get("/logout", (request, response) => {
   return response.render("logout");
 });
-// app.post("/logout", (request, response) => {
-//   return response.render("logout");
-// });
-
 app.post("/logout", (request, response) => {
   // Clear the user's session data
   request.session.destroy((err) => {

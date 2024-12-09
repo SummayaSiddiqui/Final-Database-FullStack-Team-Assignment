@@ -1,18 +1,34 @@
-<%- include('partials/header') %>
-
-<div class="chat-container">
-    <div class="header">
-        <h2>Welcome, username!</h2>
-        <div id="user-list"></div>
-    </div>
-
-    <div class="messages" id="messages"></div>
-
-    <!-- Form at the bottom -->
-    <form id="chat-form">
-        <input type="text" id="message-input" placeholder="Type a message..." autocomplete="off" />
-        <button type="submit">Send</button>
-    </form>
+<%- include('partials/header') %> <% if (!isAuthenticated) { %>
+<div class="auth-required">
+  <h2>Join Compulse Live Chat</h2>
+  <p>
+    Experience seamless real-time communication with our Live Chat feature.
+    Connect, collaborate, and communicate effortlessly with others. Log in
+    or sign up now to start your journey!
+  </p>
+  <div class="auth-buttons">
+    <a href="/login" class="btn-login">Log In</a>
+    <a href="/signup" class="btn-signup">Sign Up</a>
+  </div>
 </div>
 
-<%- include('partials/footer') %>
+<% } else { %>
+<div class="chat-container">
+  <div class="header">
+    <h2>Welcome, <%= username %>!</h2>
+    <div id="user-list"></div>
+  </div>
+
+  <div class="messages" id="messages"></div>
+
+  <!-- Form at the bottom -->
+  <form id="chat-form">
+    <input
+      type="text"
+      id="message-input"
+      placeholder="Type a message..."
+      autocomplete="off" />
+    <button type="submit">Send</button>
+  </form>
+</div>
+<% } %> <%- include('partials/footer') %>
