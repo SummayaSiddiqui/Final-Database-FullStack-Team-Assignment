@@ -19,6 +19,12 @@
                 </div>
                 <button type="submit" class="action-button">Login</button>
             </form>
+
+            <!-- Error message handling -->
+            <% if (typeof errorMessage !== 'undefined') { %>
+                <p style="color: red;"><%= errorMessage %></p>
+            <% } %>
+
             <p class="form-footer">
                 Don’t have an account?&nbsp;
                 <a href="/signup" class="register-link">Sign up!</a>
