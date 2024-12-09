@@ -262,8 +262,21 @@ app.post("/chat", async (request, response) => {});
 app.get("/logout", (request, response) => {
   return response.render("logout");
 });
+// app.post("/logout", (request, response) => {
+//   return response.render("logout");
+// });
+
 app.post("/logout", (request, response) => {
-  return response.render("logout");
+  // Clear the user's session data
+  request.session.destroy((err) => {
+    if (err) {
+      console.error("Error destroying session:", err);
+      return response.status(500).send("Server error");
+    }
+
+    // Redirect the user to the homepage
+    response.redirect("/");
+  });
 });
 
 mongoose
