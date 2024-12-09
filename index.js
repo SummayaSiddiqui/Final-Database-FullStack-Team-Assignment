@@ -316,15 +316,17 @@ app.post("/remove/:username", async (request, response) => {
     // Locate user to update
     const user = await User.findOneAndDelete({ username });
     if (user) {
-      return response.redirect("/dashboard", {
-        message: `${username} had been removed successfully`,
-        success: true,
-      });
+      return response.redirect(
+        "/dashboard?message=" +
+          encodeURIComponent(`${username} has been removed successfully`) +
+          "&success=true"
+      );
     } else {
-      return response.redirect("/dashboard", {
-        message: `${username} user had not been found`,
-        success: false,
-      });
+      return response.redirect(
+        "/dashboard?message=" +
+          encodeURIComponent(`${username} not found`) +
+          "&success=false"
+      );
     }
   } catch (error) {
     console.error("Error removing user:", error);
