@@ -32,8 +32,12 @@
                 <tr class="user-actions-row">
                     <td colspan="4">
                         <div class="user-actions">
-                            <a style="text-decoration: none;" href="ban/<%= user.username %>" class="ban-button">Ban</a>
-                            <a style="text-decoration: none;" href="remove/<%= user.username %>" class="remove-button">Remove</a>
+                                <a style="text-decoration: none;" 
+                                href="<%= user.banned ? 'unban/' + user.username : 'ban/' + user.username %>" 
+                                class="ban-button <%= user.banned ? 'lift-ban' : 'ban' %>">
+                                <%= user.banned ? 'Lift Ban' : 'Ban' %>
+                                </a>                            
+                                <a style="text-decoration: none;" href="remove/<%= user.username %>" class="remove-button">Remove</a>
                         </div>
                     </td>
                 </tr>

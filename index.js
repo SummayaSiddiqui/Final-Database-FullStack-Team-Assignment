@@ -304,6 +304,44 @@ app.post("/ban/:username", async (request, response) => {
   }
 });
 
+app.get("/unban/:username", (request, response) => {
+  const username = request.params.username;
+  return response.render("unban", { username });
+});
+
+app.post("/unban/:username", async (request, response) => {
+  const username = request.params.username;
+
+  try {
+    // Locate user and update banned status
+    const user = await User.findOneAndUpdate(
+      { username },
+      { banned: false },
+      { new: true }
+    );
+
+    if (user) {
+      return response.redirect(
+        "/dashboard?message=" +
+          encodeURIComponent(`${username} ban lifted successfully`) +
+          "&success=true"
+      );
+    } else {
+      return response.redirect(
+        "/dashboard?message=" +
+          encodeURIComponent(`${username} not found`) +
+          "&success=false"
+      );
+    }
+  } catch (error) {
+    console.error("Error lifting user ban:", error);
+    return response
+      .status(500)
+      .send("An error occurred while lifting the user ban.");
+  }
+});
+
+
 app.get("/remove/:username", (request, response) => {
   const username = request.params.username;
   return response.render("remove", { username });

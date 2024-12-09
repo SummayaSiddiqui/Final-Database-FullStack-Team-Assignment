@@ -1025,3 +1025,27 @@ footer {
 .error {
   color: red;
 }
+
+/* General button style */
+.ban-button {
+   padding: 10px 20px;
+   border-radius: 5px;
+   text-align: center;
+   font-size: 14px;
+   font-weight: bold;
+   transition: background-color 0.3s ease;
+}
+
+.ban {
+   background-color: rgb(202, 170, 12); 
+   color: white;
+}
+
+.lift-ban {
+   background-color: rgb(48, 130, 48); 
+   color: white;
+}
+
+.ban-button:hover {
+   opacity: 0.8;
+}
