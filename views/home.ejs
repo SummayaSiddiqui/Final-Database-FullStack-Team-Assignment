@@ -1,25 +1,36 @@
 <%- include('partials/header') %>
-
-<main class="home-page">
+<main>
+              <% if (loggedInUsers) { %>
+  <p class="loggedInUsersNumber">Users Online: <%= loggedInUsers.length %></p>
+<% } %>
+<div class="home-page">
   <section class="welcome-section-home">
+    
     <div class="text-section">
       <h1>Welcome to Compulse</h1>
       <p>
         Your one-stop solution for real-time communication. Connect,
         collaborate, and communicate seamlessly.
       </p>
+
       <div class="cta-buttons">
         <a href="/signup" class="cta-button-1">Sign Up</a>
         <a href="/login" class="cta-button-2">Log In</a>
       </div>
     </div>
-    <div class="image-section">
-      <img
-        src="/images/homePic.jpg"
-        alt="People using laptops"
-        class="welcome-image"
-      />
-    </div>
+<div class="image-section">
+  <img
+    src="/images/chatBubbleGreen.png"
+    alt="green chat bubble"
+    class="chat-bubble"
+  >
+  <img
+    src="/images/homePic.jpg"
+    alt="People using laptops"
+    class="welcome-image"
+  />
+</div>
+
     <!-- <div class="talk-bubble tri-right border round btm-left-in">
   <div class="talktext">
       <img
@@ -29,6 +40,7 @@
       />  </div>
 </div> -->
   </section>
+</div>
 </main>
 
 <%- include('partials/footer') %>
