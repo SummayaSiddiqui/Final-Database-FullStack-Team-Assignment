@@ -1,50 +1,76 @@
-<%- include('partials/header') %>
-<main>
-<div class="admin-dashboard-container">
-    <div class="dashboard-header">
-        <h1>Admin Dashboard</h1>
-        <h2>Registered Users</h2>
-    </div>
-    <!-- <p>success value: <%= success %></p> -->
+<%- include('partials/header') %> 
 
-            <% if (message) { %>
-<div class="<%= success === 'true' ? 'success' : 'error' %>">
-            <p><%= message %></p>
+<% if (!isAuthenticated) { %>
+  <div class="chat-page">
+    <div class="image-section">
+      <img src="/images/chatBubbleGreen.png" alt="green chat bubble" class="chat-bubble">
+      <img src="/images/homePic.jpg" alt="People using laptops" class="welcome-image">
+    </div>
+    
+    <div class="text-chat-section">
+      <h1>View Admin Dashboard</h1>
+      <p>
+        Experience seamless real-time communication with our Live Chat feature. 
+        Connect, collaborate, and communicate effortlessly with others. 
+        Log in or sign up now to start your journey!
+      </p>
+      <div class="cta-buttons">
+        <a href="/signup" class="cta-button-1">Sign Up</a>
+        <a href="/login" class="cta-button-2">Log In</a>
+      </div>
+    </div>
+  </div>
+<% } else { %>
+  <main>
+    <% if (permission) { %>
+      <div class="admin-dashboard-container">
+        <div class="dashboard-header">
+          <h1>Admin Dashboard</h1>
+          <h2>Registered Users</h2>
         </div>
+
+        <% if (message) { %>
+          <div class="<%= success === 'true' ? 'success' : 'error' %>">
+            <p><%= message %></p>
+          </div>
         <% } %>
 
-    <div class="user-list">
-        <table>
+        <div class="user-list">
+          <table>
             <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Username</th>
-                    <th>Join Date</th>
-                </tr>
+              <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Join Date</th>
+              </tr>
             </thead>
             <tbody>
-                <% users.forEach((user, index) => { %>
+              <% users.forEach((user, index) => { %>
                 <tr>
-                    <td><%= index + 1 %></td>
-                    <td><%= user.username %></td>
-                    <td><%= user.joinDate.toLocaleDateString() %></td>
+                  <td><%= index + 1 %></td>
+                  <td><%= user.username %></td>
+                  <td><%= user.joinDate ? user.joinDate.toLocaleDateString() : 'N/A' %></td>
                 </tr>
                 <tr class="user-actions-row">
-                    <td colspan="4">
-                        <div class="user-actions">
-                                <a style="text-decoration: none;" 
-                                href="<%= user.banned ? 'unban/' + user.username : 'ban/' + user.username %>" 
-                                class="ban-button <%= user.banned ? 'lift-ban' : 'ban' %>">
-                                <%= user.banned ? 'Lift Ban' : 'Ban' %>
-                                </a>                            
-                                <a style="text-decoration: none;" href="remove/<%= user.username %>" class="remove-button">Remove</a>
-                        </div>
-                    </td>
+                  <td colspan="4">
+                    <div class="user-actions">
+                      <a style="text-decoration: none;" href="<%= user.banned ? 'unban/' + user.username : 'ban/' + user.username %>" 
+                         class="ban-button <%= user.banned ? 'lift-ban' : 'ban' %>">
+                        <%= user.banned ? 'Lift Ban' : 'Ban' %>
+                      </a>
+                      <a style="text-decoration: none;" href="remove/<%= user.username %>" class="remove-button">Remove</a>
+                    </div>
+                  </td>
                 </tr>
-                <% }); %>
+              <% }); %>
             </tbody>
-        </table>
-    </div>
-</div>
-</main>
+          </table>
+        </div>
+      </div>
+    <% } else { %>
+      <p class="not-Authorized-message">You are not authorized to view this page</p>
+    <% } %>
+  </main>
+<% } %>
+
 <%- include('partials/footer') %>

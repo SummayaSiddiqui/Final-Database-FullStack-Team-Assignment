@@ -779,8 +779,9 @@ footer {
 
 .user-list h2 {
   font-size: 1.8rem;
-  color: #613060;
+  color: #613060; /* Keep this as it gives a nice purple tone */
   margin-bottom: 15px;
+  text-align: center; /* Centers the heading */
 }
 
 .user-list table {
@@ -789,25 +790,28 @@ footer {
   background: white;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Increased shadow for more depth */
 }
 
 .user-list table th,
 .user-list table td {
-  padding: 6px 15px;
+  padding: 12px 15px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  font-size: 1rem; /* Adjusted font size for better readability */
 }
 
 .user-list table th {
-  background-color: #613060;
+  background-color: #613060; /* Purple background for headers */
   color: white;
   font-weight: bold;
   text-transform: uppercase;
+  letter-spacing: 1px; /* Adds slight spacing to header text */
 }
 
 .user-list table tbody tr:hover {
-  background-color: #f1f1f1;
+  background-color: #f5f5f5; /* Slightly darker hover color */
+  transition: background-color 0.3s ease; /* Smooth hover transition */
 }
 
 .user-list table td:last-child {
@@ -817,17 +821,19 @@ footer {
 /* Buttons */
 .ban-button,
 .remove-button {
-  padding: 8px 12px;
+  padding: 8px 15px; /* Increased padding for better button size */
   margin: 0 5px;
   font-size: 0.9rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth background color transition */
 }
 
 .ban-button {
   background-color: #cbad54;
   color: white;
+  font-weight: bold;
 }
 
 .ban-button:hover {
@@ -837,12 +843,41 @@ footer {
 .remove-button {
   background-color: #aa444e;
   color: white;
+  font-weight: bold;
 }
 
 .remove-button:hover {
   background-color: #c82333;
 }
 
+.user-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.user-actions a {
+  text-decoration: none; /* Removes underline from links */
+}
+
+/* Success/Error Message Styling */
+.success, .error {
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.success {
+  background-color: #d4edda; /* Green background for success */
+  color: #155724; /* Dark green text */
+}
+
+.error {
+  background-color: #f8d7da; /* Light red background for errors */
+  color: #721c24; /* Dark red text */
+}
 .logout-container {
   max-width: 500px;
   margin: 50px auto;
@@ -1083,4 +1118,20 @@ footer {
   font-size: 24px !important;
   margin: 15px 0;
   color: #613060;
+}
+
+.not-Authorized-message {
+  background-color: #f8d7da; 
+  color: #721c24; 
+  padding: 15px;
+  border: 1px solid #f5c6cb; 
+  border-radius: 5px; 
+  font-size: 16px;
+  font-weight: bold; 
+  text-align: center; 
+  margin-top: 20px; 
+  width: 80%; 
+  max-width: 600px; 
+  margin-left: auto;
+  margin-right: auto; 
 }

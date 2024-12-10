@@ -1,4 +1,35 @@
-<%- include('partials/header') %>
+
+<%- include('partials/header') %> <% if (!isAuthenticated) { %>
+<div class="chat-page">
+  <!-- <section class="welcome-section-home"> -->
+    <div class="image-section">
+      <img
+        src="/images/chatBubbleGreen.png"
+        alt="green chat bubble"
+        class="chat-bubble"
+      >
+      <img
+        src="/images/homePic.jpg"
+        alt="People using laptops"
+        class="welcome-image"
+      />
+    </div>
+     <div class="text-chat-section">
+      <h1>Join to view your profile</h1>
+      <p>
+        Experience seamless real-time communication with our Live Chat
+        feature. Connect, collaborate, and communicate effortlessly with
+        others. Log in or sign up now to start your journey!
+      </p>
+      <div class="cta-buttons">
+        <a href="/signup" class="cta-button-1">Sign Up</a>
+        <a href="/login" class="cta-button-2">Log In</a>
+      </div>
+    </div>
+    
+  <!-- </section> -->
+</div>
+    <% } else { %>
 <div class="profile-main">
 
 <div class="profile-container">
@@ -13,8 +44,8 @@
         </div>
         
         <div class="profile-details">
-            <p><strong>Username:</strong> Name</p>
-            <p><strong>Join Date:</strong> date</p>
+            <p><strong>Username:</strong> <%= username %></p>
+            <p><strong>Join Date:</strong> <%= joinDate %></p>
         </div>
 
         <!-- Display other users if you're viewing their profile -->
@@ -29,5 +60,6 @@
     </div>
 </div>
 </div>
-
-<%- include('partials/footer') %>
+    <% } %> <%- include('partials/footer') %>
+  </section>
+</div>

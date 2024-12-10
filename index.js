@@ -25,6 +25,13 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isAuthenticated || false;
+  res.locals.username = req.session.username || null;
+  res.locals.role = req.session.role || null;
+  res.locals.userId = req.session.userId || null;
+  next();
+});
 
 const RoleSchema = new mongoose.Schema({
   name: {
@@ -48,7 +55,7 @@ const User = mongoose.model("User", UserSchema, "users");
 
 const MessageSchema = new mongoose.Schema({
   content: { type: String, required: true },
-  sender: { type: String, required: true }, // Store username instead of ObjectId
+  sender: { type: String, required: true },
   timestamp: { type: Date, default: Date.now },
 });
 const Message = mongoose.model("Message", MessageSchema, "messages");
@@ -193,22 +200,92 @@ app.post("/signup", async (request, response) => {
 });
 
 app.get("/dashboard", async (request, response) => {
-  try {
-    const users = await User.find();
-    const message = request.query.message || null;
-    const success = request.query.success || null;
-
-    console.log(success)
-
-    return response.render("adminDashboard", { users, message, success });
-  } catch (error) {
-    console.error("Error fetching users for admin dashboard:", error);
-    response.status(500).send("Error fetching users for admin dashboard");
+  let permission = null;
+  if (!request.session.userId) {
+    return response.render("adminDashboard", {
+      isAuthenticated: false,
+      message: "You need to log in or sign up to see admin dashboard.",
+    });
   }
+  // If user is authenticated and is an admin
+  if (request.session.userId && request.session.role === "admin") {
+    try {
+      const users = await User.find(); // Get all users
+      const message = request.query.message || null;
+      const success = request.query.success || null;
+      permission = true;
+
+      console.log(success);
+
+      return response.render("adminDashboard", {
+        users,
+        message,
+        success,
+        isAuthenticated: true,
+        permission,
+        username: request.session.username, // Send the username from session
+      });
+    } catch (error) {
+      console.error("Error fetching users for admin dashboard:", error);
+      return response
+        .status(500)
+        .send("Error fetching users for admin dashboard");
+    }
+  }
+
+    if (request.session.userId && request.session.role !== "admin") {
+      try {
+        permission = false;
+
+        return response.render("adminDashboard", {
+          isAuthenticated: true,
+          permission,
+          username: request.session.username, 
+        });
+      } catch (error) {
+        console.error("Error fetching users for admin dashboard:", error);
+        return response
+          .status(500)
+          .send("Error fetching users for admin dashboard");
+      }
+    }
+
+  // If user is authenticated but not an admin
+  return response.render("adminDashboard", {
+    isAuthenticated: true,
+    message: "You do not have the necessary permissions to view this page.",
+  });
 });
 
-app.get("/profile", async (request, response) => {
-  return response.render("profile");
+app.get("/profile/:username", async (request, response) => {
+  const { userId, username, role } = request.session;
+  if (!request.session.userId) {
+    return response.render("profile", {
+      isAuthenticated: false,
+      message: "You need to log in or sign up to use live chat.",
+    });
+  }
+
+  try {
+    const user = await User.findById(request.session.userId);
+
+    if (!user) {
+      return response.render("profile", {
+        isAuthenticated: false,
+        message: "User not found. Please log in again.",
+      });
+    }
+
+    response.render("profile", {
+      isAuthenticated: true,
+      username: user.username,
+      joinDate: user.joinDate.toDateString(),
+    });
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    response.status(500).send("An error occurred while fetching the profile.");
+  }
+  console.log(request.session);
 });
 
 app.get("/login", async (request, response) => {
@@ -244,6 +321,7 @@ app.post("/login", async (request, response) => {
 
     request.session.userId = user._id; // Store user ID in the session
     request.session.username = user.username;
+    request.session.role = user.role;
 
     // Redirect to the dashboard or home page
     if (user.role === "admin") {
@@ -251,6 +329,7 @@ app.post("/login", async (request, response) => {
     } else {
       response.redirect("/chat");
     }
+    console.log(request.session);
   } catch (error) {
     console.error("Error logging in user:", error);
     response.status(500).send("Server error");
@@ -277,6 +356,7 @@ app.post("/chat", async (request, response) => {});
 app.get("/logout", (request, response) => {
   return response.render("logout");
 });
+
 app.post("/logout", (request, response) => {
   // Clear the user's session data
   request.session.destroy((err) => {
@@ -363,7 +443,6 @@ app.post("/unban/:username", async (request, response) => {
       .send("An error occurred while lifting the user ban.");
   }
 });
-
 
 app.get("/remove/:username", (request, response) => {
   const username = request.params.username;
