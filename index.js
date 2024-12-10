@@ -157,13 +157,20 @@ app.ws("/ws", (socket, request) => {
 });
 
 app.get("/", async (request, response) => {
+  const isAuthenticated = request.session.userId;
+  if (!request.session.userId){
+      response.render("home");
+  }
+  else{
   try {
     const loggedInUsers = await User.find({ onlineStatus: true });
-    response.render("home", { loggedInUsers });
+    response.render("home", { loggedInUsers, isAuthenticated });
   } catch (error) {
     console.error("Error fetching logged-in users:", error);
     response.status(500).send("Error fetching logged-in users");
   }
+  }
+
 });
 
 app.get("/signup", async (request, response) => {
