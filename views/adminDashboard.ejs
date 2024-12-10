@@ -1,6 +1,7 @@
 <%- include('partials/header') %> 
 
 <% if (!isAuthenticated) { %>
+    <main>
   <div class="chat-page">
     <div class="image-section">
       <img src="/images/chatBubbleGreen.png" alt="green chat bubble" class="chat-bubble">
@@ -19,7 +20,7 @@
         <a href="/login" class="cta-button-2">Log In</a>
       </div>
     </div>
-  </div>
+  </div></main>
 <% } else { %>
   <main>
     <% if (permission) { %>
@@ -42,6 +43,7 @@
                 <th>#</th>
                 <th>Username</th>
                 <th>Join Date</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -50,8 +52,6 @@
                   <td><%= index + 1 %></td>
                   <td><%= user.username %></td>
                   <td><%= user.joinDate ? user.joinDate.toLocaleDateString() : 'N/A' %></td>
-                </tr>
-                <tr class="user-actions-row">
                   <td colspan="4">
                     <div class="user-actions">
                       <a style="text-decoration: none;" href="<%= user.banned ? 'unban/' + user.username : 'ban/' + user.username %>" 
