@@ -1211,3 +1211,104 @@ footer {
   margin-top: 10px;
   color: #333;
 }
+
+
+
+.edit-profile-form {
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  font-family: Arial, sans-serif;
+}
+
+.edit-profile-form h3 {
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+}
+
+.edit-profile-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+
+.edit-profile-form button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.edit-profile-form button:hover {
+  background-color: #218838;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .edit-profile-form {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .edit-profile-form h3 {
+    font-size: 18px;
+  }
+
+  .edit-profile-form input {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .edit-profile-form button {
+    font-size: 15px;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .edit-profile-form {
+    max-width: 100%;
+    margin: 10px;
+    padding: 10px;
+  }
+
+  .edit-profile-form h3 {
+    font-size: 16px;
+  }
+
+  .edit-profile-form input {
+    font-size: 12px;
+    padding: 7px;
+  }
+
+  .edit-profile-form button {
+    font-size: 14px;
+    padding: 7px;
+  }
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #ffffff;
+  font-size: 16px;
+  resize: none;
+}

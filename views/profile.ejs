@@ -24,39 +24,68 @@
   </main>
 <% } else { %>
   <main>
-  <div class="profile-main">
-    <div class="profile-container">
-      <div class="profile-header">
-        <% if (username === param) { %>
-          <h2>Your Profile</h2>
-        <% } else { %>
-          <h2><%= username %>'s Profile</h2>
-        <% } %>
-      </div>
-
-      <!-- Profile Section -->
-      <div class="profile-content">
-        <div class="profile-image">
-          <img src="/images/profile.logo.png" alt="Profile Picture">
+    <div class="profile-main">
+      <div class="profile-container">
+        <div class="profile-header">
+          <% if (username === param) { %>
+            <h2>Your Profile</h2>
+          <% } else { %>
+            <h2><%= username %>'s Profile</h2>
+          <% } %>
         </div>
 
-        <div class="profile-details">
-          <p><strong>Username:</strong> <%= username %></p>
-          <p><strong>Join Date:</strong> <%= joinDate %></p>
-          <p><strong>Role:</strong> <%= role %></p>
+        <!-- Profile Section -->
+        <div class="profile-content">
+          <div class="profile-image">
+            <img src="/images/profile.logo.png" alt="Profile Picture">
+          </div>
 
+          <div class="profile-details">
+            <p><strong>Username:</strong> <%= username %></p>
+            <p><strong>Join Date:</strong> <%= joinDate %></p>
+            <p><strong>Role:</strong> <%= role %></p>
+            <p><strong>About Me:</strong> <%= about %></p>
+          </div>
+
+          <!-- Profile Actions: Edit or View Others -->
+          <div class="profile-actions">
+               <% if (username === param) { %>
+          <button id="editProfileButton" class="profile-button">Edit Your Profile</button>
+          <% } %>
+            <a href="/membersProfiles" class="profile-button">View Others' Profiles</a>
+          </div>
+          
+          <!-- Hidden Edit Profile Form -->
+          <div id="editProfileForm" class="edit-profile-form" style="display: none;">
+            <h3>Edit Profile</h3>
+            <form action="/profile/<%= username %>" method="POST">
+              <div>
+                <label for="aboutMe">About Me:</label>
+                <textarea id="aboutMe" name="aboutMe" rows="4" placeholder="Write something about yourself..." required></textarea>
+              </div>
+              <div>
+                <button type="submit" class="profile-button">Submit Changes</button>
+              </div>
+            </form>
+          </div>
         </div>
-
-  
-
-      <!-- Profile Actions: Edit or View Others -->
-      <div class="profile-actions">
-        <a href="/edit-profile" class="profile-button">Edit Your Profile</a>
-        <a href="/membersProfiles" class="profile-button">View Others' Profiles</a>
       </div>
     </div>
-  </div>
+    <!-- <%- include('partials/footer') %> -->
+
   </main>
 <% } %>
 
-<%- include('partials/footer') %>
+
+<script>
+  // JavaScript to toggle the Edit Profile form visibility
+  document.getElementById('editProfileButton').addEventListener('click', function() {
+    const editForm = document.getElementById('editProfileForm');
+    // Toggle form visibility
+    if (editForm.style.display === 'none' || editForm.style.display === '') {
+      editForm.style.display = 'block';
+    } else {
+      editForm.style.display = 'none';
+    }
+  });
+</script>
