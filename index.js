@@ -216,6 +216,20 @@ app.post("/signup", async (request, response) => {
   }
 });
 
+app.get("/membersProfiles", async (request, response) => {
+  const isAuthenticated = request.session.userId;
+  if (!isAuthenticated) {
+    response.render("membersProfiles", { isAuthenticated });
+  } else {
+    try {
+      const users = await User.find();
+      response.render("membersProfiles", { isAuthenticated, users });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+});
+
 app.get("/dashboard", async (request, response) => {
   let permission = null;
   if (!request.session.userId) {
@@ -286,18 +300,22 @@ app.get("/profile/:username", async (request, response) => {
 
   try {
     const user = await User.findById(request.session.userId);
+    const param = request.params.username;
 
     if (!user) {
       return response.render("profile", {
         isAuthenticated: false,
         message: "User not found. Please log in again.",
+        username,
+        role,
       });
     }
-
     response.render("profile", {
       isAuthenticated: true,
       username: user.username,
       joinDate: user.joinDate.toDateString(),
+      param,
+      role,
     });
   } catch (error) {
     console.error("Error fetching user profile:", error);
