@@ -4,6 +4,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const bcrypt = require("bcrypt");
+const { request } = require("http");
 const PORT = 3000;
 //TODO: Replace with the URI pointing to your own MongoDB setup
 const MONGO_URI = "mongodb://localhost:27017/Compulse";
@@ -50,6 +51,7 @@ const UserSchema = new mongoose.Schema({
   joinDate: { type: Date, default: Date.now },
   banned: { type: Boolean, default: false },
   onlineStatus: { type: Boolean, default: false },
+  about: { type: String, default: "I am A new User" },
 });
 const User = mongoose.model("User", UserSchema, "users");
 
@@ -101,6 +103,8 @@ async function insertSampleData() {
         role: adminRole.name,
         banned: false,
         onlineStatus: false,
+        about:
+          "I am the administrator of this platform, managing users and content.",
       }).save();
     }
 
@@ -111,6 +115,7 @@ async function insertSampleData() {
         role: userRole.name,
         banned: false,
         onlineStatus: true,
+        about: "I am a regular user here to explore and connect with others.",
       }).save();
     }
 
@@ -315,6 +320,7 @@ app.get("/profile/:username", async (request, response) => {
   try {
     const user = await User.findById(request.session.userId);
     const param = request.params.username;
+    const about = user.about;
 
     if (!user) {
       return response.render("profile", {
@@ -330,6 +336,7 @@ app.get("/profile/:username", async (request, response) => {
       joinDate: user.joinDate.toDateString(),
       param,
       role,
+      about,
     });
   } catch (error) {
     console.error("Error fetching user profile:", error);
@@ -338,6 +345,37 @@ app.get("/profile/:username", async (request, response) => {
       .send("An error occurred while fetching the profile.");
   }
   console.log(request.session);
+});
+
+app.post("/profile/:username", async (request, response) => {
+  const { userId } = request.session;
+  const { aboutMe } = request.body;
+  const { username } = request.params;
+
+  if (!userId) {
+    return response.status(401).send("Unauthorized. Please log in.");
+  }
+
+  try {
+    const user = await User.findById(userId);
+    if (user && user.username === username) {
+      const updatedUser = await User.findOneAndUpdate(
+        { username },
+        { about: aboutMe },
+        { new: true }
+      );
+      if (updatedUser) {
+        response.redirect(`/profile/${username}`);
+      } else {
+        return response.status(404).send("User not found.");
+      }
+    } else {
+      return response.status(403).send("You can only update your own profile.");
+    }
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    return response.status(500).send("Internal server error.");
+  }
 });
 
 app.get("/login", async (request, response) => {
