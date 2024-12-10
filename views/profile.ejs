@@ -1,66 +1,58 @@
+<%- include('partials/header') %>
 
-<%- include('partials/header') %> <% if (!isAuthenticated) { %>
-  </main>
-<div class="chat-page">
-  <!-- <section class="welcome-section-home"> -->
-    <div class="image-section">
-      <img
-        src="/images/chatBubbleGreen.png"
-        alt="green chat bubble"
-        class="chat-bubble"
-      >
-      <img
-        src="/images/homePic.jpg"
-        alt="People using laptops"
-        class="welcome-image"
-      />
-    </div>
-     <div class="text-chat-section">
-      <h1>Join to view your profile</h1>
-      <p>
-        Experience seamless real-time communication with our Live Chat
-        feature. Connect, collaborate, and communicate effortlessly with
-        others. Log in or sign up now to start your journey!
-      </p>
-      <div class="cta-buttons">
-        <a href="/signup" class="cta-button-1">Sign Up</a>
-        <a href="/login" class="cta-button-2">Log In</a>
+<% if (!isAuthenticated) { %>
+  <main>
+    <div class="chat-page">
+      <div class="image-section">
+        <img src="/images/chatBubbleGreen.png" alt="green chat bubble" class="chat-bubble">
+        <img src="/images/homePic.jpg" alt="People using laptops" class="welcome-image">
+      </div>
+      
+      <div class="text-chat-section">
+        <h1>Join to view your profile</h1>
+        <p>
+          Experience seamless real-time communication with our Live Chat feature. 
+          Connect, collaborate, and communicate effortlessly with others. 
+          Log in or sign up now to start your journey!
+        </p>
+        <div class="cta-buttons">
+          <a href="/signup" class="cta-button-1">Sign Up</a>
+          <a href="/login" class="cta-button-2">Log In</a>
+        </div>
       </div>
     </div>
-    </main>
-  <!-- </section> -->
-</div>
-    <% } else { %>
-<div class="profile-main">
+  </main>
+<% } else { %>
+  <div class="profile-main">
+    <div class="profile-container">
+      <div class="profile-header">
+        <% if (username === param) { %>
+          <h2>Your Profile</h2>
+        <% } else { %>
+          <h2><%= username %>'s Profile</h2>
+        <% } %>
+      </div>
 
-<div class="profile-container">
-    <div class="profile-header">
-        <h2>Your Profile</h2>
-    </div>
-
-    <!-- Profile Section -->
-    <div class="profile-content">
+      <!-- Profile Section -->
+      <div class="profile-content">
         <div class="profile-image">
-            <img src="/images/profile.logo.png" alt="Profile Picture">
+          <img src="/images/profile.logo.png" alt="Profile Picture">
         </div>
-        
+
         <div class="profile-details">
-            <p><strong>Username:</strong> <%= username %></p>
-            <p><strong>Join Date:</strong> <%= joinDate %></p>
+          <p><strong>Username:</strong> <%= username %></p>
+          <p><strong>Join Date:</strong> <%= joinDate %></p>
         </div>
 
-        <!-- Display other users if you're viewing their profile -->
-        <h3 class="profile-status">You're viewing your profile!</h3>
-        <h3 class="profile-status">You're viewing someone's profile!</h3>
-    </div>
+  
 
-    <!-- Profile Actions: Edit or View Others -->
-    <div class="profile-actions">
-        <a href="/edit-profile" class="profile-button">Edit Your</a>
-        <a href="/members" class="profile-button">View Other</a>
+      <!-- Profile Actions: Edit or View Others -->
+      <div class="profile-actions">
+        <a href="/edit-profile" class="profile-button">Edit Your Profile</a>
+        <a href="/membersProfiles" class="profile-button">View Others' Profiles</a>
+      </div>
     </div>
-</div>
-</div>
-    <% } %> <%- include('partials/footer') %>
-  </section>
-</div>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>

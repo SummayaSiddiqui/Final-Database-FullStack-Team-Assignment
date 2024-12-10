@@ -158,19 +158,17 @@ app.ws("/ws", (socket, request) => {
 
 app.get("/", async (request, response) => {
   const isAuthenticated = request.session.userId;
-  if (!request.session.userId){
-      response.render("home");
+  if (!request.session.userId) {
+    response.render("home");
+  } else {
+    try {
+      const loggedInUsers = await User.find({ onlineStatus: true });
+      response.render("home", { loggedInUsers, isAuthenticated });
+    } catch (error) {
+      console.error("Error fetching logged-in users:", error);
+      response.status(500).send("Error fetching logged-in users");
+    }
   }
-  else{
-  try {
-    const loggedInUsers = await User.find({ onlineStatus: true });
-    response.render("home", { loggedInUsers, isAuthenticated });
-  } catch (error) {
-    console.error("Error fetching logged-in users:", error);
-    response.status(500).send("Error fetching logged-in users");
-  }
-  }
-
 });
 
 app.get("/signup", async (request, response) => {
@@ -203,6 +201,20 @@ app.post("/signup", async (request, response) => {
   } catch (error) {
     console.error("Error signing up user:", error);
     response.status(500).send("Server error");
+  }
+});
+
+app.get("/membersProfiles", async (request, response) => {
+  const isAuthenticated = request.session.userId;
+  if (!isAuthenticated) {
+    response.render("membersProfiles", { isAuthenticated });
+  } else {
+    try {
+      const users = await User.find();
+      response.render("membersProfiles", { isAuthenticated, users });
+    } catch (error) {
+      console.log(error);
+    }
   }
 });
 
@@ -240,22 +252,22 @@ app.get("/dashboard", async (request, response) => {
     }
   }
 
-    if (request.session.userId && request.session.role !== "admin") {
-      try {
-        permission = false;
+  if (request.session.userId && request.session.role !== "admin") {
+    try {
+      permission = false;
 
-        return response.render("adminDashboard", {
-          isAuthenticated: true,
-          permission,
-          username: request.session.username, 
-        });
-      } catch (error) {
-        console.error("Error fetching users for admin dashboard:", error);
-        return response
-          .status(500)
-          .send("Error fetching users for admin dashboard");
-      }
+      return response.render("adminDashboard", {
+        isAuthenticated: true,
+        permission,
+        username: request.session.username,
+      });
+    } catch (error) {
+      console.error("Error fetching users for admin dashboard:", error);
+      return response
+        .status(500)
+        .send("Error fetching users for admin dashboard");
     }
+  }
 
   // If user is authenticated but not an admin
   return response.render("adminDashboard", {
@@ -275,18 +287,22 @@ app.get("/profile/:username", async (request, response) => {
 
   try {
     const user = await User.findById(request.session.userId);
+    const param = request.params.username;
 
     if (!user) {
       return response.render("profile", {
         isAuthenticated: false,
         message: "User not found. Please log in again.",
+        username,
+        role,
       });
     }
-
     response.render("profile", {
       isAuthenticated: true,
       username: user.username,
       joinDate: user.joinDate.toDateString(),
+      param,
+      role,
     });
   } catch (error) {
     console.error("Error fetching user profile:", error);
