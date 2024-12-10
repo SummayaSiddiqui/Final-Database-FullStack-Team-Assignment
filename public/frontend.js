@@ -1,9 +1,5 @@
 const webSocket = new WebSocket("ws://localhost:3000/ws");
-
-// webSocket.addEventListener("message", (event) => {
-//     const eventData = JSON.parse(event.data);
-
-// });
+const messagesDiv = document.getElementById("messages");
 
 webSocket.addEventListener("open", (event) => {
   console.log("WebSocket connection established");
@@ -12,9 +8,12 @@ webSocket.addEventListener("open", (event) => {
 // Listen for messages
 webSocket.addEventListener("message", (event) => {
   try {
-    const eventData = JSON.parse(event.data);
-    console.log("Received message:", eventData);
-    // Handle the received message here
+    const data = JSON.parse(event.data);
+    if (data.type === "userJoined") {
+      onUserConnected(data.username);
+    } else {
+      displayMessage(data);
+    }
   } catch (error) {
     console.error("Error parsing message:", error);
   }
@@ -38,7 +37,37 @@ webSocket.addEventListener("error", (event) => {
  *
  * @param {string} username The username of the user who joined the chat
  */
-function onUserConnected(username) {}
+
+function onUserConnected(username) {
+  const messageElement = document.createElement("div");
+  messageElement.classList.add("system-message");
+  messageElement.textContent = `User ${username} has joined the chat!`;
+  messagesDiv.appendChild(messageElement);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+function displayMessage(message) {
+  const messageElement = document.createElement("div");
+  messageElement.classList.add("message");
+  messageElement.textContent = `${message.sender}: ${message.content}`;
+  messagesDiv.appendChild(messageElement);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+// Handle form submission
+const chatForm = document.getElementById("chat-form");
+const messageInput = document.getElementById("message-input");
+
+chatForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const message = messageInput.value.trim();
+  if (message) {
+    socket.send(
+      JSON.stringify({ content: message, sender: "<%= username %>" })
+    );
+    messageInput.value = "";
+  }
+});
 
 /**
  * Handles updating the chat list when a user disconnects from the chat
@@ -78,5 +107,5 @@ function onMessageSent(event) {
 //Note: This code might not work, but it's left as a bit of a hint as to what you might want to do trying to setup
 //      adding new messages
 document
-  .getElementById("message-form")
+  .getElementById("chat-form")
   .addEventListener("submit", onMessageSent);

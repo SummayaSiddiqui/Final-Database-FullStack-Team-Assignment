@@ -1163,7 +1163,6 @@ footer {
   margin-right: auto;
 }
 
-
 .members-list {
   display: flex;
   flex-wrap: wrap;
@@ -1210,4 +1209,16 @@ footer {
   font-size: 1.2em;
   margin-top: 10px;
   color: #333;
+}
+
+.system-message {
+  /* color: #888; */
+  color: #613060;
+  font-style: italic;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.message {
+  margin: 5px 0;
 }

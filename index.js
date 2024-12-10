@@ -152,6 +152,20 @@ let connectedClients = [];
 
 app.ws("/ws", (socket, request) => {
   connectedClients.push(socket);
+
+  // Send a message to all clients that a new user has joined
+  const username = request.session.username; // Assuming you have session middleware set up
+  const joinMessage = JSON.stringify({
+    type: "userJoined",
+    username: username,
+  });
+
+  connectedClients.forEach((client) => {
+    if (client.readyState === 1) {
+      client.send(joinMessage);
+    }
+  });
+
   socket.on("message", (rawMessage) => {
     const parsedMessage = JSON.parse(rawMessage);
     connectedClients.forEach((client) => {
