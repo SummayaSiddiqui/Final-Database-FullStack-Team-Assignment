@@ -123,11 +123,11 @@ async function insertSampleData() {
           sender: "AdminUser",
           timestamp: new Date(),
         },
-        {
-          content: "Hi! Thanks for setting this up.",
-          sender: "RegularUser",
-          timestamp: new Date(),
-        },
+        // {
+        //   content: "Hi! Thanks for setting this up.",
+        //   sender: "RegularUser",
+        //   timestamp: new Date(),
+        // },
         {
           content: "Let me know if you need help.",
           sender: "AdminUser",
@@ -138,7 +138,9 @@ async function insertSampleData() {
       await Message.insertMany(MESSAGES);
       console.log("Sample messages inserted");
     } else {
-      console.log("Messages already exist; skipping sample message insertion.");
+      console.log(
+        "Messages already exist; skipping sample message insertion."
+      );
     }
   } catch (error) {
     console.error("Error inserting sample data:", error);
@@ -149,28 +151,36 @@ insertSampleData();
 let connectedClients = [];
 
 app.ws("/ws", (socket, request) => {
+  connectedClients.push(socket);
   socket.on("message", (rawMessage) => {
     const parsedMessage = JSON.parse(rawMessage);
+    connectedClients.forEach((client) => {
+      if (client !== socket && client.readyState === 1) {
+        client.send(JSON.stringify(parsedMessage));
+      }
+    });
   });
 
-  socket.on("close", () => {});
+  socket.on("close", () => {
+    connectedClients = connectedClients.filter(
+      (client) => client !== socket
+    );
+  });
 });
 
 app.get("/", async (request, response) => {
   const isAuthenticated = request.session.userId;
-  if (!request.session.userId){
-      response.render("home");
+  if (!request.session.userId) {
+    response.render("home");
+  } else {
+    try {
+      const loggedInUsers = await User.find({ onlineStatus: true });
+      response.render("home", { loggedInUsers, isAuthenticated });
+    } catch (error) {
+      console.error("Error fetching logged-in users:", error);
+      response.status(500).send("Error fetching logged-in users");
+    }
   }
-  else{
-  try {
-    const loggedInUsers = await User.find({ onlineStatus: true });
-    response.render("home", { loggedInUsers, isAuthenticated });
-  } catch (error) {
-    console.error("Error fetching logged-in users:", error);
-    response.status(500).send("Error fetching logged-in users");
-  }
-  }
-
 });
 
 app.get("/signup", async (request, response) => {
@@ -240,27 +250,28 @@ app.get("/dashboard", async (request, response) => {
     }
   }
 
-    if (request.session.userId && request.session.role !== "admin") {
-      try {
-        permission = false;
+  if (request.session.userId && request.session.role !== "admin") {
+    try {
+      permission = false;
 
-        return response.render("adminDashboard", {
-          isAuthenticated: true,
-          permission,
-          username: request.session.username, 
-        });
-      } catch (error) {
-        console.error("Error fetching users for admin dashboard:", error);
-        return response
-          .status(500)
-          .send("Error fetching users for admin dashboard");
-      }
+      return response.render("adminDashboard", {
+        isAuthenticated: true,
+        permission,
+        username: request.session.username,
+      });
+    } catch (error) {
+      console.error("Error fetching users for admin dashboard:", error);
+      return response
+        .status(500)
+        .send("Error fetching users for admin dashboard");
     }
+  }
 
   // If user is authenticated but not an admin
   return response.render("adminDashboard", {
     isAuthenticated: true,
-    message: "You do not have the necessary permissions to view this page.",
+    message:
+      "You do not have the necessary permissions to view this page.",
   });
 });
 
@@ -290,7 +301,9 @@ app.get("/profile/:username", async (request, response) => {
     });
   } catch (error) {
     console.error("Error fetching user profile:", error);
-    response.status(500).send("An error occurred while fetching the profile.");
+    response
+      .status(500)
+      .send("An error occurred while fetching the profile.");
   }
   console.log(request.session);
 });
