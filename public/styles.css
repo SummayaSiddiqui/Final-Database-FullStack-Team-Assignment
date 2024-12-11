@@ -1333,6 +1333,10 @@ textarea {
   text-align: left;
 }
 
-/* .message:nth-child(odd) {
-  background-color: #f0f0f0;
-} */
+.online-users {
+  padding: 10px;
+  margin: 10px;
+  color: #613060;
+  border: 1px solid #613060;
+  font-weight: bold;
+}

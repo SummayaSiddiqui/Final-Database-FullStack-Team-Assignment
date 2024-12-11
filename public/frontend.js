@@ -1,61 +1,126 @@
 const webSocket = new WebSocket("ws://localhost:3000/ws");
 const messagesDiv = document.getElementById("messages");
+const onlineUsersDiv = document.getElementById("user-list"); // Assuming you have a div for online users
 
-webSocket.addEventListener("open", (event) => {
+// WebSocket connection established
+webSocket.addEventListener("open", () => {
   console.log("WebSocket connection established");
+  displayNotification("Connected to chat server.");
 });
 
 // Listen for messages
 webSocket.addEventListener("message", (event) => {
   try {
     const data = JSON.parse(event.data);
-    if (data.type === "userJoined") {
-      onUserConnected(data.username);
-    } else if (data.type === "userLeft") {
-      onUserDisconnected(data.username);
-    } else if (data.type === "message") {
-      displayMessage(data);
+
+    switch (data.type) {
+      case "userJoined":
+        onUserConnected(data.username);
+        updateOnlineUsers(data.users); // Update online users if provided
+        break;
+
+      case "userLeft":
+        onUserDisconnected(data.username);
+        updateOnlineUsers(data.users); // Update online users if provided
+        break;
+
+      case "message":
+        displayMessage(data);
+        break;
+
+      case "onlineUsers":
+        updateOnlineUsers(data.users); // Handle the initial list of online users
+        break;
+
+      case "error":
+        console.error(`Server error: ${data.message}`);
+        displayNotification(`Error: ${data.message}`, true);
+        break;
+
+      default:
+        console.warn(`Unknown message type: ${data.type}`);
     }
   } catch (error) {
     console.error("Error parsing message:", error);
+    displayNotification("An error occurred while receiving data.", true);
   }
 });
 
 // Connection closed
-webSocket.addEventListener("close", (event) => {
+webSocket.addEventListener("close", () => {
   console.log("WebSocket connection closed");
+  displayNotification("Disconnected from chat server.", true);
 });
 
 // Connection error
 webSocket.addEventListener("error", (event) => {
   console.error("WebSocket error:", event);
+  displayNotification("A connection error occurred.", true);
 });
 
-/**
- * Handles updating the chat user list when a new user connects
- *
- * This function isn't necessary and should be deleted if unused. But it's left as a hint to how you might want
- * to handle users connecting
- *
- * @param {string} username The username of the user who joined the chat
- */
-
+// Handle user joining
 function onUserConnected(username) {
+  console.log(`User ${username} has joined the chat`);
   const messageElement = document.createElement("div");
   messageElement.classList.add("system-message");
-  messageElement.innerHTML = `** User <strong>${username}</strong> has joined the chat!**`;
+  messageElement.innerHTML = `<strong>${username}</strong> has joined the chat!`;
   messagesDiv.appendChild(messageElement);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
+// Handle user leaving
+function onUserDisconnected(username) {
+  console.log(`User ${username} has left the chat`);
+  const messageElement = document.createElement("div");
+  messageElement.classList.add("system-message");
+  messageElement.innerHTML = `<strong>${username}</strong> has left the chat.`;
+  messagesDiv.appendChild(messageElement);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+// Display a chat message
 function displayMessage(message) {
   const messageElement = document.createElement("div");
   messageElement.classList.add("message");
-  const time = new Date(message.timestamp).toLocaleTimeString(); // Adding time stamp
-  //   messageElement.innerHTML = `<strong>${message.sender} (${time})</strong>: ${message.content}`;
+
+  const time = new Date(message.timestamp).toLocaleTimeString();
   messageElement.innerHTML = `<strong>${message.sender} (${time})</strong><br>${message.content}`;
+
   messagesDiv.appendChild(messageElement);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
+
+// Update online users list
+function updateOnlineUsers(users) {
+  onlineUsersDiv.innerHTML = ""; // Clear the current list
+
+  if (users && users.length > 0) {
+    users.forEach((user) => {
+      const userElement = document.createElement("div");
+      userElement.textContent = user;
+      onlineUsersDiv.appendChild(userElement);
+    });
+    console.log(`Updated online users: ${users.join(", ")}`);
+  } else {
+    onlineUsersDiv.textContent = "No users online.";
+    console.log("No users currently online.");
+  }
+}
+
+// Display notifications to the user
+function displayNotification(message, isError = false) {
+  const notification = document.createElement("div");
+  notification.classList.add(
+    isError ? "error-notification" : "success-notification"
+  );
+  notification.textContent = message;
+
+  document.body.appendChild(notification);
+
+  // Remove notification after a few seconds
+  setTimeout(() => {
+    notification.remove();
+  }, 3000);
 }
 
 // Handle form submission
@@ -64,63 +129,19 @@ const messageInput = document.getElementById("message-input");
 
 chatForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const message = messageInput.value.trim();
-  if (message) {
+
+  const messageContent = messageInput.value.trim();
+
+  if (messageContent) {
     const messageData = {
       type: "message",
-      content: message,
+      content: messageContent,
       sender: currentUsername,
       timestamp: new Date().toISOString(),
     };
-    webSocket.send(JSON.stringify(messageData));
-    displayMessage(messageData);
-    messageInput.value = "";
+
+    webSocket.send(JSON.stringify(messageData)); // Send to server
+    displayMessage(messageData); // Display locally
+    messageInput.value = ""; // Clear input field
   }
 });
-
-/**
- * Handles updating the chat list when a user disconnects from the chat
- *
- * This function isn't necessary and should be deleted if unused. But it's left as a hint to how you might want
- * to handle users disconnecting
- *
- * @param {string} username The username of the user who left the chat
- */
-function onUserDisconnected(username) {
-  const messageElement = document.createElement("div");
-  messageElement.classList.add("system-message");
-  messageElement.innerHTML = `** User <strong>${username}</strong> has left the chat **`;
-  messagesDiv.appendChild(messageElement);
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
-
-/**
- * Handles updating the chat when a new message is receieved
- *
- * This function isn't necessary and should be deleted if unused. But it's left as a hint to how you might want
- * to handle new messages arriving
- *
- * @param {string} username The username of the user who sent the message
- * @param {string} timestamp When the message was sent
- * @param {string} message The message that was sent
- */
-function onNewMessageReceived(username, timestamp, message) {}
-
-/**
- * Handles sending a message to the server when the user sends a new message
- * @param {FormDataEvent} event The form submission event containing the message information
- */
-function onMessageSent(event) {
-  //Note: This code might not work, but it's left as a bit of a hint as to what you might want to do when handling
-  //      new messages. It assumes that user's are sending messages using a <form> with a <button> clicked to
-  //      do the submissions.
-  event.preventDefault();
-  const formData = new FormData(event.target, event.submitter);
-  const inputs = event.target.querySelectorAll("input");
-}
-
-//Note: This code might not work, but it's left as a bit of a hint as to what you might want to do trying to setup
-//      adding new messages
-document
-  .getElementById("chat-form")
-  .addEventListener("submit", onMessageSent);

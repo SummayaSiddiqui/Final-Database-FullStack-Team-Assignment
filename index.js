@@ -157,94 +157,84 @@ insertSampleData();
 let connectedClients = [];
 
 app.ws("/ws", (socket, request) => {
-  connectedClients.push(socket);
-  // Send a message to all clients that a new user has joined
-  const username = request.session.username; // Assuming you have session middleware set up
-  const joinMessage = JSON.stringify({
-    type: "userJoined",
-    username: username,
-  });
+  const username = request.session.username;
+  connectedClients.push({ socket, username });
 
-  connectedClients.forEach((client) => {
-    if (client.readyState === 1) {
-      client.send(joinMessage);
-    }
-  });
+  // Send the list of online users to the new client
+  sendOnlineUsersList(socket, username);
+  broadcastMessage(
+    JSON.stringify({ type: "userJoined", username }),
+    socket
+  );
 
   socket.on("message", (rawMessage) => {
-    const parsedMessage = JSON.parse(rawMessage);
-    parsedMessage.timestamp = new Date(parsedMessage.timestamp); // Adding current timestamp
-    connectedClients.forEach((client) => {
-      if (client !== socket && client.readyState === 1) {
-        client.send(JSON.stringify(parsedMessage));
-      }
-    });
-  });
-
-  // Send a message to all clients that a user has left
-  const leaveMessage = JSON.stringify({
-    type: "userLeft",
-    username: username,
-  });
-
-  connectedClients.forEach((client) => {
-    if (client.socket.readyState === 1) {
-      client.socket.send(leaveMessage);
+    try {
+      const parsedMessage = JSON.parse(rawMessage);
+      parsedMessage.timestamp = new Date();
+      broadcastMessage(JSON.stringify(parsedMessage), socket);
+    } catch (error) {
+      console.error("Error processing message:", error);
+      socket.send(
+        JSON.stringify({
+          type: "error",
+          message: "Invalid message format",
+        })
+      );
     }
   });
 
   socket.on("close", () => {
     connectedClients = connectedClients.filter(
-      (client) => client !== socket
+      (client) => client.socket !== socket
     );
+    const leaveMessage = JSON.stringify({ type: "userLeft", username });
+    broadcastMessage(leaveMessage);
+    updateOnlineUsersList();
+  });
+
+  socket.on("error", (error) => {
+    console.error("WebSocket error:", error);
   });
 });
 
-// app.ws("/ws", (socket, request) => {
-//   const username = request.session.username;
-//   connectedClients.push({ socket, username });
+function broadcastMessage(message, excludeSocket = null) {
+  connectedClients.forEach((client) => {
+    if (
+      client.socket !== excludeSocket &&
+      client.socket.readyState === 1
+    ) {
+      try {
+        client.socket.send(message);
+      } catch (error) {
+        console.error("Error sending message to client:", error);
+      }
+    }
+  });
+}
 
-//   // Send a message to all clients that a new user has joined
-//   const joinMessage = JSON.stringify({
-//     type: "userJoined",
-//     username: username,
-//   });
+function sendOnlineUsersList(socket, newUsername) {
+  const onlineUsers = connectedClients.map((client) => client.username);
+  try {
+    socket.send(
+      JSON.stringify({
+        type: "onlineUsers",
+        users: onlineUsers,
+        newUser: newUsername,
+      })
+    );
+  } catch (error) {
+    console.error("Error sending online users list:", error);
+  }
+}
 
-//   connectedClients.forEach((client) => {
-//     if (client.socket !== socket && client.socket.readyState === 1) {
-//       client.socket.send(joinMessage);
-//     }
-//   });
-
-//   socket.on("message", (rawMessage) => {
-//     const parsedMessage = JSON.parse(rawMessage);
-//     parsedMessage.timestamp = new Date(); // Adding current timestamp
-//     connectedClients.forEach((client) => {
-//       if (client.socket !== socket && client.socket.readyState === 1) {
-//         client.socket.send(JSON.stringify(parsedMessage));
-//       }
-//     });
-//   });
-
-//   socket.on("close", () => {
-//     connectedClients = connectedClients.filter(
-//       (client) => client.socket !== socket
-//     );
-
-//     // Send a message to all clients that a user has left
-//     const leaveMessage = JSON.stringify({
-//       type: "userLeft",
-//       username: username,
-//       timestamp: new Date(),
-//     });
-
-//     connectedClients.forEach((client) => {
-//       if (client.socket.readyState === 1) {
-//         client.socket.send(leaveMessage);
-//       }
-//     });
-//   });
-// });
+function updateOnlineUsersList() {
+  const onlineUsers = connectedClients.map((client) => client.username);
+  const updateMessage = JSON.stringify({
+    type: "onlineUsers",
+    users: onlineUsers,
+  });
+  broadcastMessage(updateMessage);
+}
 
 app.get("/", async (request, response) => {
   const isAuthenticated = request.session.userId;
