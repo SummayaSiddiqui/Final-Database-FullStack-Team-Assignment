@@ -158,7 +158,6 @@ let connectedClients = [];
 
 app.ws("/ws", (socket, request) => {
   connectedClients.push(socket);
-
   // Send a message to all clients that a new user has joined
   const username = request.session.username; // Assuming you have session middleware set up
   const joinMessage = JSON.stringify({
@@ -182,12 +181,70 @@ app.ws("/ws", (socket, request) => {
     });
   });
 
+  // Send a message to all clients that a user has left
+  const leaveMessage = JSON.stringify({
+    type: "userLeft",
+    username: username,
+  });
+
+  connectedClients.forEach((client) => {
+    if (client.socket.readyState === 1) {
+      client.socket.send(leaveMessage);
+    }
+  });
+
   socket.on("close", () => {
     connectedClients = connectedClients.filter(
       (client) => client !== socket
     );
   });
 });
+
+// app.ws("/ws", (socket, request) => {
+//   const username = request.session.username;
+//   connectedClients.push({ socket, username });
+
+//   // Send a message to all clients that a new user has joined
+//   const joinMessage = JSON.stringify({
+//     type: "userJoined",
+//     username: username,
+//   });
+
+//   connectedClients.forEach((client) => {
+//     if (client.socket !== socket && client.socket.readyState === 1) {
+//       client.socket.send(joinMessage);
+//     }
+//   });
+
+//   socket.on("message", (rawMessage) => {
+//     const parsedMessage = JSON.parse(rawMessage);
+//     parsedMessage.timestamp = new Date(); // Adding current timestamp
+//     connectedClients.forEach((client) => {
+//       if (client.socket !== socket && client.socket.readyState === 1) {
+//         client.socket.send(JSON.stringify(parsedMessage));
+//       }
+//     });
+//   });
+
+//   socket.on("close", () => {
+//     connectedClients = connectedClients.filter(
+//       (client) => client.socket !== socket
+//     );
+
+//     // Send a message to all clients that a user has left
+//     const leaveMessage = JSON.stringify({
+//       type: "userLeft",
+//       username: username,
+//       timestamp: new Date(),
+//     });
+
+//     connectedClients.forEach((client) => {
+//       if (client.socket.readyState === 1) {
+//         client.socket.send(leaveMessage);
+//       }
+//     });
+//   });
+// });
 
 app.get("/", async (request, response) => {
   const isAuthenticated = request.session.userId;

@@ -1314,6 +1314,7 @@ textarea {
   font-style: italic;
   text-align: left;
   margin: 10px 0;
+  background-color: #ddd7e2;
 }
 
 .message {

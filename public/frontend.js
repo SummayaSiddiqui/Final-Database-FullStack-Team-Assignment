@@ -11,6 +11,8 @@ webSocket.addEventListener("message", (event) => {
     const data = JSON.parse(event.data);
     if (data.type === "userJoined") {
       onUserConnected(data.username);
+    } else if (data.type === "userLeft") {
+      onUserDisconnected(data.username);
     } else if (data.type === "message") {
       displayMessage(data);
     }
@@ -84,7 +86,13 @@ chatForm.addEventListener("submit", (e) => {
  *
  * @param {string} username The username of the user who left the chat
  */
-function onUserDisconnected(username) {}
+function onUserDisconnected(username) {
+  const messageElement = document.createElement("div");
+  messageElement.classList.add("system-message");
+  messageElement.innerHTML = `** User <strong>${username}</strong> has left the chat **`;
+  messagesDiv.appendChild(messageElement);
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+}
 
 /**
  * Handles updating the chat when a new message is receieved
