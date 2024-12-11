@@ -115,7 +115,8 @@ async function insertSampleData() {
         role: userRole.name,
         banned: false,
         onlineStatus: true,
-        about: "I am a regular user here to explore and connect with others.",
+        about:
+          "I am a regular user here to explore and connect with others.",
       }).save();
     }
 
@@ -173,6 +174,7 @@ app.ws("/ws", (socket, request) => {
 
   socket.on("message", (rawMessage) => {
     const parsedMessage = JSON.parse(rawMessage);
+    parsedMessage.timestamp = new Date(parsedMessage.timestamp); // Adding current timestamp
     connectedClients.forEach((client) => {
       if (client !== socket && client.readyState === 1) {
         client.send(JSON.stringify(parsedMessage));
@@ -370,7 +372,9 @@ app.post("/profile/:username", async (request, response) => {
         return response.status(404).send("User not found.");
       }
     } else {
-      return response.status(403).send("You can only update your own profile.");
+      return response
+        .status(403)
+        .send("You can only update your own profile.");
     }
   } catch (error) {
     console.error("Error updating profile:", error);

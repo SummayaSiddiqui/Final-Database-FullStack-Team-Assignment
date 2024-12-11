@@ -11,7 +11,7 @@ webSocket.addEventListener("message", (event) => {
     const data = JSON.parse(event.data);
     if (data.type === "userJoined") {
       onUserConnected(data.username);
-    } else {
+    } else if (data.type === "message") {
       displayMessage(data);
     }
   } catch (error) {
@@ -41,7 +41,7 @@ webSocket.addEventListener("error", (event) => {
 function onUserConnected(username) {
   const messageElement = document.createElement("div");
   messageElement.classList.add("system-message");
-  messageElement.textContent = `User ${username} has joined the chat!`;
+  messageElement.innerHTML = `** User <strong>${username}</strong> has joined the chat!**`;
   messagesDiv.appendChild(messageElement);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
@@ -49,7 +49,9 @@ function onUserConnected(username) {
 function displayMessage(message) {
   const messageElement = document.createElement("div");
   messageElement.classList.add("message");
-  messageElement.textContent = `${message.sender}: ${message.content}`;
+  const time = new Date(message.timestamp).toLocaleTimeString(); // Adding time stamp
+  //   messageElement.innerHTML = `<strong>${message.sender} (${time})</strong>: ${message.content}`;
+  messageElement.innerHTML = `<strong>${message.sender} (${time})</strong><br>${message.content}`;
   messagesDiv.appendChild(messageElement);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
@@ -62,9 +64,14 @@ chatForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const message = messageInput.value.trim();
   if (message) {
-    socket.send(
-      JSON.stringify({ content: message, sender: "<%= username %>" })
-    );
+    const messageData = {
+      type: "message",
+      content: message,
+      sender: currentUsername,
+      timestamp: new Date().toISOString(),
+    };
+    webSocket.send(JSON.stringify(messageData));
+    displayMessage(messageData);
     messageInput.value = "";
   }
 });
