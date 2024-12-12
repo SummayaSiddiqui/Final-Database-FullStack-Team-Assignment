@@ -81,7 +81,7 @@ const USERS = [
 
 async function getAllMessages() {
   try {
-    const messages = await Message.find().sort({ timestamp: 1 }).limit(100); 
+    const messages = await Message.find().sort({ timestamp: 1 }).limit(100);
     return messages;
   } catch (error) {
     console.error("Error retrieving messages:", error);
@@ -154,8 +154,7 @@ async function insertSampleData() {
         role: userRole.name,
         banned: false,
         onlineStatus: false,
-        about:
-          "I am a regular user here to explore and connect with others.",
+        about: "I am a regular user here to explore and connect with others.",
       }).save();
     }
 
@@ -183,9 +182,7 @@ async function insertSampleData() {
       await Message.insertMany(MESSAGES);
       console.log("Sample messages inserted");
     } else {
-      console.log(
-        "Messages already exist; skipping sample message insertion."
-      );
+      console.log("Messages already exist; skipping sample message insertion.");
     }
   } catch (error) {
     console.error("Error inserting sample data:", error);
@@ -204,10 +201,7 @@ app.ws("/ws", (socket, request) => {
 
   // Send the list of online users to the new client
   sendOnlineUsersList(socket, username);
-  broadcastMessage(
-    JSON.stringify({ type: "userJoined", username }),
-    socket
-  );
+  broadcastMessage(JSON.stringify({ type: "userJoined", username }), socket);
 
   socket.on("message", async (rawMessage) => {
     try {
@@ -248,10 +242,7 @@ app.ws("/ws", (socket, request) => {
 
 function broadcastMessage(message, excludeSocket = null) {
   connectedClients.forEach((client) => {
-    if (
-      client.socket !== excludeSocket &&
-      client.socket.readyState === 1
-    ) {
+    if (client.socket !== excludeSocket && client.socket.readyState === 1) {
       try {
         client.socket.send(message);
       } catch (error) {
@@ -316,10 +307,8 @@ app.get("/", async (request, response) => {
 });
 
 app.get("/bannedUser", async (request, response) => {
-response.render("bannedUser");
+  return response.render("bannedUser");
 });
-
-
 
 app.get("/signup", async (request, response) => {
   return response.render("signup", { errorMessage: null });
@@ -422,8 +411,7 @@ app.get("/dashboard", async (request, response) => {
   // If user is authenticated but not an admin
   return response.render("adminDashboard", {
     isAuthenticated: true,
-    message:
-      "You do not have the necessary permissions to view this page.",
+    message: "You do not have the necessary permissions to view this page.",
   });
 });
 
@@ -459,9 +447,7 @@ app.get("/profile/:username", async (request, response) => {
     });
   } catch (error) {
     console.error("Error fetching user profile:", error);
-    response
-      .status(500)
-      .send("An error occurred while fetching the profile.");
+    response.status(500).send("An error occurred while fetching the profile.");
   }
   console.log(request.session);
 });
@@ -489,9 +475,7 @@ app.post("/profile/:username", async (request, response) => {
         return response.status(404).send("User not found.");
       }
     } else {
-      return response
-        .status(403)
-        .send("You can only update your own profile.");
+      return response.status(403).send("You can only update your own profile.");
     }
   } catch (error) {
     console.error("Error updating profile:", error);
@@ -535,16 +519,16 @@ app.post("/login", async (request, response) => {
     request.session.role = user.role;
     request.session.loginTimestamp = Date.now(); // Store current timestamp
     request.session.banned = user.banned;
-    if (user.banned){
-      response.redirect("/banned user");
-
+    if (user.banned) {
+      response.redirect("/bannedUser");
     }
-
-    // Redirect to the dashboard or home page
-    if (user.role === "admin") {
-      response.redirect("/dashboard");
-    } else {
-      response.redirect("/chat");
+    else{
+      // Redirect to the dashboard or home page
+      if (user.role === "admin") {
+        response.redirect("/dashboard");
+      } else {
+        response.redirect("/chat");
+      }
     }
     console.log(request.session);
   } catch (error) {
@@ -579,7 +563,6 @@ app.get("/chat", async (request, response) => {
     allMessages: messagesArray, // Pass all messages as well if needed
   });
 });
-
 
 app.post("/chat", async (request, response) => {});
 
