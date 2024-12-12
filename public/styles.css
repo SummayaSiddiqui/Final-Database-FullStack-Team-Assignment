@@ -24,7 +24,7 @@ main {
   flex-direction: column;
   /* align-items: center; */
   flex-grow: 1;
-  min-height: 100%;
+  /* min-height: 100vh; */
 }
 .profile-main {
   display: flex;
@@ -75,36 +75,6 @@ main {
 }
 
 @media (max-width: 768px) and (min-width: 500px) {
-  .image-section {
-    position: relative;
-    display: inline-block;
-  }
-
-  .chat-bubble {
-    width: 550px;
-    height: auto;
-    position: absolute;
-    top: 20px;
-    left: 0;
-    z-index: 0;
-    opacity: 0.5;
-  }
-
-  .welcome-image {
-    width: 100%;
-    height: auto;
-    position: absolute;
-    top: 0px;
-    left: 0;
-    z-index: 1;
-    border-radius: 60px;
-  }
-  .text-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center !important;
-  }
-
   .text-section h1 {
     font-size: 36px;
     color: #613060;
@@ -118,7 +88,7 @@ main {
   }
 
   .welcome-section-home {
-    padding-top: 20px;
+    padding-top: 10px;
     display: flex;
     flex-direction: column-reverse !important; /* Text and image side by side */
     align-items: center;
@@ -139,7 +109,7 @@ main {
 }
 
 @media (max-width: 500px) {
-  .image-section {
+  /* .image-section {
     position: relative;
     display: inline-block;
   }
@@ -151,7 +121,7 @@ main {
   .welcome-image {
     width: 70% !important;
     max-width: 270px !important;
-  }
+  } */
 
   .text-section {
     display: flex;
@@ -174,6 +144,7 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     border-radius: 8px;
+    min-height: 100vh;
   }
   table {
     font-size: small;
@@ -302,15 +273,16 @@ main {
 
 /* Welcome container */
 .welcome-container {
-  display: flex; /* Side-by-side layout */
-  flex-wrap: wrap; /* Ensures responsive layout */
-  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: start;
   justify-content: center;
   gap: 30px;
   max-width: 1100px;
   margin: 50px auto;
   padding: 20px;
   border-radius: 8px;
+  min-height: 100vh;
 }
 
 /* Welcome message styling */
@@ -503,11 +475,27 @@ main {
 }
 
 .welcome-image {
-  width: 100%;
+  /* width: 100%;
   height: 100%;
   max-width: 600px;
   margin-top: 20px;
-  border-radius: 10px;
+  border-radius: 10px; */
+
+  /* position: relative;
+    width: 550px;
+    height: auto;
+    padding: 20px;
+    border-radius: 30px;
+    margin-top: 50px;
+    margin-left: 280px;
+    z-index: 1; */
+
+  position: absolute;
+  width: 550px;
+  height: auto;
+  padding: 20px;
+  border-radius: 30px;
+  z-index: 1;
 }
 
 .text-section {
@@ -539,10 +527,12 @@ main {
 }
 
 .welcome-section-home {
+  padding-top: 30px;
   display: flex;
   flex-direction: row; /* Text and image side by side */
   /* align-items: center; */
   width: 100%;
+  justify-content: space-evenly;
 }
 
 .cta-buttons {
@@ -601,6 +591,7 @@ main {
 }
 
 footer {
+  position: relative;
   width: 100%;
   background-color: #613060;
   color: white;
@@ -623,8 +614,8 @@ footer {
   flex-grow: 1;
   padding: 15px;
   overflow-y: auto;
-  background-color: #f9f9f9;
-  max-height: calc(
+  background: url("/images/homeBg.png") no-repeat center center;
+  min-height: calc(
     100vh - 180px
   ); /* Adjusted to leave space for the header and form */
 }
@@ -760,6 +751,7 @@ footer {
   max-width: 1200px;
   margin: 0 auto;
   border-radius: 8px;
+  min-height: 100vh;
 }
 
 .dashboard-header {
@@ -885,7 +877,7 @@ footer {
   text-decoration: none;
 }
 
-/* Success/Error Message Styling */
+/* Success/Error page Styling */
 .success,
 .error {
   padding: 15px;
@@ -1009,37 +1001,6 @@ footer {
   -moz-border-radius: 30px;
 }
 
-/*Right triangle, placed bottom left side slightly in*/
-.tri-right.border.btm-left-in:before {
-  content: " ";
-  position: absolute;
-  width: 0;
-  height: 0;
-  left: 30px;
-  right: auto;
-  top: auto;
-  bottom: -40px;
-  border: 20px solid;
-  border-color: #666 transparent transparent #666;
-}
-.tri-right.btm-left-in:after {
-  content: " ";
-  position: absolute;
-  width: 0;
-  height: 0;
-  left: 38px;
-  right: auto;
-  top: auto;
-  bottom: -20px;
-  border: 12px solid;
-  border-color: lightyellow transparent transparent lightyellow;
-}
-
-.image-section {
-  position: relative;
-  display: inline-block;
-}
-
 .chat-bubble {
   position: relative;
   width: 550px;
@@ -1120,6 +1081,7 @@ footer {
   flex-direction: row;
   justify-content: space-between;
   border-radius: 8px;
+  min-height: 100vh;
 }
 .welcome-section-chat {
   padding-top: 40px;
@@ -1309,28 +1271,18 @@ textarea {
   resize: none;
 }
 
-.system-message {
-  color: #613060;
-  font-style: italic;
-  text-align: left;
-  margin: 10px 0;
-  background-color: #ddd7e2;
-}
-
 .message {
-  margin: 5px 0;
+  background-color: rgb(255, 255, 255);
+  margin: 5px 0px;
   padding: 15px;
-  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-#messages {
-  height: 500px;
-  overflow-y: auto;
-  border: 1px solid #613060;
-  padding: 10px;
-  margin: 10px;
-  color: #613060;
-  text-align: left;
+.image-section {
+  position: relative;
+  display: inline-block;
+  align-self: center;
 }
 
 .online-users {
@@ -1339,4 +1291,18 @@ textarea {
   color: #613060;
   border: 1px solid #613060;
   font-weight: bold;
+}
+.chat-bubble {
+  width: 90%;
+  display: block;
+}
+
+.welcome-image {
+  position: absolute;
+  top: 30%;
+  left: 35%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  z-index: 2;
+  pointer-events: none;
 }
