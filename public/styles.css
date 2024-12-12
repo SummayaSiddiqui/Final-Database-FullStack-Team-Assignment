@@ -621,7 +621,7 @@ footer {
 /* Messages container */
 .messages {
   flex-grow: 1;
-  padding: 15px;
+  /* padding: 15px; */
   overflow-y: auto;
   background-color: #f9f9f9;
   max-height: calc(
@@ -1323,15 +1323,7 @@ textarea {
   background-color: #f0f0f0;
 }
 
-#messages {
-  height: 500px;
-  overflow-y: auto;
-  border: 1px solid #613060;
-  padding: 10px;
-  margin: 10px;
-  color: #613060;
-  text-align: left;
-}
+
 
 .online-users {
   padding: 10px;

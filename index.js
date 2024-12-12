@@ -81,7 +81,7 @@ const USERS = [
 
 async function getAllMessages() {
   try {
-    const messages = await Message.find().sort({ timestamp: 1 }).limit(100); // Get the most recent 100 messages
+    const messages = await Message.find().sort({ timestamp: 1 }).limit(100); 
     return messages;
   } catch (error) {
     console.error("Error retrieving messages:", error);
@@ -95,7 +95,7 @@ async function getMessagesBeforeLogin(userLoginTimestamp) {
     const messages = await Message.find({
       timestamp: { $lt: userLoginTimestamp },
     })
-      .sort({ timestamp: -1 }) // Sort in descending order based on timestamp (most recent first)
+      .sort({ timestamp: 1 }) // Sort in descending order based on timestamp (most recent first)
       .limit(100); // Limit to the most recent 100 messages before login
     return messages;
   } catch (error) {
