@@ -153,7 +153,7 @@ async function insertSampleData() {
         password: bcrypt.hashSync("user123", SALT_ROUNDS),
         role: userRole.name,
         banned: false,
-        onlineStatus: true,
+        onlineStatus: false,
         about:
           "I am a regular user here to explore and connect with others.",
       }).save();
@@ -314,6 +314,12 @@ app.get("/", async (request, response) => {
     }
   }
 });
+
+app.get("/bannedUser", async (request, response) => {
+response.render("bannedUser");
+});
+
+
 
 app.get("/signup", async (request, response) => {
   return response.render("signup", { errorMessage: null });
@@ -528,6 +534,11 @@ app.post("/login", async (request, response) => {
     request.session.username = user.username;
     request.session.role = user.role;
     request.session.loginTimestamp = Date.now(); // Store current timestamp
+    request.session.banned = user.banned;
+    if (user.banned){
+      response.redirect("/banned user");
+
+    }
 
     // Redirect to the dashboard or home page
     if (user.role === "admin") {

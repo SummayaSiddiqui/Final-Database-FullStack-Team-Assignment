@@ -1342,3 +1342,29 @@ textarea {
 .chat-content {
   padding: 10px;
 }
+
+
+/* Banned Page Styles */
+.banned-page {
+  max-width: 900px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.banned-section {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+}
+
+.text-section-banned h1{
+  color: #721c24;
+}
+
+.text-section-banned p{
+  color: #0b0b0b;
+}
