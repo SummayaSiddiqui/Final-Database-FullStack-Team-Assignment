@@ -170,10 +170,17 @@ app.ws("/ws", (socket, request) => {
     socket
   );
 
-  socket.on("message", (rawMessage) => {
+  socket.on("message", async (rawMessage) => {
     try {
       const parsedMessage = JSON.parse(rawMessage);
       parsedMessage.timestamp = new Date();
+
+      const newMessage = new Message({
+        content: parsedMessage.content,
+        sender: parsedMessage.sender,
+        timestamp: parsedMessage.timestamp,
+      });
+      await newMessage.save();
       broadcastMessage(JSON.stringify(parsedMessage), socket);
     } catch (error) {
       console.error("Error processing message:", error);

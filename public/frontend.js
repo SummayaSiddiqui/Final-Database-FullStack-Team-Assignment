@@ -34,6 +34,7 @@ webSocket.addEventListener("message", (event) => {
         break;
 
       case "recentMessages":
+        clearMessages();
         data.messages.forEach(displayMessage);
         break;
 
