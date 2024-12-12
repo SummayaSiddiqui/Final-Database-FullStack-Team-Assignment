@@ -38,7 +38,38 @@
         <h2>Welcome, <%= username %>!</h2>
         <div id="user-list"></div>
       </div>
+<% if (messagesBeforeLogin && messagesBeforeLogin.length > 0) { %>
+  <div class="messages-before-login">
+    <% messagesBeforeLogin.forEach(function(message) { %>
+      <div class="message">
+        <strong><%= message.sender %></strong>
+        <span class="timestamp"><%= new Date(message.timestamp).toLocaleTimeString() %></span>
+        <p><%= message.content %></p>
+      </div>
+    <% }); %>
+  </div>
+<% } else { %>
+  <p>No messages before login.</p>
+<% } %>
 
+<!-- After Login Messages -->
+<p class="downward-message">
+  <span class="arrow">&#8595;</span><span class="arrow">&#8595;</span> Messages After Login <span class="arrow">&#8595;</span><span class="arrow">&#8595;</span>
+</p>
+
+<% if (messagesAfterLogin && messagesAfterLogin.length > 0) { %>
+  <div class="messages-after-login">
+    <% messagesAfterLogin.forEach(function(message) { %>
+      <div class="message">
+        <strong><%= message.sender %></strong>
+        <span class="timestamp"><%= new Date(message.timestamp).toLocaleTimeString() %></span>
+        <p><%= message.content %></p>
+      </div>
+    <% }); %>
+  </div>
+<% } else { %>
+  <p>No messages after login.</p>
+<% } %>
       <div class="messages" id="messages"></div>
 
       <!-- Form at the bottom -->

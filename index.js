@@ -79,6 +79,45 @@ const USERS = [
   },
 ];
 
+async function getAllMessages() {
+  try {
+    const messages = await Message.find().sort({ timestamp: 1 }).limit(100); // Get the most recent 100 messages
+    return messages;
+  } catch (error) {
+    console.error("Error retrieving messages:", error);
+    throw error;
+  }
+}
+
+async function getMessagesBeforeLogin(userLoginTimestamp) {
+  try {
+    // Filter messages that were sent before the user's login time
+    const messages = await Message.find({
+      timestamp: { $lt: userLoginTimestamp },
+    })
+      .sort({ timestamp: -1 }) // Sort in descending order based on timestamp (most recent first)
+      .limit(100); // Limit to the most recent 100 messages before login
+    return messages;
+  } catch (error) {
+    console.error("Error retrieving messages before login:", error);
+    throw error;
+  }
+}
+async function getMessagesAfterLogin(userLoginTimestamp) {
+  try {
+    // Filter messages that were sent after the user's login time
+    const messages = await Message.find({
+      timestamp: { $gt: userLoginTimestamp },
+    })
+      .sort({ timestamp: 1 }) // Sort in ascending order based on timestamp (oldest first)
+      .limit(100); // Limit to the most recent 100 messages after login
+    return messages;
+  } catch (error) {
+    console.error("Error retrieving messages after login:", error);
+    throw error;
+  }
+}
+
 async function insertSampleData() {
   try {
     // roles
@@ -488,6 +527,7 @@ app.post("/login", async (request, response) => {
     request.session.userId = user._id; // Store user ID in the session
     request.session.username = user.username;
     request.session.role = user.role;
+    request.session.loginTimestamp = Date.now(); // Store current timestamp
 
     // Redirect to the dashboard or home page
     if (user.role === "admin") {
@@ -502,7 +542,16 @@ app.post("/login", async (request, response) => {
   }
 });
 
-app.get("/chat", (request, response) => {
+app.get("/chat", async (request, response) => {
+  // Fetch all messages
+  const messagesArray = await getAllMessages();
+  const userLoginTimestamp = request.session.loginTimestamp;
+
+  // Fetch messages before and after login
+  const messagesBeforeLogin = await getMessagesBeforeLogin(userLoginTimestamp);
+  const messagesAfterLogin = await getMessagesAfterLogin(userLoginTimestamp);
+
+  // If the user is not logged in, show a message
   if (!request.session.userId) {
     return response.render("chat", {
       isAuthenticated: false,
@@ -510,12 +559,16 @@ app.get("/chat", (request, response) => {
     });
   }
 
-  // If user is logged in, render chat with the username
+  // If the user is logged in, render chat with their username and messages
   response.render("chat", {
     isAuthenticated: true,
     username: request.session.username,
+    messagesBeforeLogin,
+    messagesAfterLogin,
+    allMessages: messagesArray, // Pass all messages as well if needed
   });
 });
+
 
 app.post("/chat", async (request, response) => {});
 
