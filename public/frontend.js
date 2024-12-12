@@ -6,6 +6,7 @@ const onlineUsersDiv = document.getElementById("user-list"); // Assuming you hav
 webSocket.addEventListener("open", () => {
   console.log("WebSocket connection established");
   displayNotification("Connected to chat server.");
+  clearMessages();
 });
 
 // Listen for messages
@@ -30,6 +31,10 @@ webSocket.addEventListener("message", (event) => {
 
       case "onlineUsers":
         updateOnlineUsers(data.users); // Handle the initial list of online users
+        break;
+
+      case "recentMessages":
+        data.messages.forEach(displayMessage);
         break;
 
       case "error":
@@ -121,6 +126,10 @@ function displayNotification(message, isError = false) {
   setTimeout(() => {
     notification.remove();
   }, 3000);
+}
+
+function clearMessages() {
+  messagesDiv.innerHTML = "";
 }
 
 // Handle form submission

@@ -158,7 +158,10 @@ let connectedClients = [];
 
 app.ws("/ws", (socket, request) => {
   const username = request.session.username;
+  const loginTime = new Date();
   connectedClients.push({ socket, username });
+
+  sendRecentMessages(socket, loginTime);
 
   // Send the list of online users to the new client
   sendOnlineUsersList(socket, username);
@@ -234,6 +237,21 @@ function updateOnlineUsersList() {
     users: onlineUsers,
   });
   broadcastMessage(updateMessage);
+}
+
+async function sendRecentMessages(socket, loginTime) {
+  try {
+    const recentMessages = await Message.find({
+      timestamp: { $gte: loginTime },
+    })
+      .sort({ timestamp: 1 })
+      .limit(50);
+    socket.send(
+      JSON.stringify({ type: "recentMessages", messages: recentMessages })
+    );
+  } catch (error) {
+    console.error("Error sending recent messages:", error);
+  }
 }
 
 app.get("/", async (request, response) => {
