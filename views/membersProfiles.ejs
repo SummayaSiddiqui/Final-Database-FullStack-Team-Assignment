@@ -1,27 +1,27 @@
 <%- include('partials/header') %>
 
 <% if (!isAuthenticated) { %>
-  <main>
-    <div class="chat-page">
+      <main>
+<div class="home-page">
+    <section class="welcome-section-home">
+      <div class="text-section">
+         <h1>View Members Profiles</h1>
+      <p>
+        Please login to view members profiles and experience real-time communication. Connect,
+          collaborate, and communicate seamlessly.
+      </p>
+          <div class="cta-buttons">
+            <a href="/signup" class="cta-button-1">Sign Up</a>
+            <a href="/login" class="cta-button-2">Log In</a>
+          </div>
+      </div>
+
       <div class="image-section">
         <img src="/images/chatBubbleGreen.png" alt="green chat bubble" class="chat-bubble">
         <img src="/images/homePic.jpg" alt="People using laptops" class="welcome-image">
       </div>
-    
-      <div class="text-chat-section">
-        <h1>View Members Profiles</h1>
-        <p>
-          Experience seamless real-time communication with our Live Chat feature. 
-          Connect, collaborate, and communicate effortlessly with others. 
-          Log in or sign up now to start your journey!
-        </p>
-        <div class="cta-buttons">
-          <a href="/signup" class="cta-button-1">Sign Up</a>
-          <a href="/login" class="cta-button-2">Log In</a>
-        </div>
-      </div>
-    </div>
-  </main>
+    </section>
+  </div></main>
 <% } else { %>
   <main>
     <div class="admin-dashboard-container">

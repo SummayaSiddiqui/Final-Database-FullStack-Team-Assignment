@@ -1,34 +1,30 @@
 <%- include('partials/header') %> <% if (!isAuthenticated) { %>
-<div class="chat-page">
-    <div class="image-section">
-      <img
-        src="/images/chatBubbleGreen.png"
-        alt="green chat bubble"
-        class="chat-bubble"
-      >
-      <img
-        src="/images/homePic.jpg"
-        alt="People using laptops"
-        class="welcome-image"
-      />
-    </div>
-     <div class="text-chat-section">
-      <h1>Join Live Chat</h1>
+      <main>
+<div class="home-page">
+    <section class="welcome-section-home">
+      <div class="text-section">
+         <h1>Join Live Chat</h1>
       <p>
         Experience seamless real-time communication with our Live Chat
         feature. Connect, collaborate, and communicate effortlessly with
         others. Log in or sign up now to start your journey!
       </p>
-      <div class="cta-buttons">
-        <a href="/signup" class="cta-button-1">Sign Up</a>
-        <a href="/login" class="cta-button-2">Log In</a>
+          <div class="cta-buttons">
+            <a href="/signup" class="cta-button-1">Sign Up</a>
+            <a href="/login" class="cta-button-2">Log In</a>
+          </div>
       </div>
-    </div>
-    
-  
-</div>
+
+      <div class="image-section">
+        <img src="/images/chatBubbleGreen.png" alt="green chat bubble" class="chat-bubble">
+        <img src="/images/homePic.jpg" alt="People using laptops" class="welcome-image">
+      </div>
+    </section>
+  </div></main>
+
 
     <% } else { %>
+      <div class="chat-content"> 
     <div class="chat-container">
       <div id="user-list" class="online-users">
         <!-- Online users will be dynamically populated here -->
@@ -80,7 +76,7 @@
           autocomplete="off" />
         <button type="submit">Send</button>
       </form>
-    </div>
+    </div></div>
     <script>
       const currentUsername = "<%= username %>";
     </script>
