@@ -10,35 +10,88 @@ webSocket.addEventListener("open", () => {
 });
 
 // Listen for messages
-webSocket.addEventListener("message", (event) => {
+webSocket.addEventListener("message", async (event) => {
   try {
-    const data = JSON.parse(event.data);
+    const data = await JSON.parse(event.data);
 
     switch (data.type) {
       case "userJoined":
+        console.log(
+          "userJoined Data.type switch statement, and this is the data:",
+          data
+        );
         onUserConnected(data.username);
-        updateOnlineUsers(data.users); // Update online users if provided
+
+        // Check if users array is valid before updating
+        if (Array.isArray(data.users)) {
+          const usernames = data.users.map((client) => client.username);
+          console.log(usernames);
+          updateOnlineUsers(usernames);
+        } else {
+          console.warn(
+            "Missing or invalid users array in userJoined event:",
+            data
+          );
+        }
         break;
 
       case "userLeft":
+        console.log(
+          "userLeft Data.type switch statement, and this is the data:",
+          data
+        );
         onUserDisconnected(data.username);
-        updateOnlineUsers(data.users); // Update online users if provided
+
+        // Check if users array is valid before updating
+        if (Array.isArray(data.users)) {
+          const usernames = data.users.map((client) => client.username);
+          console.log(usernames);
+          updateOnlineUsers(usernames);
+        } else {
+          console.warn(
+            "Missing or invalid users array in userLeft event:",
+            data
+          );
+        }
         break;
 
       case "message":
+        console.log(
+          "message Data.type switch statement, and this is the data:",
+          data
+        );
         displayMessage(data);
         break;
 
       case "onlineUsers":
-        updateOnlineUsers(data.users); // Handle the initial list of online users
+        console.log(
+          "onlineUsers Data.type switch statement, and this is the data:",
+          data
+        );
+
+        // Validate the users array
+        if (Array.isArray(data.users)) {
+          updateOnlineUsers(data.users); // Handle the initial list of online users
+        } else {
+          console.error(
+            "Invalid or missing users array in onlineUsers event:",
+            data
+          );
+          updateOnlineUsers([]); // Clear the online users list if the data is invalid
+        }
         break;
 
       case "recentMessages":
+        console.log(
+          "recentMessages Data.type switch statement, and this is the data:",
+          data
+        );
         clearMessages();
         data.messages.forEach(displayMessage);
         break;
 
       case "error":
+        console.log(data);
         console.error(`Server error: ${data.message}`);
         displayNotification(`Error: ${data.message}`, true);
         break;
@@ -51,7 +104,6 @@ webSocket.addEventListener("message", (event) => {
     displayNotification("An error occurred while receiving data.", true);
   }
 });
-
 // Connection closed
 webSocket.addEventListener("close", () => {
   console.log("WebSocket connection closed");
@@ -98,35 +150,33 @@ function displayMessage(message) {
 
 // Update online users list
 function updateOnlineUsers(users) {
-  onlineUsersDiv.innerHTML = ""; // Clear the current list
+  console.log("Updating online users with:", users);
 
-  if (users && users.length > 0) {
-    users.forEach((user) => {
-      const userElement = document.createElement("div");
-      userElement.textContent = user;
-      onlineUsersDiv.appendChild(userElement);
-    });
-    console.log(`Updated online users: ${users.join(", ")}`);
-  } else {
+  // Check if users is a valid array
+  if (!Array.isArray(users) || users.length === 0) {
     onlineUsersDiv.textContent = "No users online.";
     console.log("No users currently online.");
+    return;
   }
-}
 
+  // Remove duplicate users
+  const uniqueUsers = [...new Set(users)];
+
+  // Clear the current list
+  onlineUsersDiv.innerHTML = "";
+
+  // Populate the users list with unique entries
+  uniqueUsers.forEach((user) => {
+    const userElement = document.createElement("div");
+    userElement.textContent = user;
+    onlineUsersDiv.appendChild(userElement);
+  });
+
+  console.log(`Updated online users: ${uniqueUsers.join(", ")}`);
+}
 // Display notifications to the user
 function displayNotification(message, isError = false) {
-  const notification = document.createElement("div");
-  notification.classList.add(
-    isError ? "error-notification" : "success-notification"
-  );
-  notification.textContent = message;
-
-  document.body.appendChild(notification);
-
-  // Remove notification after a few seconds
-  setTimeout(() => {
-    notification.remove();
-  }, 3000);
+  console.log(message);
 }
 
 function clearMessages() {
