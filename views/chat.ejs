@@ -39,7 +39,12 @@
     <% messagesBeforeLogin.forEach(function(message) { %>
       <div class="message">
         <strong><%= message.sender %></strong>
-        <span class="timestamp"><%= new Date(message.timestamp).toLocaleTimeString() %></span>
+<span class="timestamp">
+  <%= new Date(message.timestamp).toLocaleString('en-US', { 
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', 
+        hour: 'numeric', minute: 'numeric', second: 'numeric' 
+    }) %>
+</span>
         <p><%= message.content %></p>
       </div>
     <% }); %>
@@ -58,7 +63,12 @@
     <% messagesAfterLogin.forEach(function(message) { %>
       <div class="message">
         <strong><%= message.sender %></strong>
-        <span class="timestamp"><%= new Date(message.timestamp).toLocaleTimeString() %></span>
+<span class="timestamp">
+  <%= new Date(message.timestamp).toLocaleString('en-US', { 
+        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', 
+        hour: 'numeric', minute: 'numeric', second: 'numeric' 
+    }) %>
+</span>
         <p><%= message.content %></p>
       </div>
     <% }); %>

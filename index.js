@@ -553,6 +553,7 @@ app.get("/chat", async (request, response) => {
   // Fetch messages before and after login
   const messagesBeforeLogin = await getMessagesBeforeLogin(userLoginTimestamp);
   const messagesAfterLogin = await getMessagesAfterLogin(userLoginTimestamp);
+ console.log(messagesBeforeLogin);
 
   // If the user is not logged in, show a message
   if (!request.session.userId) {

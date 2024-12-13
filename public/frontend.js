@@ -140,10 +140,16 @@ function onUserDisconnected(username) {
 function displayMessage(message) {
   const messageElement = document.createElement("div");
   messageElement.classList.add("message");
-
-  const time = new Date(message.timestamp).toLocaleTimeString();
-  messageElement.innerHTML = `<strong>${message.sender} (${time})</strong><br>${message.content}`;
-
+ 
+  // Format the date and time
+  const dateObj = new Date(message.timestamp);
+  const date = dateObj.toLocaleDateString(); // Gets the date in local format
+  const time = dateObj.toLocaleTimeString(); // Gets the time in local format
+  console.log(dateObj)
+ 
+  // Update the message content to include the date
+  messageElement.innerHTML = `<strong>${message.sender} (${date} ${time})</strong><br>${message.content}`;
+ 
   messagesDiv.appendChild(messageElement);
   messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
