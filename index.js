@@ -201,7 +201,10 @@ app.ws("/ws", (socket, request) => {
 
   // Send the list of online users to the new client
   sendOnlineUsersList(socket, username);
-  broadcastMessage(JSON.stringify({ type: "userJoined", username, users: connectedClients }), socket);
+  broadcastMessage(
+    JSON.stringify({ type: "userJoined", username, users: connectedClients }),
+    socket
+  );
 
   socket.on("message", async (rawMessage) => {
     try {
@@ -230,7 +233,11 @@ app.ws("/ws", (socket, request) => {
     connectedClients = connectedClients.filter(
       (client) => client.socket !== socket
     );
-    const leaveMessage = JSON.stringify({ type: "userLeft", username, users: connectedClients});
+    const leaveMessage = JSON.stringify({
+      type: "userLeft",
+      username,
+      users: connectedClients,
+    });
     broadcastMessage(leaveMessage);
     updateOnlineUsersList();
   });
@@ -315,7 +322,8 @@ app.get("/", async (request, response) => {
 });
 
 app.get("/bannedUser", async (request, response) => {
-  return response.render("bannedUser");
+  const isAuthenticated = request.session.userId;
+  return response.render("bannedUser", {isAuthenticated});
 });
 
 app.get("/signup", async (request, response) => {
@@ -353,12 +361,14 @@ app.post("/signup", async (request, response) => {
 
 app.get("/membersProfiles", async (request, response) => {
   const isAuthenticated = request.session.userId;
+  const banned = request.session.banned;
+  console.log("banned:", banned);
   if (!isAuthenticated) {
     response.render("membersProfiles", { isAuthenticated });
   } else {
     try {
       const users = await User.find();
-      response.render("membersProfiles", { isAuthenticated, users });
+      response.render("membersProfiles", { isAuthenticated, users, banned });
     } catch (error) {
       console.log(error);
     }
@@ -425,6 +435,8 @@ app.get("/dashboard", async (request, response) => {
 
 app.get("/profile/:username", async (request, response) => {
   const { userId, username, role } = request.session;
+  const banned = request.session.banned;
+  console.log("banned:", banned);
   if (!request.session.userId) {
     return response.render("profile", {
       isAuthenticated: false,
@@ -452,6 +464,7 @@ app.get("/profile/:username", async (request, response) => {
       param,
       role,
       about,
+      banned,
     });
   } catch (error) {
     console.error("Error fetching user profile:", error);
@@ -529,8 +542,7 @@ app.post("/login", async (request, response) => {
     request.session.banned = user.banned;
     if (user.banned) {
       response.redirect("/bannedUser");
-    }
-    else{
+    } else {
       // Redirect to the dashboard or home page
       if (user.role === "admin") {
         response.redirect("/dashboard");
@@ -546,6 +558,8 @@ app.post("/login", async (request, response) => {
 });
 
 app.get("/chat", async (request, response) => {
+  const banned = request.session.banned;
+  console.log("banned:", banned);
   // Fetch all messages
   const messagesArray = await getAllMessages();
   const userLoginTimestamp = request.session.loginTimestamp;
@@ -553,7 +567,7 @@ app.get("/chat", async (request, response) => {
   // Fetch messages before and after login
   const messagesBeforeLogin = await getMessagesBeforeLogin(userLoginTimestamp);
   const messagesAfterLogin = await getMessagesAfterLogin(userLoginTimestamp);
- console.log(messagesBeforeLogin);
+  console.log(messagesBeforeLogin);
 
   // If the user is not logged in, show a message
   if (!request.session.userId) {
@@ -569,11 +583,10 @@ app.get("/chat", async (request, response) => {
     username: request.session.username,
     messagesBeforeLogin,
     messagesAfterLogin,
-    allMessages: messagesArray, // Pass all messages as well if needed
+    allMessages: messagesArray,
+    banned, // Pass all messages as well if needed
   });
 });
-
-app.post("/chat", async (request, response) => {});
 
 app.get("/logout", (request, response) => {
   return response.render("logout");
@@ -594,11 +607,27 @@ app.post("/logout", (request, response) => {
 
 app.get("/ban/:username", (request, response) => {
   const username = request.params.username;
+  const banned = request.session.banned;
+  const admin = request.session.role === "admin" ? true : false;
+  console.log("banned:", banned);
+  console.log("admin:", admin);
+  if (!admin || banned) {
+    console.log("you are not authorized to vie this page");
+    return response.send(401);
+  }
   return response.render("ban", { username });
 });
 
 app.post("/ban/:username", async (request, response) => {
   const username = request.params.username;
+  const banned = request.session.banned;
+  const admin = request.session.role === "admin" ? true : false;
+  console.log("banned:", banned);
+  console.log("admin:", admin);
+  if (!admin || banned) {
+    console.log("you are not authorized to vie this page");
+    return response.send(401);
+  }
 
   try {
     // Locate user and update banned status
@@ -631,11 +660,27 @@ app.post("/ban/:username", async (request, response) => {
 
 app.get("/unban/:username", (request, response) => {
   const username = request.params.username;
+  const banned = request.session.banned;
+  const admin = request.session.role === "admin" ? true : false;
+  console.log("banned:", banned);
+  console.log("admin:", admin);
+  if (!admin || banned) {
+    console.log("you are not authorized to view this page");
+    return response.send(401);
+  }
   return response.render("unban", { username });
 });
 
 app.post("/unban/:username", async (request, response) => {
   const username = request.params.username;
+  const banned = request.session.banned;
+  const admin = request.session.role === "admin" ? true : false;
+  console.log("banned:", banned);
+  console.log("admin:", admin);
+  if (!admin || banned) {
+    console.log("you are not authorized to vie this page");
+    return response.send(401);
+  }
 
   try {
     // Locate user and update banned status
@@ -668,11 +713,27 @@ app.post("/unban/:username", async (request, response) => {
 
 app.get("/remove/:username", (request, response) => {
   const username = request.params.username;
-  return response.render("remove", { username });
+  const banned = request.session.banned;
+  const admin = request.session.role === "admin" ? true : false;
+  console.log("banned:", banned);
+  console.log("admin:", admin);
+  if (!admin || banned) {
+    console.log("you are not authorized to vie this page");
+    return response.send(401);
+  }
+  return response.render("remove", { username, admin, banned });
 });
 
 app.post("/remove/:username", async (request, response) => {
   const username = request.params.username;
+  const banned = request.session.banned;
+  const admin = request.session.role === "admin" ? true : false;
+  console.log("banned:", banned);
+  console.log("admin:", admin);
+  if (!admin || banned) {
+    console.log("you are not authorized to vie this page");
+    return response.send(401);
+  }
 
   try {
     // Locate user to delete
@@ -706,4 +767,3 @@ mongoose
     )
   )
   .catch((err) => console.error("MongoDB connection error:", err));
-
