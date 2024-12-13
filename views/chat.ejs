@@ -24,6 +24,27 @@
 
 
     <% } else { %>
+      <% if (banned) {%>
+              <main>
+<div class="home-page">
+    <section class="welcome-section-home">
+      <div class="text-section text-section-banned">
+        <h1>Account Restricted</h1>
+        <p>
+          Your account has been banned due to a violation of our community guidelines.
+          If you believe this was a mistake, please contact our support team for assistance.
+        </p>
+
+      </div>
+
+      <div class="image-section">
+        <img src="/images/chatBubbleRed.png" alt="green chat bubble" class="chat-bubble">
+        <img src="/images/homePic.jpg" alt="People using laptops" class="welcome-image">
+      </div>
+    </section>
+  </div></main>   
+   <% } else { %>
+
       <div class="chat-content"> 
     <div class="chat-container">
       <div id="user-list" class="online-users">
@@ -89,6 +110,8 @@
       </form>
     </div>
   </div>
+        <% } %>
+
     <script>
       const currentUsername = "<%= username %>";
          const toggleButton = document.getElementById('toggle-messages-btn');
