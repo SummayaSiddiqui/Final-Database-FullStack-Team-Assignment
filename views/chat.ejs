@@ -34,46 +34,47 @@
         <h2>Welcome, <%= username %>!</h2>
         <div id="user-list"></div>
       </div>
-<% if (messagesBeforeLogin && messagesBeforeLogin.length > 0) { %>
-  <div class="messages-before-login">
-    <% messagesBeforeLogin.forEach(function(message) { %>
-      <div class="message">
-        <strong><%= message.sender %></strong>
-<span class="timestamp">
-  <%= new Date(message.timestamp).toLocaleString('en-US', { 
-        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', 
-        hour: 'numeric', minute: 'numeric', second: 'numeric' 
-    }) %>
-</span>
-        <p><%= message.content %></p>
-      </div>
-    <% }); %>
-  </div>
-<% } else { %>
-  <p>No messages before login.</p>
-<% } %>
+      <% if (messagesBeforeLogin && messagesBeforeLogin.length > 0) { %>
+        <button id="toggle-messages-btn" class="toggle-button">Show Messages Before Login</button>
+        <div class="messages-before-login" id="messages-before-login" style="display: none;">
+          <% messagesBeforeLogin.forEach(function(message) { %>
+            <div class="message">
+              <strong><%= message.sender %></strong>
+              <span class="timestamp">
+                <%= new Date(message.timestamp).toLocaleString('en-US', { 
+                  weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', 
+                  hour: 'numeric', minute: 'numeric', second: 'numeric' 
+                }) %>
+              </span>
+              <p><%= message.content %></p>
+            </div>
+          <% }); %>
+        </div>
+      <% } else { %>
+        <p>No messages before login.</p>
+      <% } %>
 
-<!-- After Login Messages -->
-<p class="downward-message">
-  <span class="arrow">&#8595;</span><span class="arrow">&#8595;</span> Messages After Login <span class="arrow">&#8595;</span><span class="arrow">&#8595;</span>
-</p>
+      <!-- After Login Messages -->
+      <p class="downward-message">
+        <span class="arrow">&#8595;</span><span class="arrow">&#8595;</span> Messages After Login <span class="arrow">&#8595;</span><span class="arrow">&#8595;</span>
+      </p>
 
-<% if (messagesAfterLogin && messagesAfterLogin.length > 0) { %>
-  <div class="messages-after-login">
-    <% messagesAfterLogin.forEach(function(message) { %>
-      <div class="message">
-        <strong><%= message.sender %></strong>
-<span class="timestamp">
-  <%= new Date(message.timestamp).toLocaleString('en-US', { 
-        weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', 
-        hour: 'numeric', minute: 'numeric', second: 'numeric' 
-    }) %>
-</span>
-        <p><%= message.content %></p>
-      </div>
-    <% }); %>
-  </div>
-<% } %>
+      <% if (messagesAfterLogin && messagesAfterLogin.length > 0) { %>
+        <div class="messages-after-login">
+          <% messagesAfterLogin.forEach(function(message) { %>
+            <div class="message">
+              <strong><%= message.sender %></strong>
+              <span class="timestamp">
+                <%= new Date(message.timestamp).toLocaleString('en-US', { 
+                  weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', 
+                  hour: 'numeric', minute: 'numeric', second: 'numeric' 
+                }) %>
+              </span>
+              <p><%= message.content %></p>
+            </div>
+          <% }); %>
+        </div>
+      <% } %>
 
       <div class="messages" id="messages"></div>
 
@@ -86,9 +87,22 @@
           autocomplete="off" />
         <button type="submit">Send</button>
       </form>
-    </div></div>
+    </div>
+  </div>
     <script>
       const currentUsername = "<%= username %>";
+         const toggleButton = document.getElementById('toggle-messages-btn');
+    const messagesBeforeLogin = document.getElementById('messages-before-login');
+    
+    toggleButton.addEventListener('click', function() {
+      if (messagesBeforeLogin.style.display === 'none') {
+        messagesBeforeLogin.style.display = 'block';
+        toggleButton.textContent = 'Hide Messages Before Login';
+      } else {
+        messagesBeforeLogin.style.display = 'none';
+        toggleButton.textContent = 'Show Messages Before Login';
+      }
+    });
     </script>
     <script src="frontend.js" type ="text/javascript"></script>
     <% } %> <%- include('partials/footer') %>

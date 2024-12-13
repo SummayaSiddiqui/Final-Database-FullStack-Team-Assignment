@@ -1368,3 +1368,28 @@ textarea {
 .text-section-banned p{
   color: #0b0b0b;
 }
+
+
+ #toggle-messages-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  #toggle-messages-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+  }
+
+  #toggle-messages-btn:active {
+    background-color: #388e3c;
+    transform: scale(0.98);
+  }
