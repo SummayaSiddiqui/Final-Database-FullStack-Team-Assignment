@@ -158,6 +158,15 @@ async function insertSampleData() {
       }).save();
     }
 
+    await new User({
+      username: "BannedUser",
+      password: bcrypt.hashSync("banned123", SALT_ROUNDS),
+      role: userRole.name,
+      banned: true,
+      onlineStatus: false,
+      about: "I am a banned user.",
+    }).save();
+
     // messages
     const messageCount = await Message.countDocuments();
     if (messageCount === 0) {
@@ -323,7 +332,7 @@ app.get("/", async (request, response) => {
 
 app.get("/bannedUser", async (request, response) => {
   const isAuthenticated = request.session.userId;
-  return response.render("bannedUser", {isAuthenticated});
+  return response.render("bannedUser", { isAuthenticated });
 });
 
 app.get("/signup", async (request, response) => {
