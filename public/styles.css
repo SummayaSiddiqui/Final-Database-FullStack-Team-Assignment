@@ -24,6 +24,7 @@ main {
   /* align-items: center; */
   flex-grow: 1;
   min-height: 100%;
+  margin-bottom: 300px;
 }
 .profile-main {
   display: flex;
