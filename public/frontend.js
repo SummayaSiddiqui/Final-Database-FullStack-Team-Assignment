@@ -162,7 +162,8 @@ function updateOnlineUsers(users) {
 
   // Check if users is a valid array
   if (!Array.isArray(users) || users.length === 0) {
-    onlineUsersDiv.textContent = "No users online.";
+    // onlineUsersDiv.textContent = "No users online.";
+    onlineUsersDiv.innerHTML = "<strong>Online User List:</strong>";
     console.log("No users currently online.");
     return;
   }
@@ -171,7 +172,7 @@ function updateOnlineUsers(users) {
   const uniqueUsers = [...new Set(users)];
 
   // Clear the current list
-  onlineUsersDiv.innerHTML = "";
+  onlineUsersDiv.innerHTML = "<strong>Online User List:</strong>";
 
   // Populate the users list with unique entries
   uniqueUsers.forEach((user) => {
