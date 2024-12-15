@@ -19,12 +19,12 @@ body {
 }
 
 main {
-  display: flex;
-  flex-direction: column;
-  /* align-items: center; */
-  flex-grow: 1;
-  min-height: 100%;
-  margin-bottom: 300px;
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
 }
 .profile-main {
   display: flex;
@@ -1285,15 +1285,12 @@ textarea {
 }
 
 /* Chat */
-/* Main container */
 .chat-content {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-/* Chat Design Box */
-/* Base Styles (For large screens like desktops) */
 .chat-content {
   display: flex;
   flex-direction: column;
@@ -1301,7 +1298,7 @@ textarea {
   height: 100vh;
 }
 
-.banner {
+.welcome-note {
   padding-left: 10px;
   font-size: small;
   background-color: #61306010;
@@ -1313,30 +1310,30 @@ textarea {
 
 .chat-design {
   display: flex;
-  flex-direction: row;
-  width: 100%;
+  flex: 1;
+  overflow: hidden;
   margin: 10px;
 }
 
 .chat-container {
-  width: 75%;
-  padding: 0 10px;
-  margin: 0 10px;
+  flex: 3;
   overflow-y: auto;
   background-color: #f9f9f9;
-  max-height: calc(100vh - 180px);
+  padding: 10px;
+  margin: 0 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 .online-users {
-  width: 20%;
-  padding: 10px;
-  margin-left: 10px;
-  color: #613060;
-  border: 1px solid #613060;
-  font-weight: bold;
-  background-color: #f9f9f9;
-  height: 100vh;
+  flex: 1;
   overflow-y: auto;
+  background-color: #f9f9f9;
+  padding: 10px;
+  border: 1px solid #613060;
+  border-radius: 4px;
+  font-weight: bold;
+  color: #613060;
 }
 
 .toggle-button {
@@ -1422,7 +1419,7 @@ textarea {
   margin: 5px 0;
 }
 
-/* Form Styling */
+/* Chat-Form Styling */
 #chat-form {
   padding: 10px;
   background-color: #ffffff;
@@ -1457,18 +1454,14 @@ textarea {
 /* Mobile (max-width: 767px) */
 @media (max-width: 767px) {
   .chat-design {
-    flex-direction: column; /* Stack chat container and online users */
+    flex-direction: column;
   }
 
-  .chat-container {
-    width: 100%;
-    padding: 5px;
-  }
-
+  .chat-container,
   .online-users {
     width: 100%;
+    margin: 5px 0;
     height: auto;
-    margin-left: 0;
   }
 
   .toggle-button {
@@ -1479,17 +1472,24 @@ textarea {
   .banner {
     font-size: 12px;
   }
+
+  #chat-form input {
+    width: 70%;
+  }
+
+  #chat-form button {
+    width: 25%;
+  }
 }
 
 /* Tablet (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
   .chat-design {
-    flex-direction: row; /* Row layout but adjust widths */
+    flex-direction: row;
   }
 
   .chat-container {
-    width: 70%;
-    padding: 10px;
+    flex: 3;
   }
 
   .online-users {
@@ -1507,9 +1507,9 @@ textarea {
     flex-direction: row;
   }
 
-  .chat-container {
-    width: 75%;
-    padding: 10px;
+  .chat-container,
+  .online-users {
+    max-height: calc(100vh - 140px);
   }
 
   .online-users {
@@ -1518,5 +1518,13 @@ textarea {
 
   .banner {
     font-size: small;
+  }
+
+  #chat-form input {
+    width: 80%;
+  }
+
+  #chat-form button {
+    width: 15%;
   }
 }

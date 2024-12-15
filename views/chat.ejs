@@ -44,7 +44,7 @@
   </div>
   <% } else { %>
   <div class="chat-content">
-    <div class="banner">
+    <div class="welcome-note">
       <h2>Welcome, <%= username %>!</h2>
     </div>
 
@@ -97,21 +97,19 @@
           <p>No messages after login.</p>
           <% } %>
         </div>
+        <form id="chat-form" class="chat-form">
+          <input
+            type="text"
+            id="message-input"
+            placeholder="Type a message..."
+            autocomplete="off" />
+          <button type="submit">Send</button>
+        </form>
       </div>
     </div>
-
-    <!-- Chat Form Section -->
-    <form id="chat-form" class="chat-form">
-      <input
-        type="text"
-        id="message-input"
-        placeholder="Type a message..."
-        autocomplete="off" />
-      <button type="submit">Send</button>
-    </form>
-  </div> <!-- End of chat-container -->
-  </div> <!-- End of chat-design -->
-  </div> <!-- End of chat-content -->
+  </div>
+  </div>
+  </div> 
   <% } %>
 </main>
 
