@@ -1,66 +1,71 @@
-<%- include('partials/header') %>
-
-<% if (!isAuthenticated) { %>
-      <main>
-<div class="home-page">
+<%- include('partials/header') %> <% if (!isAuthenticated) { %>
+<main>
+  <div class="home-page">
     <section class="welcome-section-home">
       <div class="text-section">
-         <h1>View Members Profiles</h1>
-      <p>
-        Please login to view members profiles and experience real-time communication. Connect,
-          collaborate, and communicate seamlessly.
-      </p>
-          <div class="cta-buttons">
-            <a href="/signup" class="cta-button-1">Sign Up</a>
-            <a href="/login" class="cta-button-2">Log In</a>
-          </div>
+        <h1>View Members Profiles</h1>
+        <p>
+          Please login to view members profiles and experience real-time
+          communication. Connect, collaborate, and communicate seamlessly.
+        </p>
+        <div class="cta-buttons">
+          <a href="/signup" class="cta-button-1">Sign Up</a>
+          <a href="/login" class="cta-button-2">Log In</a>
+        </div>
       </div>
       <div class="image-section">
-        <img src="/images/homePic.png" alt="green chat bubble" class="chat-bubble">
+        <img
+          src="/images/homePic.png"
+          alt="green chat bubble"
+          class="chat-bubble" />
       </div>
     </section>
-  </div></main>
-<% } else { %>
-        <% if (banned) {%>
-              <main>
-<div class="home-page">
+  </div>
+</main>
+<% } else { %> <% if (banned) {%>
+<main>
+  <div class="home-page">
     <section class="welcome-section-home">
       <div class="text-section text-section-banned">
         <h1>Account Restricted</h1>
         <p>
-          Your account has been banned due to a violation of our community guidelines.
-          If you believe this was a mistake, please contact our support team for assistance.
+          Your account has been banned due to a violation of our community
+          guidelines. If you believe this was a mistake, please contact our
+          support team for assistance.
         </p>
-
       </div>
 
       <div class="image-section">
-        <img src="/images/bannedPic.png" alt="green chat bubble" class="chat-bubble">
+        <img
+          src="/images/bannedPic.png"
+          alt="green chat bubble"
+          class="chat-bubble" />
       </div>
     </section>
-  </div></main>   
-   <% } else { %>
-  <main>
-    <div class="admin-dashboard-container">
-      <div class="dashboard-header">
-        <h1>Members Profiles</h1>
-      </div>
+  </div>
+</main>
+<% } else { %>
+<main>
+  <div class="admin-dashboard-container">
+    <div class="dashboard-header">
+      <h1>Members Profiles</h1>
+    </div>
 
-      <div class="members-list">
-        <div class="member-cards">
-          <% users.forEach(user => { %>
-            <div class="member-card">
-              <a href="/profile/<%= user.username %>" class="member-link">
-                <img src="/images/profile.logo.png" alt="<%= user.username %> profile picture" class="profile-pic">
-                <h4><%= user.username %></h4>
-              </a>
-            </div>
-          <% }); %>
+    <div class="members-list">
+      <div class="member-cards">
+        <% users.forEach(user => { %>
+        <div class="member-card">
+          <a href="/profile/<%= user.username %>" class="member-link">
+            <img
+              src="/images/profile.logo.png"
+              alt="<%= user.username %> profile picture"
+              class="profile-pic" />
+            <h4><%= user.username %></h4>
+          </a>
         </div>
+        <% }); %>
       </div>
     </div>
-  </main>
-<% } %>
-<% } %>
-
-<%- include('partials/footer') %>
+  </div>
+</main>
+<% } %> <% } %> <%- include('partials/footer') %>

@@ -1,39 +1,35 @@
 <%- include('partials/header') %>
 <body>
     <main>
-    <div class="welcome-container">
-        <div class="welcome-message">
-            <img src="/images/compulseLogo.png" alt="Compulse Logo" class="welcome-logo">
-            <h1>Welcome to Compulse</h1>
-            <p>Our real-time chat application connects you instantly. Join now and start communicating seamlessly.</p>
+        <div class="welcome-container">
+            <div class="welcome-message">
+                <img src="/images/compulseLogo.png" alt="Compulse Logo" class="welcome-logo">
+                <h1>Welcome to Compulse</h1>
+                <p>Our real-time chat application connects you instantly. Join now and start communicating seamlessly.</p>
+            </div>
+            <div class="main-content-signup">
+                <h1>Sign Up</h1>
+                <form action="/signup" method="post" class="signup-form">
+                    <div class="form-input-container">
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required minlength="4" maxlength="30">
+                    </div>
+                    <div class="form-input-container">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required minlength="8" maxlength="30">
+                    </div>
+                    <button type="submit" class="action-button">Sign Up</button>
+                </form>
+                <% if (errorMessage) { %>
+                    <p class="error-message"><%= errorMessage %></p>
+                <% } %>
+                <p class="form-footer">
+                    Already have an account?&nbsp;
+                    <a href="/login" class="register-link">Log in!</a>
+                </p>    
+            </div>
         </div>
-<div class="main-content-signup">
-    <h1>Sign Up</h1>
-    <form action="/signup" method="post" class="signup-form">
-
-        <div class="form-input-container">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required minlength="4" maxlength="30">
-        </div>
-        <div class="form-input-container">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required minlength="8" maxlength="30">
-        </div>
-        <button type="submit" class="action-button">Sign Up</button>
-    </form>
-    <% if (errorMessage) { %>
-  <p style="color: red;"><%= errorMessage %></p>
-<% } %>
-    <p class="form-footer">
-        Already have an account?&nbsp;
-        <a href="/login" class="register-link">Log in!</a>
-    </p>    
-</div>
-    </div></main>
+    </main>
     <%- include('partials/footer') %>
 </body>
-
-
 </html>
-
-</div>

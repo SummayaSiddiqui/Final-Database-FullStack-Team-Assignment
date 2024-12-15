@@ -1,109 +1,129 @@
-<%- include('partials/header') %>
-
-<% if (!isAuthenticated) { %>
-       <main>
-<div class="home-page">
+<%- include('partials/header') %> <% if (!isAuthenticated) { %>
+<main>
+  <div class="home-page">
     <section class="welcome-section-home">
       <div class="text-section">
-         <h1>View Profile</h1>
-      <p>
-        Please login to view profile  and experience real-time communication. Connect,
-          collaborate, and communicate seamlessly.
-      </p>
-          <div class="cta-buttons">
-            <a href="/signup" class="cta-button-1">Sign Up</a>
-            <a href="/login" class="cta-button-2">Log In</a>
-          </div>
+        <h1>View Profile</h1>
+        <p>
+          Please login to view profile and experience real-time
+          communication. Connect, collaborate, and communicate seamlessly.
+        </p>
+        <div class="cta-buttons">
+          <a href="/signup" class="cta-button-1">Sign Up</a>
+          <a href="/login" class="cta-button-2">Log In</a>
+        </div>
       </div>
 
       <div class="image-section">
-        <img src="/images/homePic.png" alt="green chat bubble" class="chat-bubble">
+        <img
+          src="/images/homePic.png"
+          alt="green chat bubble"
+          class="chat-bubble" />
       </div>
     </section>
-  </div></main>
-<% } else { %>
-        <% if (banned) {%>
-              <main>
-<div class="home-page">
+  </div>
+</main>
+<% } else { %> <% if (banned) { %>
+<main>
+  <div class="home-page">
     <section class="welcome-section-home">
       <div class="text-section text-section-banned">
         <h1>Account Restricted</h1>
         <p>
-          Your account has been banned due to a violation of our community guidelines.
-          If you believe this was a mistake, please contact our support team for assistance.
+          Your account has been banned due to a violation of our community
+          guidelines. If you believe this was a mistake, please contact our
+          support team for assistance.
         </p>
-
       </div>
       <div class="image-section">
-        <img src="/images/bannedPic.png" alt="green chat bubble" class="chat-bubble">
+        <img
+          src="/images/bannedPic.png"
+          alt="green chat bubble"
+          class="chat-bubble" />
       </div>
     </section>
-  </div></main>   
-   <% } else { %>
-  <main>
-    <div class="profile-main">
-      <div class="profile-container">
-        <div class="profile-header">
-          <% if (username === param) { %>
-            <h2>Your Profile</h2>
-          <% } else { %>
-            <h2><%= param %>'s Profile</h2>
-          <% } %>
+  </div>
+</main>
+<% } else { %>
+<main>
+  <div class="profile-main">
+    <div class="profile-container">
+      <div class="profile-header">
+        <% if (username === param) { %>
+        <h2>Your Profile</h2>
+        <% } else { %>
+        <h2><%= username %>'s Profile</h2>
+        <% } %>
+      </div>
+
+      <!-- Profile Section -->
+      <div class="profile-content">
+        <div class="profile-image">
+          <img src="/images/profile.logo.png" alt="Profile Picture" />
         </div>
 
-        <!-- Profile Section -->
-        <div class="profile-content">
-          <div class="profile-image">
-            <img src="/images/profile.logo.png" alt="Profile Picture">
-          </div>
+        <div class="profile-details">
+          <p><strong>Username:</strong> <%= username %></p>
+          <p><strong>Join Date:</strong> <%= joinDate %></p>
+          <p><strong>Role:</strong> <%= role %></p>
+          <p><strong>About Me:</strong> <%= about %></p>
+        </div>
 
-          <div class="profile-details">
-            <p><strong>Username:</strong> <%= param %></p>
-            <p><strong>Join Date:</strong> <%= joinDate %></p>
-            <p><strong>Role:</strong> <%= role %></p>
-            <p><strong>About Me:</strong> <%= about %></p>
-          </div>
-
-          <!-- Profile Actions: Edit or View Others -->
-          <div class="profile-actions">
-               <% if (username === param) { %>
-          <button id="editProfileButton" class="profile-button">Edit Your Profile</button>
+        <!-- Profile Actions: Edit or View Others -->
+        <div class="profile-actions">
+          <% if (username === param) { %>
+          <button id="editProfileButton" class="profile-button">
+            Edit Your Profile
+          </button>
           <% } %>
-            <a href="/membersProfiles" class="profile-button">View Others' Profiles</a>
-          </div>
-          
-          <!-- Hidden Edit Profile Form -->
-          <div id="editProfileForm" class="edit-profile-form" style="display: none;">
-            <h3>Edit Profile</h3>
-            <form action="/profile/<%= username %>" method="POST">
-              <div>
-                <label for="aboutMe">About Me:</label>
-                <textarea id="aboutMe" name="aboutMe" rows="4" placeholder="Write something about yourself..." required></textarea>
-              </div>
-              <div>
-                <button type="submit" class="profile-button">Submit Changes</button>
-              </div>
-            </form>
-          </div>
+          <a href="/membersProfiles" class="profile-button"
+            >View Others' Profiles</a
+          >
+        </div>
+
+        <!-- Hidden Edit Profile Form -->
+        <div
+          id="editProfileForm"
+          class="edit-profile-form"
+          style="display: none">
+          <h3>Edit Profile</h3>
+          <form action="/profile/<%= username %>" method="POST">
+            <div>
+              <label for="aboutMe">About Me:</label>
+              <textarea
+                id="aboutMe"
+                name="aboutMe"
+                rows="4"
+                placeholder="Write something about yourself..."
+                required></textarea>
+            </div>
+            <div>
+              <button type="submit" class="profile-button">
+                Submit Changes
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-  </main>
-      <%- include('partials/footer') %>
-
-<% } %>
-<% } %>
-
+  </div>
+</main>
+<% } %> <% } %> <%- include('partials/footer') %>
 
 <script>
   // JavaScript to toggle the Edit Profile form visibility
-  document.getElementById('editProfileButton').addEventListener('click', function() {
-    const editForm = document.getElementById('editProfileForm');
-    // Toggle form visibility
-    if (editForm.style.display === 'none' || editForm.style.display === '') {
-      editForm.style.display = 'block';
-    } else {
-      editForm.style.display = 'none';
-    }
-  });
+  document
+    .getElementById("editProfileButton")
+    .addEventListener("click", function () {
+      const editForm = document.getElementById("editProfileForm");
+      // Toggle form visibility
+      if (
+        editForm.style.display === "none" ||
+        editForm.style.display === ""
+      ) {
+        editForm.style.display = "block";
+      } else {
+        editForm.style.display = "none";
+      }
+    });
 </script>

@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0" />
     <title>Compulse Live chat App</title>
-    <link rel="stylesheet" href="/styles.css">
-    <link rel="icon" href="/images/noTextLogo.png" type="image/x-icon">
-</head>
-<body>
-<header class="site-header">
-  <a href="/">
-    <img class="header-logo" src="/images/compulseLogo.png" alt="Compulse Logo">
-  </a>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/styles1.css" />
+    <link rel="icon" href="/images/noTextLogo.png" type="image/x-icon" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a href="/">
+        <img
+          class="header-logo"
+          src="/images/compulseLogo.png"
+          alt="Compulse Logo" />
+      </a>
 
-  <div class="auth-links">
-    <% if (isAuthenticated) { %>
-      <a href="/profile/<%= username %>">View Profile</a>
-      <a href="/chat">Live Chat</a>
-      <% if (role === 'admin') { %>
+      <div class="auth-links">
+        <% if (isAuthenticated) { %>
+        <a href="/profile/<%= username %>">View Profile</a>
+        <a href="/chat">Live Chat</a>
+        <% if (role === 'admin') { %>
         <a href="/dashboard">Admin Dashboard</a>
-      <% } %>
-      <a href="/logout">Log Out</a>
-    <% } else { %>
-      <a href="/login">Log In</a>
-      <a href="/signup">Sign Up</a>
-    <% } %>
-  </div>
-  <!-- <p><% isAuthenticated, username, role %></p> -->
-  
-</header>
+        <% } %>
+        <a href="/logout">Log Out</a>
+        <% } else { %>
+        <a href="/login">Log In</a>
+        <a href="/signup">Sign Up</a>
+        <% } %>
+      </div>
+      <!-- <p><% isAuthenticated, username, role %></p> -->
+    </header>
+  </body>
+</html>

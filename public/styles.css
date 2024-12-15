@@ -1,78 +1,3 @@
-* {
-  box-sizing: border-box;
-}
-html,
-body {
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: url("/images/homeBg.png") no-repeat center center;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.profile-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-}
-
-.site-header {
-  padding: 0 12px;
-  display: flex;
-  flex-direction: row; /* Stack logo and links vertically by default */
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fffdfd;
-  color: #613060;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.header-logo {
-  width: 100px;
-  height: auto;
-}
-
-.site-header .auth-links,
-.site-header .logout-links {
-  display: flex;
-  padding: 0;
-  flex-direction: row;
-  justify-content: center;
-  gap: 20px;
-}
-
-.site-header a {
-  color: #613060;
-  text-decoration: none;
-  padding: 10px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.site-header a:hover {
-  background-color: #dcdbdb;
-}
-
-.site-header a:active {
-  background-color: #b9b7b7;
-}
-
 @media (max-width: 1032px) and (min-width: 500px) {
   .image-section {
     position: relative;
@@ -92,43 +17,6 @@ main {
     z-index: 1;
     border-radius: 60px;
   }
-  .text-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center !important;
-  }
-
-  .text-section h1 {
-    font-size: 36px;
-    color: #613060;
-  }
-
-  .text-section p {
-    text-align: center;
-    font-size: 24px !important;
-    margin: 15px 0;
-    color: #613060;
-  }
-
-  .welcome-section-home {
-    display: flex;
-    flex-direction: column-reverse !important; /* Text and image side by side */
-    align-items: center;
-    gap: 10px !important;
-    width: 100%;
-  }
-  .site-header {
-    display: flex;
-    flex-direction: column !important;
-    gap: 0 !important;
-  }
-
-  .site-header .auth-links,
-  .site-header .logout-links {
-    justify-content: space-evenly !important;
-    width: 100% !important;
-    font-size: small !important;
-  }
 }
 
 @media (max-width: 500px) {
@@ -146,13 +34,13 @@ main {
     max-width: 270px !important;
   }
 
-  .text-section {
+  /* .text-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-right: 20px;
     z-index: 2;
-  }
+  } */
 
   .dashboard-header h1 {
     font-size: xx-large !important;
@@ -173,7 +61,7 @@ main {
   }
 
   /* Header in Chat */
-  .chat-container .header {
+  /* .chat-container .header {
     padding-left: 10px;
     font-size: small;
     background-color: #61306010;
@@ -181,9 +69,9 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
+  } */
 
-  .text-section {
+  /* .text-section {
     display: flex;
     flex-direction: column;
     align-items: center !important;
@@ -201,14 +89,14 @@ main {
     font-size: 18px !important;
     margin: 15px 0;
     color: #613060;
-  }
-  .welcome-section-home {
+  } */
+  /* .welcome-section-home {
     padding-top: 10px !important;
     display: flex;
-    flex-direction: column-reverse !important; /* Text and image side by side */
+    flex-direction: column-reverse !important; 
     gap: 10px !important;
     width: 100%;
-  }
+  } */
   .site-header {
     display: flex;
     flex-direction: column !important;
@@ -217,12 +105,12 @@ main {
   .welcome-logo {
     width: 200px !important;
   }
-  .main-content-signup {
+  /* .main-content-signup {
     margin-top: 0 !important;
-  }
-  .welcome-container {
-    display: flex; /* Side-by-side layout */
-    flex-wrap: wrap; /* Ensures responsive layout */
+  } */
+  /* .welcome-container {
+    display: flex; 
+    flex-wrap: wrap; 
     align-items: center;
     justify-content: center;
     gap: 0px !important;
@@ -230,9 +118,9 @@ main {
     margin-top: 0 !important;
     padding: 20px;
     border-radius: 8px;
-  }
+  } */
 
-  .welcome-message {
+  /* .welcome-message {
     flex: 1;
     text-align: center;
     padding: 0px !important;
@@ -250,7 +138,7 @@ main {
     margin-bottom: 20px !important;
     color: #000 !important;
     line-height: 1.5 !important;
-  }
+  } */
   .welcome-message-login {
     flex: 1;
     text-align: center;
@@ -270,64 +158,6 @@ main {
     color: #000 !important;
     line-height: 1.5 !important;
   }
-}
-
-/* Main content styles */
-.main-content-signup {
-  width: 500px;
-  margin: 50px auto;
-  background: #fff;
-  padding: 20px 30px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
-
-.main-content-signup h1 {
-  font-size: 28px;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #613060;
-}
-
-.signup-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* Welcome container */
-.welcome-container {
-  display: flex; /* Side-by-side layout */
-  flex-wrap: wrap; /* Ensures responsive layout */
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  max-width: 1100px;
-  margin: 50px auto;
-  margin-bottom: 300px;
-  padding: 20px;
-  border-radius: 8px;
-}
-
-/* Welcome message styling */
-.welcome-message {
-  flex: 1;
-  text-align: center;
-  padding: 20px;
-  max-width: 400px;
-}
-
-.welcome-message h1 {
-  font-size: 32px;
-  margin-bottom: 10px;
-  color: #000000;
-}
-
-.welcome-message p {
-  font-size: 18px;
-  margin-bottom: 20px;
-  color: #000;
-  line-height: 1.5;
 }
 
 /* Welcome message styling */
@@ -506,197 +336,12 @@ main {
   border-radius: 10px;
 }
 
-.text-section {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  gap: 20px;
-}
-
-.text-section h1 {
-  font-size: 36px;
-  color: #030303;
-}
-
-.text-section p {
-  max-width: 700px;
-  font-size: 22px;
-  margin: 10px 0;
-  color: #613060;
-}
-
-.home-page {
-  max-width: 2000px;
-  margin: 0px auto;
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  border-radius: 8px;
-}
-
-.welcome-section-home {
-  padding-top: 50px;
-  display: flex;
-  flex-direction: row; /* Text and image side by side */
-  gap: 50px;
-  width: 100%;
-}
-
-.cta-buttons {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-top: 20px;
-}
-
-.cta-button-1 {
-  background-color: #613060;
-  color: white;
-  padding: 15px 30px;
-  font-size: 18px;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.cta-button-1:hover {
-  background-color: #3f1f3f;
-}
-
-.cta-button-1:active {
-  background-color: #1c0e1c;
-}
-
-.cta-button-2 {
-  background-color: #a3c14a;
-  color: white;
-  padding: 15px 30px;
-  font-size: 18px;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.cta-button-2:hover {
-  background-color: #718633;
-}
-
-.cta-button-2:active {
-  background-color: #333c17;
-}
-
-.image-section {
-  flex: 1;
-}
-
 .welcome-image {
   width: 100%;
   height: 100%;
   max-width: 500px;
   height: auto;
   border-radius: 10px;
-}
-
-footer {
-  width: 100%;
-  background-color: #613060;
-  color: white;
-  text-align: center;
-  padding: 10px;
-}
-
-/* Profile Page Styles */
-.profile-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 800px;
-  margin: 20px;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.profile-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.profile-header h2 {
-  font-size: 2rem;
-  color: #613060;
-}
-
-/* Profile Image */
-.profile-image {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.profile-image img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 50%;
-  margin-bottom: 20px;
-  opacity: 0.2;
-}
-
-/* Profile Content */
-.profile-content {
-  text-align: left;
-  padding: 20px;
-  border-radius: 8px;
-  width: 100%;
-  margin-bottom: 20px;
-}
-
-.profile-details p {
-  font-size: 1.2rem;
-  color: #333;
-  margin: 10px 0;
-}
-
-.profile-details strong {
-  color: #613060;
-}
-
-/* Profile Status */
-.profile-status {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #333;
-  margin-top: 10px;
-}
-
-/* Profile Actions */
-.profile-actions {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  width: 100%;
-}
-
-.profile-button {
-  padding: 10px 20px;
-  background-color: #613060;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  display: inline-block;
-  text-align: center;
-}
-
-.profile-button:hover {
-  background-color: #613060;
-}
-
-.profile-button:active {
-  background-color: #613060;
 }
 
 /* Admin Dashboard Styles */
@@ -1283,204 +928,6 @@ textarea {
   color: #0b0b0b;
 }
 
-/* Chat */
-.chat-content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.chat-content {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100vh;
-}
-
-.welcome-note {
-  padding-left: 10px;
-  font-size: small;
-  background-color: #61306010;
-  color: #613060;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.chat-design {
-  display: flex;
-  flex: 1;
-  overflow: hidden;
-  margin: 10px;
-}
-
-.chat-container {
-  flex: 3;
-  overflow-y: auto;
-  background-color: #f9f9f9;
-  padding: 10px;
-  margin: 0 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.online-users {
-  flex: 1;
-  overflow-y: auto;
-  background-color: #f9f9f9;
-  padding: 10px;
-  border: 1px solid #613060;
-  border-radius: 4px;
-  font-weight: bold;
-  color: #613060;
-}
-
-.toggle-button {
-  display: inline-block;
-  padding: 10px;
-  margin: 10px 0 0 0;
-  background-color: #613060;
-  color: #ffffff;
-  border: 1px solid #613060;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  text-align: center;
-  width: 100%;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.toggle-button:hover {
-  background-color: #713970;
-}
-
-.toggle-button:active {
-  background-color: #eeddee;
-  color: #1c0e1c;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.messages-before-login {
-  margin: 10px 0;
-  border: 1px solid #613060;
-  border-radius: 4px;
-  background-color: #e1dae1;
-  color: #613060;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.message-prelogin {
-  color: #613060;
-  margin: 10px;
-}
-
-.message-prelogin p {
-  color: #613060;
-}
-
-.timestamp {
-  color: #613060;
-}
-
-.downward-message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px;
-  margin: 10px 0;
-  background-color: #613060;
-  color: #ffffff;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.messages {
-  flex-grow: 1;
-  background-color: #ffffff;
-  height: 100vh;
-  overflow-y: auto;
-  color: #613060;
-  border-radius: 4px;
-  line-height: 1.5;
-}
-
-.messages .message {
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #ede8ed;
-}
-
-.messages .message p {
-  margin: 5px 0;
-}
-
-/* Chat-Form Styling */
-#chat-form {
-  padding: 10px;
-  background-color: #ffffff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #ccc;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-#chat-form input {
-  width: 80%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-#chat-form button {
-  width: 15%;
-  padding: 10px;
-  background-color: #a3c14a;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-#chat-form button:hover {
-  background-color: #718633;
-}
-
-/* Mobile (max-width: 767px) */
-@media (max-width: 767px) {
-  .chat-design {
-    flex-direction: column;
-  }
-
-  .chat-container,
-  .online-users {
-    width: 100%;
-    margin: 5px 0;
-    height: auto;
-  }
-
-  .toggle-button {
-    width: 100%;
-    margin: 10px 0;
-  }
-
-  .banner {
-    font-size: 12px;
-  }
-
-  #chat-form input {
-    width: 70%;
-  }
-
-  #chat-form button {
-    width: 25%;
-  }
-}
-
 /* Tablet (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
   .chat-design {
@@ -1497,33 +944,5 @@ textarea {
 
   .banner {
     font-size: 14px;
-  }
-}
-
-/* Desktop (min-width: 1025px) */
-@media (min-width: 1025px) {
-  .chat-design {
-    flex-direction: row;
-  }
-
-  .chat-container,
-  .online-users {
-    max-height: calc(100vh - 140px);
-  }
-
-  .online-users {
-    width: 20%;
-  }
-
-  .banner {
-    font-size: small;
-  }
-
-  #chat-form input {
-    width: 80%;
-  }
-
-  #chat-form button {
-    width: 15%;
   }
 }

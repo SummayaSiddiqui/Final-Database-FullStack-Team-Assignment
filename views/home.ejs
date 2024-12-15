@@ -2,7 +2,9 @@
 
 <main>
   <% if (isAuthenticated) { %>
-    <p class="loggedInUsersNumber">Users Online: <%= loggedInUsers.length %></p>
+  <p class="loggedInUsersNumber">
+    Users Online: <%= loggedInUsers.length %>
+  </p>
   <% } %>
 
   <div class="home-page">
@@ -15,17 +17,20 @@
         </p>
 
         <% if (!isAuthenticated) { %>
-          <div class="cta-buttons">
-            <a href="/signup" class="cta-button-1">Sign Up</a>
-            <a href="/login" class="cta-button-2">Log In</a>
-          </div>
+        <div class="cta-buttons">
+          <a href="/signup" class="cta-button-1">Sign Up</a>
+          <a href="/login" class="cta-button-2">Log In</a>
+        </div>
         <% } else { %>
-          <a href="/chat" class="cta-button-2">Live Chat</a>
+        <a href="/chat" class="cta-button-2">Live Chat</a>
         <% } %>
       </div>
 
       <div class="image-section">
-        <img src="/images/homePic.png" alt="green chat bubble" class="chat-bubble">
+        <img
+          src="/images/homePic.png"
+          alt="green chat bubble"
+          class="chat-bubble" />
       </div>
     </section>
   </div>
