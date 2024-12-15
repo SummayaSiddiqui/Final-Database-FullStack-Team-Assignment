@@ -55,17 +55,17 @@ The application supports three types of user roles. Here are the login credentia
 1. **Admin**  
    - **Username**: admin@example.com  
    - **Password**: admin123  
-   - **Features**: As an admin, you have access to all user messages, the ability to ban users, and manage chat rooms.
+   - **Features**: As an admin, you have access to all user messages, the ability to ban or remove users, view/edit your profile, and view other users profiles.
 
 2. **Regular User**  
    - **Username**: regular@example.com  
    - **Password**: regular123  
-   - **Features**: As a regular user, you can send and receive messages in chat rooms, view chat history, and manage your user profile.
+   - **Features**: As a regular user, you can send and receive messages in chat rooms, view chat history, manage your user profile, and view other users profiles.
 
 3. **Banned User**  
    - **Username**: banned@example.com  
    - **Password**: banned123  
-   - **Features**: Banned users are restricted from sending messages or interacting with chat rooms. They can only view their profile but cannot participate in chats.
+   - **Features**: Banned users are restricted from whole site.
 
 ## Key Features
 - **Real-time Messaging**: Built with WebSockets for instant communication between users.
