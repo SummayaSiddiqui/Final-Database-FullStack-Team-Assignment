@@ -443,43 +443,46 @@ app.get("/dashboard", async (request, response) => {
 });
 
 app.get("/profile/:username", async (request, response) => {
-  const { userId, username, role } = request.session;
-  const banned = request.session.banned;
-  console.log("banned:", banned);
-  if (!request.session.userId) {
+  const { userId, banned, username } = request.session;
+
+  if (!userId) {
     return response.render("profile", {
       isAuthenticated: false,
-      message: "You need to log in or sign up to use live chat.",
+      message: "You need to log in or sign up to view member profiles.",
     });
   }
 
   try {
-    const user = await User.findById(request.session.userId);
     const param = request.params.username;
-    const about = user.about;
+    const user = await User.findOne({ username: param });
+    const role = user.role;
 
     if (!user) {
       return response.render("profile", {
-        isAuthenticated: false,
-        message: "User not found. Please log in again.",
-        username,
+        isAuthenticated: true,
+        message: `The user "${param}" does not exist.`,
+        username: param,
         role,
+        banned,
       });
     }
+
     response.render("profile", {
       isAuthenticated: true,
-      username: user.username,
-      joinDate: user.joinDate.toDateString(),
-      param,
+      username,
+      joinDate: user.joinDate ? user.joinDate.toDateString() : "Unknown",
+      about: user.about || "No details available.",
       role,
-      about,
       banned,
+      param
     });
   } catch (error) {
-    console.error("Error fetching user profile:", error);
-    response.status(500).send("An error occurred while fetching the profile.");
+    console.error("Error fetching member profile:", error);
+    response.status(500).render("error", {
+      message:
+        "An error occurred while fetching the profile. Please try again later.",
+    });
   }
-  console.log(request.session);
 });
 
 app.post("/profile/:username", async (request, response) => {
