@@ -1,130 +1,136 @@
-<%- include('partials/header') %> <% if (!isAuthenticated) { %>
-      <main>
-<div class="home-page">
+<%- include('partials/header') %>
+<main>
+  <% if (!isAuthenticated) { %>
+  <div class="home-page">
     <section class="welcome-section-home">
       <div class="text-section">
-         <h1>Join Live Chat</h1>
-      <p>
-        Experience seamless real-time communication with our Live Chat
-        feature. Connect, collaborate, and communicate effortlessly with
-        others. Log in or sign up now to start your journey!
-      </p>
-          <div class="cta-buttons">
-            <a href="/signup" class="cta-button-1">Sign Up</a>
-            <a href="/login" class="cta-button-2">Log In</a>
-          </div>
+        <h1>Join Live Chat</h1>
+        <p>
+          Experience seamless real-time communication with our Live Chat
+          feature. Connect, collaborate, and communicate effortlessly with
+          others. Log in or sign up now to start your journey!
+        </p>
+        <div class="cta-buttons">
+          <a href="/signup" class="cta-button-1">Sign Up</a>
+          <a href="/login" class="cta-button-2">Log In</a>
+        </div>
       </div>
-
       <div class="image-section">
-        <img src="/images/homePic.png" alt="green chat bubble" class="chat-bubble">
+        <img
+          src="/images/homePic.png"
+          alt="green chat bubble"
+          class="chat-bubble" />
       </div>
     </section>
-  </div></main>
-
-
-    <% } else { %>
-      <% if (banned) {%>
-              <main>
-<div class="home-page">
+  </div>
+  <% } else if (banned) { %>
+  <div class="home-page">
     <section class="welcome-section-home">
       <div class="text-section text-section-banned">
         <h1>Account Restricted</h1>
         <p>
-          Your account has been banned due to a violation of our community guidelines.
-          If you believe this was a mistake, please contact our support team for assistance.
+          Your account has been banned due to a violation of our community
+          guidelines. If you believe this was a mistake, please contact our
+          support team for assistance.
         </p>
-
       </div>
-
       <div class="image-section">
-        <img src="/images/bannedPic.png" alt="green chat bubble" class="chat-bubble">
+        <img
+          src="/images/bannedPic.png"
+          alt="green chat bubble"
+          class="chat-bubble" />
       </div>
     </section>
-  </div></main>   
-   <% } else { %>
-
-      <div class="chat-content"> 
-    <div class="chat-container">
-      <div id="user-list" class="online-users">
-        <!-- Online users will be dynamically populated here -->
-      </div>
-
-      <div class="header">
-        <h2>Welcome, <%= username %>!</h2>
-        <div id="user-list"></div>
-      </div>
-      <% if (messagesBeforeLogin && messagesBeforeLogin.length > 0) { %>
-        <button id="toggle-messages-btn" class="toggle-button">Show Messages Before Login</button>
-        <div class="messages-before-login" id="messages-before-login" style="display: none;">
-          <% messagesBeforeLogin.forEach(function(message) { %>
-            <div class="message">
-              <strong><%= message.sender %></strong>
-              <span class="timestamp">
-                <%= new Date(message.timestamp).toLocaleString('en-US', { 
-                  weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', 
-                  hour: 'numeric', minute: 'numeric', second: 'numeric' 
-                }) %>
-              </span>
-              <p><%= message.content %></p>
-            </div>
-          <% }); %>
-        </div>
-      <% } else { %>
-        <p>No messages before login.</p>
-      <% } %>
-
-      <!-- After Login Messages -->
-      <p class="downward-message">
-        <span class="arrow">&#8595;</span><span class="arrow">&#8595;</span> Messages After Login <span class="arrow">&#8595;</span><span class="arrow">&#8595;</span>
-      </p>
-
-      <% if (messagesAfterLogin && messagesAfterLogin.length > 0) { %>
-        <div class="messages-after-login">
-          <% messagesAfterLogin.forEach(function(message) { %>
-            <div class="message">
-              <strong><%= message.sender %></strong>
-              <span class="timestamp">
-                <%= new Date(message.timestamp).toLocaleString('en-US', { 
-                  weekday: 'short', year: 'numeric', month: 'short', day: 'numeric', 
-                  hour: 'numeric', minute: 'numeric', second: 'numeric' 
-                }) %>
-              </span>
-              <p><%= message.content %></p>
-            </div>
-          <% }); %>
-        </div>
-      <% } %>
-
-      <div class="messages" id="messages"></div>
-
-      <!-- Form at the bottom -->
-      <form id="chat-form">
-        <input
-          type="text"
-          id="message-input"
-          placeholder="Type a message..."
-          autocomplete="off" />
-        <button type="submit">Send</button>
-      </form>
-    </div>
   </div>
-        <% } %>
+  <% } else { %>
+  <div class="chat-content">
+    <div class="banner">
+      <h2>Welcome, <%= username %>!</h2>
+    </div>
 
-    <script>
-      const currentUsername = "<%= username %>";
-         const toggleButton = document.getElementById('toggle-messages-btn');
-    const messagesBeforeLogin = document.getElementById('messages-before-login');
-    
-    toggleButton.addEventListener('click', function() {
-      if (messagesBeforeLogin.style.display === 'none') {
-        messagesBeforeLogin.style.display = 'block';
-        toggleButton.textContent = 'Hide Messages Before Login';
-      } else {
-        messagesBeforeLogin.style.display = 'none';
-        toggleButton.textContent = 'Show Messages Before Login';
-      }
-    });
-    </script>
-    <script src="frontend.js" type ="text/javascript"></script>
-    <% } %> <%- include('partials/footer') %>
-</div>
+    <div class="chat-design">
+      <div id="user-list" class="online-users">
+        <!-- Online users content -->
+      </div>
+
+      <div class="chat-container">
+        <% if (messagesBeforeLogin && messagesBeforeLogin.length > 0) { %>
+        <button id="toggle-messages-btn" class="toggle-button">
+          Show Messages Before Login
+        </button>
+        <div
+          class="messages-before-login"
+          id="messages-before-login"
+          style="display: none">
+          <% messagesBeforeLogin.forEach(function(message) { %>
+          <div class="message-prelogin">
+            <strong><%= message.sender %></strong>
+            <span class="timestamp">
+              <%= new Date(message.timestamp).toLocaleString('en-US', {
+              weekday: 'short', year: 'numeric', month: 'short', day:
+              'numeric', hour: 'numeric', minute: 'numeric', second:
+              'numeric' }) %>
+            </span>
+            <p><%= message.content %></p>
+          </div>
+          <% }); %>
+        </div>
+        <% } else { %>
+        <p>No messages before login.</p>
+        <% } %>
+        <p class="downward-message">Messages After Login</p>
+        <div class="messages" id="messages">
+          <% if (messagesAfterLogin && messagesAfterLogin.length > 0) { %>
+          <% messagesAfterLogin.forEach(function(message) { %>
+          <div class="message">
+            <strong><%= message.sender %></strong>
+            <span class="timestamp">
+              <%= new Date(message.timestamp).toLocaleString('en-US', {
+              weekday: 'short', year: 'numeric', month: 'short', day:
+              'numeric', hour: 'numeric', minute: 'numeric', second:
+              'numeric' }) %>
+            </span>
+            <p><%= message.content %></p>
+          </div>
+          <% }); %>
+          <% } else { %>
+          <p>No messages after login.</p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Form Section -->
+    <form id="chat-form" class="chat-form">
+      <input
+        type="text"
+        id="message-input"
+        placeholder="Type a message..."
+        autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
+  </div> <!-- End of chat-container -->
+  </div> <!-- End of chat-design -->
+  </div> <!-- End of chat-content -->
+  <% } %>
+</main>
+
+<script>
+  const currentUsername = "<%= username %>";
+  const toggleButton = document.getElementById("toggle-messages-btn");
+  const messagesBeforeLogin = document.getElementById(
+    "messages-before-login"
+  );
+
+  toggleButton.addEventListener("click", function () {
+    if (messagesBeforeLogin.style.display === "none") {
+      messagesBeforeLogin.style.display = "block";
+      toggleButton.textContent = "Hide Messages Before Login";
+    } else {
+      messagesBeforeLogin.style.display = "none";
+      toggleButton.textContent = "Show Messages Before Login";
+    }
+  });
+</script>
+<script src="frontend.js" type="text/javascript"></script>
+<%- include('partials/footer') %>
