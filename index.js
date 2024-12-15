@@ -81,7 +81,9 @@ const USERS = [
 
 async function getAllMessages() {
   try {
-    const messages = await Message.find().sort({ timestamp: 1 }).limit(100);
+    const messages = await Message.find()
+      .sort({ timestamp: 1 })
+      .limit(100);
     return messages;
   } catch (error) {
     console.error("Error retrieving messages:", error);
@@ -154,7 +156,8 @@ async function insertSampleData() {
         role: userRole.name,
         banned: false,
         onlineStatus: false,
-        about: "I am a regular user here to explore and connect with others.",
+        about:
+          "I am a regular user here to explore and connect with others.",
       }).save();
     }
 
@@ -191,7 +194,9 @@ async function insertSampleData() {
       await Message.insertMany(MESSAGES);
       console.log("Sample messages inserted");
     } else {
-      console.log("Messages already exist; skipping sample message insertion.");
+      console.log(
+        "Messages already exist; skipping sample message insertion."
+      );
     }
   } catch (error) {
     console.error("Error inserting sample data:", error);
@@ -211,7 +216,11 @@ app.ws("/ws", (socket, request) => {
   // Send the list of online users to the new client
   sendOnlineUsersList(socket, username);
   broadcastMessage(
-    JSON.stringify({ type: "userJoined", username, users: connectedClients }),
+    JSON.stringify({
+      type: "userJoined",
+      username,
+      users: connectedClients,
+    }),
     socket
   );
 
@@ -258,7 +267,10 @@ app.ws("/ws", (socket, request) => {
 
 function broadcastMessage(message, excludeSocket = null) {
   connectedClients.forEach((client) => {
-    if (client.socket !== excludeSocket && client.socket.readyState === 1) {
+    if (
+      client.socket !== excludeSocket &&
+      client.socket.readyState === 1
+    ) {
       try {
         client.socket.send(message);
       } catch (error) {
@@ -378,7 +390,11 @@ app.get("/membersProfiles", async (request, response) => {
   } else {
     try {
       const users = await User.find();
-      response.render("membersProfiles", { isAuthenticated, users, banned });
+      response.render("membersProfiles", {
+        isAuthenticated,
+        users,
+        banned,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -439,7 +455,8 @@ app.get("/dashboard", async (request, response) => {
   // If user is authenticated but not an admin
   return response.render("adminDashboard", {
     isAuthenticated: true,
-    message: "You do not have the necessary permissions to view this page.",
+    message:
+      "You do not have the necessary permissions to view this page.",
   });
 });
 
@@ -510,7 +527,9 @@ app.post("/profile/:username", async (request, response) => {
         return response.status(404).send("User not found.");
       }
     } else {
-      return response.status(403).send("You can only update your own profile.");
+      return response
+        .status(403)
+        .send("You can only update your own profile.");
     }
   } catch (error) {
     console.error("Error updating profile:", error);
@@ -579,8 +598,12 @@ app.get("/chat", async (request, response) => {
   const userLoginTimestamp = request.session.loginTimestamp;
 
   // Fetch messages before and after login
-  const messagesBeforeLogin = await getMessagesBeforeLogin(userLoginTimestamp);
-  const messagesAfterLogin = await getMessagesAfterLogin(userLoginTimestamp);
+  const messagesBeforeLogin = await getMessagesBeforeLogin(
+    userLoginTimestamp
+  );
+  const messagesAfterLogin = await getMessagesAfterLogin(
+    userLoginTimestamp
+  );
   console.log(messagesBeforeLogin);
 
   // If the user is not logged in, show a message
@@ -602,27 +625,53 @@ app.get("/chat", async (request, response) => {
   });
 });
 
-app.get("/logout", (request, response) => {
-  return response.render("logout");
+app.get("/logout", async (request, response) => {
+  const userId = request.session.userId;
+
+  // If the user is not logged in, show a message
+  if (!userId) {
+    return response.render("logout", {
+      isAuthenticated: false,
+      message: "You are not logged in. Please log in to continue.",
+    });
+  }
+
+  // If authenticated, render the logout confirmation page
+  return response.render("logout", {
+    isAuthenticated: true,
+  });
 });
 
 app.post("/logout", async (request, response) => {
-  const { username } = request.session;
-  const user = await User.findOneAndUpdate(
-    { username },
-    { onlineStatus: false },
-    { new: true }
-  );
-  // Clear the user's session data
-  request.session.destroy((err) => {
-    if (err) {
-      console.error("Error destroying session:", err);
-      return response.status(500).send("Server error");
-    }
+  const userId = request.session.userId;
 
-    // Redirect the user to the homepage
-    response.redirect("/");
-  });
+  // If the user is not logged in, show a message
+  if (!userId) {
+    return response.status(403).send("You are not logged in.");
+  }
+
+  try {
+    // Update user's online status in the database
+    const user = await User.findOneAndUpdate(
+      { _id: userId },
+      { onlineStatus: false },
+      { new: true }
+    );
+
+    // Clear the user's session data
+    request.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        return response.status(500).send("Server error");
+      }
+
+      // Redirect the user to the homepage after successful logout
+      response.redirect("/");
+    });
+  } catch (error) {
+    console.error("Error during logout:", error);
+    response.status(500).send("Server error");
+  }
 });
 
 app.get("/ban/:username", (request, response) => {

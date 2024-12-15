@@ -1,13 +1,38 @@
 <%- include('partials/header') %>
 <main>
+  <% if (!isAuthenticated) { %>
+  <div class="home-page">
+    <section class="welcome-section-home">
+      <div class="text-section">
+        <h1>Join Live Chat</h1>
+        <p>
+          Experience seamless real-time communication with our Live Chat
+          feature. Connect, collaborate, and communicate effortlessly with
+          others. Log in or sign up now to start your journey!
+        </p>
+        <div class="cta-buttons">
+          <a href="/signup" class="cta-button-1">Sign Up</a>
+          <a href="/login" class="cta-button-2">Log In</a>
+        </div>
+      </div>
+      <div class="image-section">
+        <img
+          src="/images/homePic.png"
+          alt="green chat bubble"
+          class="chat-bubble" />
+      </div>
+    </section>
+  </div>
 
-<div class="logout-container">
+  <% } else { %>
+  <div class="logout-container">
     <h1>Log Out</h1>
     <p>Are you sure you want to log out?</p>
     <form action="/logout" method="POST">
-        <button type="submit" class="logout-button">Log Out</button>
+      <button type="submit" class="logout-button">Log Out</button>
     </form>
     <a href="/" class="cancel-link">Cancel</a>
-</div>
+  </div>
+  <% } %>
 </main>
 <%- include('partials/footer') %>
