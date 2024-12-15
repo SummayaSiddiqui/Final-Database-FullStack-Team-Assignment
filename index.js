@@ -322,7 +322,7 @@ app.get("/", async (request, response) => {
   } else {
     try {
       const loggedInUsers = await User.find({ onlineStatus: true });
-      console.log(loggedInUsers)
+      console.log(loggedInUsers);
       response.render("home", { loggedInUsers, isAuthenticated });
     } catch (error) {
       console.error("Error fetching logged-in users:", error);
@@ -445,6 +445,7 @@ app.get("/dashboard", async (request, response) => {
 
 app.get("/profile/:username", async (request, response) => {
   const { userId, banned, username } = request.session;
+  const param = request.params.username;
 
   if (!userId) {
     return response.render("profile", {
@@ -475,7 +476,7 @@ app.get("/profile/:username", async (request, response) => {
       about: user.about || "No details available.",
       role,
       banned,
-      param
+      param,
     });
   } catch (error) {
     console.error("Error fetching member profile:", error);
@@ -606,12 +607,12 @@ app.get("/logout", (request, response) => {
 });
 
 app.post("/logout", async (request, response) => {
-    const { username } = request.session;
-        const user = await User.findOneAndUpdate(
-      { username },
-      { onlineStatus: false },
-      { new: true }
-    );
+  const { username } = request.session;
+  const user = await User.findOneAndUpdate(
+    { username },
+    { onlineStatus: false },
+    { new: true }
+  );
   // Clear the user's session data
   request.session.destroy((err) => {
     if (err) {
