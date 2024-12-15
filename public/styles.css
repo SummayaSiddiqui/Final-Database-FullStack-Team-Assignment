@@ -1,165 +1,3 @@
-@media (max-width: 1032px) and (min-width: 500px) {
-  .image-section {
-    position: relative;
-    display: inline-block;
-  }
-
-  .chat-bubble {
-    width: 550px;
-  }
-
-  .welcome-image {
-    width: 100%;
-    height: auto;
-    position: absolute;
-    top: 0px;
-    left: 0;
-    z-index: 1;
-    border-radius: 60px;
-  }
-}
-
-@media (max-width: 500px) {
-  .image-section {
-    position: relative;
-    display: inline-block;
-  }
-
-  .chat-bubble {
-    width: 300px !important;
-  }
-
-  .welcome-image {
-    width: 70% !important;
-    max-width: 270px !important;
-  }
-
-  /* .text-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-right: 20px;
-    z-index: 2;
-  } */
-
-  .dashboard-header h1 {
-    font-size: xx-large !important;
-    padding: 10px 0;
-  }
-  .dashboard-header h2 {
-    font-size: x-large !important;
-    padding: 5px 0;
-  }
-  .admin-dashboard-container {
-    padding: 2px !important;
-    max-width: 1200px;
-    margin: 0 auto;
-    border-radius: 8px;
-  }
-  table {
-    font-size: small;
-  }
-
-  /* Header in Chat */
-  /* .chat-container .header {
-    padding-left: 10px;
-    font-size: small;
-    background-color: #61306010;
-    color: #613060;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  } */
-
-  /* .text-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center !important;
-    padding-right: 20px;
-    gap: 2px !important;
-  }
-
-  .text-section h1 {
-    font-size: 26px !important;
-    color: #613060;
-  }
-
-  .text-section p {
-    text-align: center;
-    font-size: 18px !important;
-    margin: 15px 0;
-    color: #613060;
-  } */
-  /* .welcome-section-home {
-    padding-top: 10px !important;
-    display: flex;
-    flex-direction: column-reverse !important; 
-    gap: 10px !important;
-    width: 100%;
-  } */
-  .site-header {
-    display: flex;
-    flex-direction: column !important;
-    gap: 0 !important;
-  }
-  .welcome-logo {
-    width: 200px !important;
-  }
-  /* .main-content-signup {
-    margin-top: 0 !important;
-  } */
-  /* .welcome-container {
-    display: flex; 
-    flex-wrap: wrap; 
-    align-items: center;
-    justify-content: center;
-    gap: 0px !important;
-    max-width: 350px !important;
-    margin-top: 0 !important;
-    padding: 20px;
-    border-radius: 8px;
-  } */
-
-  /* .welcome-message {
-    flex: 1;
-    text-align: center;
-    padding: 0px !important;
-    max-width: 340px !important;
-  }
-
-  .welcome-message h1 {
-    font-size: 20px !important;
-    margin-bottom: 10px !important;
-    color: #000000 !important;
-  }
-
-  .welcome-message p {
-    font-size: 13px !important;
-    margin-bottom: 20px !important;
-    color: #000 !important;
-    line-height: 1.5 !important;
-  } */
-  .welcome-message-login {
-    flex: 1;
-    text-align: center;
-    padding: 0px !important;
-    max-width: 340px !important;
-  }
-
-  .welcome-message-login h1 {
-    font-size: 20px !important;
-    margin-bottom: 10px !important;
-    color: #000000 !important;
-  }
-
-  .welcome-message-login p {
-    font-size: 13px !important;
-    margin-bottom: 20px !important;
-    color: #000 !important;
-    line-height: 1.5 !important;
-  }
-}
-
 /* Welcome message styling */
 .welcome-message-login {
   flex: 1;
@@ -192,54 +30,6 @@
   flex-direction: column;
   justify-content: center;
 }
-.form-input-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-input-container label {
-  margin-bottom: 5px;
-  font-size: 16px;
-  color: #613060;
-}
-
-.form-input-container input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  transition: border-color 0.3s ease;
-}
-
-.form-input-container input:focus {
-  border-color: #613060;
-  outline: none;
-}
-
-.action-button {
-  background-color: #613060;
-  color: white;
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.action-button:hover {
-  background-color: #1d3446;
-}
-
-.action-button:active {
-  background-color: #0f1d29;
-}
-
-.form-footer {
-  text-align: center;
-  font-size: 16px;
-  margin-top: 20px;
-}
 
 .register-link {
   color: #613060;
@@ -253,7 +43,7 @@
 
 /* Login container */
 .login-container {
-  width: 100%; /* Matches the width of the welcome message */
+  width: 100%;
 }
 
 .login-container h1 {
@@ -263,324 +53,12 @@
   color: #613060;
 }
 
-.login-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-input-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-input-container label {
-  margin-bottom: 5px;
-  font-size: 16px;
-  color: #613060;
-}
-
-.form-input-container input {
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  transition: border-color 0.3s ease;
-}
-
-.form-input-container input:focus {
-  border-color: #613060;
-  outline: none;
-}
-
-.action-button {
-  background-color: #613060;
-  color: white;
-  padding: 10px;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.action-button:hover {
-  background-color: #1d3446;
-}
-
-.action-button:active {
-  background-color: #0f1d29;
-}
-
-.form-footer {
-  text-align: center;
-  font-size: 16px;
-  margin-top: 20px;
-}
-
-.register-link {
-  color: #613060;
-  text-decoration: underline;
-  transition: color 0.3s ease;
-}
-
-.register-link:hover {
-  color: #1d3446;
-}
-
-.welcome-image {
+/* .welcome-image {
   width: 100%;
-  height: 100%;
-  max-width: 600px;
-  margin-top: 20px;
-  border-radius: 10px;
-}
-
-.welcome-image {
-  width: 100%;
-  height: 100%;
-  max-width: 500px;
   height: auto;
-  border-radius: 10px;
-}
-
-/* Admin Dashboard Styles */
-.admin-dashboard-container {
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-  border-radius: 8px;
-}
-
-.dashboard-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.dashboard-header h1 {
-  font-size: 2.5rem;
-  color: #333;
-}
-
-/* User List Table */
-.user-list {
-  margin-top: 20px;
-  margin-bottom: 200px;
-}
-
-.user-list h2 {
-  font-size: 1.8rem;
-  color: #613060;
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.user-list table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.user-list table th,
-.user-list table td {
-  padding: 12px 15px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-  font-size: 1rem;
-}
-
-.user-list table th {
-  background-color: #613060;
-  color: white;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.user-list table tbody tr:hover {
-  background-color: #f5f5f5;
-  transition: background-color 0.3s ease;
-}
-
-.user-list table td:last-child {
-  text-align: center;
-}
-
-@media (max-width: 500px) {
-  .user-list table {
-    width: 350px !important;
-  }
-  .user-list table th {
-    font-size: small !important;
-    padding: 8px;
-  }
-  .user-list table td {
-    padding: 8px;
-  }
-  .user-list table td:last-child {
-    text-align: center;
-  }
-
-  .user-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-}
-
-/* Buttons (in table rows) */
-.ban-button,
-.remove-button {
-  padding: 10px 16px;
-  margin: 0 5px;
-  font-size: 0.9rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  display: inline-block; /* Make buttons sit side by side */
-  text-align: center;
-}
-
-.ban-button {
-  background-color: #cbad54;
-  color: white;
-  font-weight: bold;
-}
-
-.ban-button:hover {
-  background-color: #e0a800;
-}
-
-.remove-button {
-  background-color: #aa444e;
-  color: white;
-  font-weight: bold;
-}
-
-.remove-button:hover {
-  background-color: #c82333;
-}
-
-/* Button Container Styling */
-.user-actions {
-  display: flex;
-  justify-content: center;
-  gap: 15px; /* Adds space between buttons */
-}
-
-.user-actions a {
-  text-decoration: none;
-}
-
-/* Success/Error Message Styling */
-.success,
-.error {
-  padding: 15px;
-  margin-top: 15px;
-  border-radius: 5px;
-  text-align: center;
-  font-weight: bold;
-}
-
-.success {
-  background-color: #d4edda;
-  color: #155724;
-}
-
-.error {
-  background-color: #f8d7da;
-  color: #721c24;
-}
-
-.logout-container {
   max-width: 500px;
-  margin: 50px auto;
-  padding: 20px;
-  text-align: center;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Heading style */
-.logout-container h1 {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-/* Paragraph styling */
-.logout-container p {
-  font-size: 1rem;
-  margin-bottom: 30px;
-  color: #555;
-}
-
-/* Logout button */
-.logout-button {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 1rem;
-  color: #fff;
-  background-color: #613060; /* Red color for danger */
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-}
-
-.logout-button:hover {
-  background-color: #c9302c; /* Darker red on hover */
-}
-
-/* Cancel link */
-.cancel-link {
-  display: inline-block;
-  margin-top: 20px;
-  font-size: 1rem;
-  color: #613060; /* Blue for cancel link */
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.cancel-link:hover {
-  color: #361b35; /* Darker blue on hover */
-}
-
-/* Mobile responsiveness */
-@media (max-width: 500px) {
-  .image-section {
-    flex: 0;
-  }
-
-  .logout-container {
-    padding: 15px;
-  }
-
-  .logout-container h1 {
-    font-size: 1.5rem;
-  }
-
-  .logout-container p {
-    font-size: 0.9rem;
-  }
-
-  .logout-button {
-    width: 100%; /* Full-width button */
-  }
-
-  .cancel-link {
-    display: block;
-    margin-top: 15px;
-    font-size: 0.9rem;
-  }
-}
+  border-radius: 10px;
+} */
 
 /* CSS talk bubble */
 .talk-bubble {
@@ -591,60 +69,45 @@
   height: auto;
   background-color: lightyellow;
 }
+
 .border {
   border: 8px solid #666;
 }
+
 .round {
   border-radius: 30px;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
 }
 
-/*Right triangle, placed bottom left side slightly in*/
 .tri-right.border.btm-left-in:before {
   content: " ";
   position: absolute;
   width: 0;
   height: 0;
   left: 30px;
-  right: auto;
-  top: auto;
   bottom: -40px;
   border: 20px solid;
   border-color: #666 transparent transparent #666;
 }
+
 .tri-right.btm-left-in:after {
   content: " ";
   position: absolute;
   width: 0;
   height: 0;
   left: 38px;
-  right: auto;
-  top: auto;
   bottom: -20px;
   border: 12px solid;
   border-color: lightyellow transparent transparent lightyellow;
-}
-
-.image-section {
-  position: relative;
-  display: inline-block;
-}
-
-.chat-bubble {
-  position: relative;
-  width: 550px;
 }
 
 .welcome-image {
   position: absolute;
   top: 10px;
   left: 20px;
-  right: 20px;
   width: 80%;
   height: auto;
-  border-radius: 15%; /* Make the image round if desired */
-  z-index: 1; /* Place behind text in the chat bubble */
+  border-radius: 15%;
+  z-index: 1;
 }
 
 .text-section {
@@ -657,21 +120,12 @@
 .loggedInUsersNumber {
   width: 150px;
   height: 40px;
-  /* background-color: #613060; */
   background-color: #a3c14a;
   color: white;
   margin: 0;
   padding-left: 12px;
   padding-top: 12px;
   border-radius: 0px 0px 10px 0px;
-}
-
-.success {
-  color: green;
-}
-
-.error {
-  color: red;
 }
 
 /* General button style */
@@ -681,7 +135,6 @@
   text-align: center;
   font-size: 14px;
   font-weight: bold;
-  transition: background-color 0.3s ease;
 }
 
 .ban {
@@ -707,10 +160,11 @@
   justify-content: space-between;
   border-radius: 8px;
 }
+
 .welcome-section-chat {
   padding-top: 40px;
   display: flex;
-  flex-direction: column-reverse !important; /* Text and image side by side */
+  flex-direction: column-reverse;
   align-items: center;
   width: 100%;
 }
@@ -718,7 +172,7 @@
 .text-chat-section {
   display: flex;
   flex-direction: column;
-  align-items: center !important;
+  align-items: center;
 }
 
 .text-chat-section h1 {
@@ -727,222 +181,25 @@
 }
 
 .text-chat-section p {
-  text-align: center;
-  font-size: 24px !important;
-  margin: 15px 0;
-  color: #613060;
+  font-size: 18px;
+  color: #616161;
 }
 
-.not-Authorized-message {
-  background-color: #f8d7da;
-  color: #721c24;
-  padding: 15px;
-  border: 1px solid #f5c6cb;
-  border-radius: 5px;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 20px;
-  width: 80%;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.members-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.member-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  justify-items: center;
-}
-
-.member-card {
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  padding: 20px;
-  width: 100%;
-  max-width: 250px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.member-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.member-link {
-  text-decoration: none;
-  color: inherit;
-}
-
-.profile-pic {
-  border-radius: 50%;
-  width: 80px;
-  height: 80px;
-  margin-bottom: 15px;
-  object-fit: cover;
-}
-
-.member-card h4 {
-  font-size: 1.2em;
-  margin-top: 10px;
-  color: #333;
-}
-
-.edit-profile-form {
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #ffffff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
-  font-family: Arial, sans-serif;
-}
-
-.edit-profile-form h3 {
-  margin-bottom: 15px;
-  font-size: 20px;
-  color: #333;
-  text-align: center;
-}
-
-.edit-profile-form label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #555;
-}
-
-.edit-profile-form button {
-  display: block;
-  width: 100%;
+.chat-button {
   padding: 10px;
-  background-color: #28a745;
+  background-color: #613060;
   color: white;
   border: none;
   border-radius: 5px;
-  font-size: 16px;
   cursor: pointer;
-  text-align: center;
-}
-
-.edit-profile-form button:hover {
-  background-color: #218838;
-}
-
-/* Responsive Styles */
-@media (max-width: 900px) {
-  .edit-profile-form {
-    max-width: 90%;
-    padding: 15px;
-  }
-
-  .edit-profile-form h3 {
-    font-size: 18px;
-  }
-
-  .edit-profile-form input {
-    font-size: 13px;
-    padding: 8px;
-  }
-
-  .edit-profile-form button {
-    font-size: 15px;
-    padding: 8px;
-  }
-}
-
-@media (max-width: 480px) {
-  .edit-profile-form {
-    max-width: 100%;
-    margin: 10px;
-    padding: 10px;
-  }
-
-  .edit-profile-form h3 {
-    font-size: 16px;
-  }
-
-  .edit-profile-form input {
-    font-size: 12px;
-    padding: 7px;
-  }
-
-  .edit-profile-form button {
-    font-size: 14px;
-    padding: 7px;
-  }
-}
-
-textarea {
-  width: 100%;
-  height: 150px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: #ffffff;
   font-size: 16px;
-  resize: none;
+  transition: background-color 0.3s ease;
 }
 
-.system-message {
-  color: #613060;
-  font-style: italic;
-  text-align: left;
-  margin: 10px 0;
-  background-color: #ddd7e2;
+.chat-button:hover {
+  background-color: #1d3446;
 }
 
-/* Banned Page Styles */
-.banned-page {
-  max-width: 900px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.banned-section {
-  display: flex;
-  flex-direction: row;
-  padding: 20px;
-}
-
-.text-section-banned h1 {
-  color: #721c24;
-}
-
-.text-section-banned p {
-  color: #0b0b0b;
-}
-
-/* Tablet (768px - 1024px) */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .chat-design {
-    flex-direction: row;
-  }
-
-  .chat-container {
-    flex: 3;
-  }
-
-  .online-users {
-    width: 30%;
-  }
-
-  .banner {
-    font-size: 14px;
-  }
+.chat-button:active {
+  background-color: #0f1d29;
 }
