@@ -32,13 +32,7 @@ Make sure you have **Node.js** and **npm** installed. Then, install the necessar
 npm install
 ```
 
-### 3. Set Up the Environment Variables
-Create a `.env` file in the root of the project and add the following variables:
-
-```makefile
-MONGO_URI=<your-mongodb-uri>
-SECRET_KEY=<your-secret-key>
-```
+### 3. Set Up the MongoDB database with the link "mongodb://localhost:27017/Compulse" and connect
 
 
 ### 4. Run the Application
