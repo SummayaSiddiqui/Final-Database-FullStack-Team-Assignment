@@ -47,17 +47,17 @@ The application should now be running at http://localhost:3000.
 The application supports three types of user roles. Here are the login credentials for each role:
 
 1. **Admin**  
-   - **Username**: admin@example.com  
+   - **Username**: AdminUser
    - **Password**: admin123  
    - **Features**: As an admin, you have access to all user messages, the ability to ban or remove users, view/edit your profile, and view other users profiles.
 
 2. **Regular User**  
-   - **Username**: regular@example.com  
+   - **Username**: RegularUser 
    - **Password**: regular123  
    - **Features**: As a regular user, you can send and receive messages in chat rooms, view chat history, manage your user profile, and view other users profiles.
 
 3. **Banned User**  
-   - **Username**: banned@example.com  
+   - **Username**: BannedUser 
    - **Password**: banned123  
    - **Features**: Banned users are restricted from whole site.
 
