@@ -53,7 +53,7 @@ The application supports three types of user roles. Here are the login credentia
 
 2. **Regular User**  
    - **Username**: RegularUser 
-   - **Password**: regular123  
+   - **Password**: user123  
    - **Features**: As a regular user, you can send and receive messages in chat rooms, view chat history, manage your user profile, and view other users profiles.
 
 3. **Banned User**  
